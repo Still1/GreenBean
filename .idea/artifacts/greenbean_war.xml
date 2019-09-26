@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="greenbean:war">
+    <output-path>$PROJECT_DIR$/greenbean/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>greenbean</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="greenbean-0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="greenbean:war exploded" />
+    </root>
+  </artifact>
+</component>
