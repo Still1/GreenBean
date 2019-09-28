@@ -7,10 +7,9 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @ComponentScan(basePackages = "com.oc",
         includeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..service..*"),
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..component..*"),
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..repository..*")
+                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..controller..*"),
+                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..view..*")
         })
-public class RootConfig {
+public class DispatcherServletConfig {
 
 }

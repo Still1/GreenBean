@@ -1,5 +1,6 @@
 package com.oc.greenbean.web.setting;
 
+import com.oc.greenbean.spring.configuration.DispatcherServletConfig;
 import com.oc.greenbean.spring.configuration.RootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -12,7 +13,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[0];
+        return new Class<?>[] {DispatcherServletConfig.class};
     }
 
     @Override
