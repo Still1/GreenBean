@@ -20,10 +20,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.oc",
-        includeFilters = {
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..controller..*"),
-                @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..view..*")
-        })
+    includeFilters = {
+        @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..controller..*"),
+        @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..view..*")
+    })
 public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
