@@ -4,19 +4,49 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="../common/bootstrap-4.3.1/css/bootstrap.min.css" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="login.css" th:href="@{/static/template/login.css}">
 </head>
-<body>
-    <h1>Login page</h1>
-    <p th:if="${loginError}" class="error">Wrong user or password</p>
+<body class="text-align">
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <strong>Greenbean</strong>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <form class="form-signin">
+        <nav class="nav nav-tabs greenbean-nav-tabs">
+            <a id="signInTab" class="nav-link active greenbean-nav-link" href="javascript:void(0);">Sign in</a>
+            <a id="signUpTab" class="nav-link greenbean-nav-link" href="javascript:void(0);">Sign up</a>
+        </nav>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button id="submitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+    </form>
+
+<!--    <p th:if="${loginError}" class="error">Wrong user or password</p>
     <form th:action="@{/login}" method="post">
         <label for="username">Username</label>:
         <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
         <label for="password">Password</label>:
         <input type="password" id="password" name="password" /> <br />
         <input type="submit" value="Log in" />
-    </form>
+    </form>-->
     <script src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
     <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+    <script src="login.js" th:src="@{/static/template/login.js}"></script>
 </body>
 </html>
