@@ -63,5 +63,6 @@ public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationCon
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/common/**").addResourceLocations("classpath:/common/");
+        registry.addResourceHandler("/static/template/**").addResourceLocations("classpath:/template/");
     }
 }

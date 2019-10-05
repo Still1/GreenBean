@@ -26,10 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/static/common/**", "/static/template/**").permitAll()
             .anyRequest().authenticated()
-            .and().formLogin().loginPage("/login").permitAll()
+            .and().formLogin().loginPage("/signIn").permitAll()
             .successForwardUrl("/home")
-            .failureUrl("/loginError")
-            .and().logout().logoutSuccessUrl("/login");
+            .failureUrl("/signInError")
+            .and().logout().logoutSuccessUrl("/signIn");
     }
 
     @Override

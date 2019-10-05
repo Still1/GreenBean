@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="../common/bootstrap-4.3.1/css/bootstrap.min.css" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="login.css" th:href="@{/static/template/login.css}">
+    <link rel="stylesheet" href="signIn.css" th:href="@{/static/template/signIn.css}">
 </head>
 <body class="text-align">
     <header>
@@ -17,36 +17,46 @@
             </div>
         </div>
     </header>
-
-    <form class="form-signin">
+    <div class="navDiv">
         <nav class="nav nav-tabs greenbean-nav-tabs">
             <a id="signInTab" class="nav-link active greenbean-nav-link" href="javascript:void(0);">Sign in</a>
             <a id="signUpTab" class="nav-link greenbean-nav-link" href="javascript:void(0);">Sign up</a>
         </nav>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
+
+
+    <!-- XXX 可以重构，两个form -->
+    <form class="form-sign" id="signInForm" th:action="@{/signIn}" method="post">
+        <label for="usernameSignIn" class="sr-only">Username</label>
+        <input type="text" id="usernameSignIn" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="passwordSignIn" class="sr-only">Password</label>
+        <input type="password" id="passwordSignIn" name="password" class="form-control" placeholder="Password" required>
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button id="submitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button id="signInSubmitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
     </form>
 
-<!--    <p th:if="${loginError}" class="error">Wrong user or password</p>
-    <form th:action="@{/login}" method="post">
-        <label for="username">Username</label>:
-        <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-        <label for="password">Password</label>:
-        <input type="password" id="password" name="password" /> <br />
-        <input type="submit" value="Log in" />
-    </form>-->
+    <form class="form-sign formHide" id="signUpForm" th:action="@{/signUp}" method="post">
+        <label for="usernameSignUp" class="sr-only">Username</label>
+        <input type="text" id="usernameSignUp" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="passwordSignUp" class="sr-only">Password</label>
+        <input type="password" id="passwordSignUp" name="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button id="signUpSubmitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+    </form>
+
     <script src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
     <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
-    <script src="login.js" th:src="@{/static/template/login.js}"></script>
+    <script src="signIn.js" th:src="@{/static/template/signIn.js}"></script>
 </body>
 </html>
