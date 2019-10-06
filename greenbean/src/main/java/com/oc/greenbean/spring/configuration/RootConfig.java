@@ -9,10 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
+@EnableTransactionManagement
 @ComponentScan(basePackages = "com.oc",
     includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..service..*"),
@@ -28,6 +31,13 @@ public class RootConfig {
         dataSource.setUsername("root");
         dataSource.setPassword("mysqlroot");
         return dataSource;
+    }
+
+    @Bean
+    public DataSourceTransactionManager dataSourceTransactionManager() {
+        DataSourceTransactionManager manager = new DataSourceTransactionManager();
+        manager.setDataSource(dataSource());
+        return manager;
     }
 
     @Bean

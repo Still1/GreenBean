@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().formLogin().loginPage("/signIn").permitAll()
             .successForwardUrl("/home")
             .failureUrl("/signInError")
-            .and().logout().logoutSuccessUrl("/signIn");
+            .and().logout().logoutSuccessUrl("/signIn")
+            .and().rememberMe().key("greenbean").tokenValiditySeconds(60);
     }
 
     @Override

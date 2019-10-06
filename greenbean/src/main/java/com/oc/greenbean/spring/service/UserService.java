@@ -11,7 +11,6 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    //FIXME 事务无法生效
     @Transactional
     public void insertUser(User user) {
         userMapper.insertUserBasicInfo(user);
