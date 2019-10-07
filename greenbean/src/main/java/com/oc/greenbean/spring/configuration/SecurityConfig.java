@@ -23,14 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //FIXME 刷新signIn页面，登录post请求返回403
         http.authorizeRequests()
             .antMatchers("/static/common/**", "/static/template/**", "/signUp").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().loginPage("/signIn").permitAll()
             .successForwardUrl("/home")
             .failureUrl("/signInError")
-            .and().logout().logoutSuccessUrl("/signIn")
-            .and().rememberMe().key("greenbean").tokenValiditySeconds(60);
+            .and().logout().logoutUrl("/signOut").logoutSuccessUrl("/signIn")
+            .and().rememberMe().key("greenbean").tokenValiditySeconds(120);
     }
 
     @Override

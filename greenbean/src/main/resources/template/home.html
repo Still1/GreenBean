@@ -1,10 +1,15 @@
+<!-- XXX 抽取页面的公共部分 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
     <h1>Home</h1>
+    <a id="signOutLink" href="javascript:void(0);">Sign out</a>
+    <form id="signOutForm" style="display: none" method="post" th:action="@{/signOut}"></form>
+    <script src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script src="home.js" th:src="@{/static/template/home.js}"></script>
 </body>
 </html>
