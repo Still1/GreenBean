@@ -48,13 +48,24 @@
         }
 
         signUpForm.submit(function() {
-            var validateResult = signUpForm.validate({
+            var validator = signUpForm.validate({
                 rules : {
                     username : {
                         required : true
+                    },
+                    password : {
+                        required : true
+                    },
+                    confirmPassword : {
+                        required : true,
+                        equalTo : "#passwordSignUp"
                     }
-                }
+                },
+                validClass : "is-valid",
+                errorClass : "is-invalid"
             });
+            var result = signUpForm.valid();
+            return result;
         });
     });
 })();
