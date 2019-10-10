@@ -46,6 +46,16 @@
         for(var i = 0; i < signObjectArray.length; i++) {
             signObjectArray[i].tab.click(handlerDataObject, tabClickHandler);
         }
+
+        signUpForm.submit(function() {
+            var validateResult = signUpForm.validate({
+                rules : {
+                    username : {
+                        required : true
+                    }
+                }
+            });
+        });
     });
 })();
 

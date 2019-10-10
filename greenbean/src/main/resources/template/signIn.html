@@ -40,11 +40,13 @@
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
     </form>
 
-    <form class="form-sign formHide" id="signUpForm" th:action="@{/signUp}" method="post">
+    <form class="form-sign formHide" id="signUpForm" th:action="@{/signUp}" method="post" novalidate>
         <label for="usernameSignUp" class="sr-only">Username</label>
-        <input type="text" id="usernameSignUp" name="username" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="usernameSignUp" name="username" class="form-control" placeholder="Username" autofocus>
         <label for="passwordSignUp" class="sr-only">Password</label>
-        <input type="password" id="passwordSignUp" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="passwordSignUp" name="password" class="form-control" placeholder="Password">
+        <label for="passwordCofirmSignUp" class="sr-only">Cofirm password</label>
+        <input type="password" id="passwordCofirmSignUp" name="confirmPassword" class="form-control" placeholder="Password again">
         <button id="signUpSubmitButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
     </form>
@@ -52,6 +54,8 @@
     <script src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
     <script src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+    <script src="../common/jquery-validation-1.19.1/jquery.validate.min.js" th:src="@{/static/common/jquery-validation-1.19.1/jquery.validate.min.js}"></script>
+    <script src="../common/jquery-validation-1.19.1/additional-methods.min.js" th:src="@{/static/common/jquery-validation-1.19.1/additional-methods.min.js}"></script>
     <script src="signIn.js" th:src="@{/static/template/signIn.js}"></script>
 </body>
 </html>
