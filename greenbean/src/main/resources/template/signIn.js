@@ -62,7 +62,12 @@
                     }
                 },
                 validClass : "is-valid",
-                errorClass : "is-invalid"
+                errorClass : "is-invalid",
+                errorElement : "div",
+                showErrors : function() {
+                    this.defaultShowErrors();
+                    $("div.is-invalid").addClass("invalid-feedback");
+                }
             });
             var result = signUpForm.valid();
             return result;

@@ -28,9 +28,6 @@ body {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
-.form-sign input#passwordCofirmSignUp {
-    margin-bottom: 10px;
-}
 
 .greenbean-nav-link {
     padding: .5rem 3rem !important;
@@ -54,4 +51,12 @@ body {
 
 .formHide {
     display: none;
+}
+
+div.formInput {
+    height: 75px;
+}
+
+#signUpSubmitButton {
+    margin-top: 10px;
 }
