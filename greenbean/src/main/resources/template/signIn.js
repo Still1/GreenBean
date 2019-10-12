@@ -72,6 +72,11 @@
             var result = signUpForm.valid();
             return result;
         });
+
+        var usernameSignUpInput = $("#usernameSignUp");
+        usernameSignUpInput.blur(function() {
+            console.log("blur");
+        });
     });
 })();
 
