@@ -74,8 +74,20 @@
         });
 
         var usernameSignUpInput = $("#usernameSignUp");
-        usernameSignUpInput.blur(function() {
-            console.log("blur");
+        usernameSignUpInput.blur(function(event) {
+            $.ajax({
+                url : "signUp/validateUsername",
+                method : "GET",
+                data : {
+                    username : $(event.target).val()
+                },
+                done : function(data, textStatus, jqXHR) {
+                    console.log("success");
+                },
+                fail :function(jqXHR, textStatus, errorThrown) {
+                    console.log("error");
+                }
+            });
         });
     });
 })();

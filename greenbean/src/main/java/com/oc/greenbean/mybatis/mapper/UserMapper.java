@@ -14,7 +14,10 @@ public interface UserMapper {
     //XXX 把SQL语句写回到XML配置文件中
 
     @Select("select * from t_user where id = #{id}")
-    public User getUser(Integer id);
+    public User getUserById(Integer id);
+
+    @Select("select * from t_user where username = #{username}")
+    public User getUserByUsername(String username);
 
     @Insert({"insert into t_user (username, password, enabled) ",
         "values(#{username}, #{password}, #{enabled})"})

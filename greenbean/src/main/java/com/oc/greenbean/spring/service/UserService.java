@@ -16,4 +16,15 @@ public class UserService {
         userMapper.insertUserBasicInfo(user);
         userMapper.insertUserAuthority(user.getId(), user.getAuthority());
     }
+
+    public boolean validateUsername(String username) {
+        User user = userMapper.getUserByUsername(username);
+        boolean validateResult = false;
+        if(user == null) {
+            validateResult = true;
+        } else {
+            validateResult = false;
+        }
+        return validateResult;
+    }
 }

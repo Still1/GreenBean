@@ -1,7 +1,6 @@
 package com.oc.greenbean.spring.controller;
 
 import com.oc.greenbean.domain.User;
-import com.oc.greenbean.mybatis.mapper.UserMapper;
 import com.oc.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +44,12 @@ public class SignController {
         user.setAuthority(authority);
         userService.insertUser(user);
         return "signUpSuccess";
+    }
+
+    @RequestMapping(value = "/signUp/validateUsername", method = RequestMethod.GET)
+    @ResponseBody
+    public String signUpValidateUsername(String username) {
+        boolean result = userService.validateUsername(username);
+        return String.valueOf(result);
     }
 }
