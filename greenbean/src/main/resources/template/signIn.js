@@ -47,47 +47,41 @@
             signObjectArray[i].tab.click(handlerDataObject, tabClickHandler);
         }
 
-        signUpForm.submit(function() {
-            var validator = signUpForm.validate({
-                rules : {
-                    username : {
-                        required : true
-                    },
-                    password : {
-                        required : true
-                    },
-                    confirmPassword : {
-                        required : true,
-                        equalTo : "#passwordSignUp"
+
+        var validator = signUpForm.validate({
+            rules : {
+                username : {
+                    required : true,
+                    remote : {
+                        url : "signUp/validateUsername",
+                        method : "GET",
+                        data : {
+                            username : function() {
+                                return $("#usernameSignUp").val();
+                            }
+                        }
                     }
                 },
-                validClass : "is-valid",
-                errorClass : "is-invalid",
-                errorElement : "div",
-                showErrors : function() {
-                    this.defaultShowErrors();
-                    $("div.is-invalid").addClass("invalid-feedback");
-                }
-            });
-            var result = signUpForm.valid();
-            return result;
-        });
-
-        var usernameSignUpInput = $("#usernameSignUp");
-        usernameSignUpInput.blur(function(event) {
-            $.ajax({
-                url : "signUp/validateUsername",
-                method : "GET",
-                data : {
-                    username : $(event.target).val()
+                password : {
+                    required : true
                 },
-                done : function(data, textStatus, jqXHR) {
-                    console.log("success");
-                },
-                fail :function(jqXHR, textStatus, errorThrown) {
-                    console.log("error");
+                confirmPassword : {
+                    required : true,
+                    equalTo : "#passwordSignUp"
                 }
-            });
+            },
+            messages : {
+                username : {
+                    remote : "Username exists."
+                }
+            },
+            validClass : "is-valid",
+            errorClass : "is-invalid",
+            errorElement : "div",
+            showErrors : function() {
+                this.defaultShowErrors();
+                $("div.is-invalid").addClass("invalid-feedback");
+            }
         });
     });
 })();
