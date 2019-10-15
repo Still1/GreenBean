@@ -49,6 +49,7 @@
 
 
         var validator = signUpForm.validate({
+            //TODO 验证username password的长度
             rules : {
                 username : {
                     required : true,
