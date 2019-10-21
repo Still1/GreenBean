@@ -21,6 +21,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Configuration
@@ -74,7 +75,7 @@ public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationCon
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        Charset utf8Charset = Charset.forName("UTF-8");
+        Charset utf8Charset = StandardCharsets.UTF_8;
         StringHttpMessageConverter converter = new StringHttpMessageConverter(utf8Charset);
         converters.add(converter);
     }
