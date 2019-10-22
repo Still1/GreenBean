@@ -25,7 +25,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testInsertUser() throws NoSuchFieldException, IllegalAccessException {
+    public void testInsertUser() {
         User mockUser = Mockito.mock(User.class);
         userService.insertUser(mockUser);
         InOrder inOrder = Mockito.inOrder(mockUserMapper);

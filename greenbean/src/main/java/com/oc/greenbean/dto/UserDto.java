@@ -11,6 +11,7 @@ public class UserDto {
 //TODO 验证username password的长度
 
     @NotBlank
+    //XXX 用户名重复验证应该转移到service层
     @UserDtoUsernameNotExistsConstraint
     private String username;
     @NotBlank
