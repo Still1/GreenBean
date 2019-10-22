@@ -19,6 +19,7 @@ import java.util.List;
 @Controller
 public class SignController {
 
+    //XXX Always use constructor based dependency injection in your beans.
     @Autowired
     private UserService userService;
 
