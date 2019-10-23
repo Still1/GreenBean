@@ -19,9 +19,12 @@ import java.util.List;
 @Controller
 public class SignController {
 
-    //XXX Always use constructor based dependency injection in your beans.
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public SignController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(value = "/signIn", method = RequestMethod.GET)
     public String signIn() {
