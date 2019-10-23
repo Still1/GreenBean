@@ -8,8 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-    @Autowired
+
     private UserMapper userMapper;
+
+    @Autowired
+    public UserService(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Transactional
     public void insertUser(User user) {
@@ -21,12 +26,6 @@ public class UserService {
 
     public boolean validateUsername(String username) {
         User user = userMapper.getUserByUsername(username);
-        boolean validateResult = false;
-        if(user == null) {
-            validateResult = true;
-        } else {
-            validateResult = false;
-        }
-        return validateResult;
+        return user == null;
     }
 }
