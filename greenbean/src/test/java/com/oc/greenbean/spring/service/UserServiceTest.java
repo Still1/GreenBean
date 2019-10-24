@@ -12,9 +12,8 @@ class UserServiceTest {
     private UserService userService;
     private UserMapper mockUserMapper;
 
-    @SuppressWarnings("unused")
     @BeforeEach
-    private void setUp() {
+    void setUp() {
         mockUserMapper = Mockito.mock(UserMapper.class);
         userService = new UserService(mockUserMapper);
     }
