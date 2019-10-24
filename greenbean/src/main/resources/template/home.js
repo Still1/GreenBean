@@ -1,8 +1,8 @@
 (function() {
-    $(document).ready(function() {
-        var signOutLink = $('#signOutLink');
-        signOutLink.click(function () {
-            $('#signOutForm').submit();
+    $(function() {
+        const signOutLink = $('#signOutLink');
+        signOutLink.on("click", function () {
+            $('#signOutForm').trigger("submit");
         });
-    })
+    });
 })();

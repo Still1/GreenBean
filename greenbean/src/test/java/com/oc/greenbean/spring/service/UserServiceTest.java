@@ -7,25 +7,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-import java.lang.reflect.Field;
-
-public class UserServiceTest {
+class UserServiceTest {
 
     private UserService userService;
     private UserMapper mockUserMapper;
 
+    @SuppressWarnings("unused")
     @BeforeEach
-    private void setUp() throws IllegalAccessException, NoSuchFieldException {
-        userService = new UserService();
+    private void setUp() {
         mockUserMapper = Mockito.mock(UserMapper.class);
-        Class<UserService> userServiceClass = UserService.class;
-        Field userMapperField = userServiceClass.getDeclaredField("userMapper");
-        userMapperField.setAccessible(true);
-        userMapperField.set(userService, mockUserMapper);
+        userService = new UserService(mockUserMapper);
     }
 
     @Test
-    public void testInsertUser() {
+    void testInsertUser() {
         User mockUser = Mockito.mock(User.class);
         userService.insertUser(mockUser);
         InOrder inOrder = Mockito.inOrder(mockUserMapper);

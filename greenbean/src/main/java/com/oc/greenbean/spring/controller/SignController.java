@@ -39,7 +39,7 @@ public class SignController {
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST)
     public String signUp(@Validated UserDto userDto, BindingResult bindingResult) {
-        String viewName = null;
+        String viewName;
         if(!bindingResult.hasErrors()) {
             // XXX 这里的BCryptPasswordEncoder是否可以单例
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

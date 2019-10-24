@@ -35,11 +35,11 @@ body {
 }
 
 .greenbean-nav-link.active {
-    border-bottom: 0px !important;
+    border-bottom: 0 !important;
 }
 
 .greenbean-nav-tabs {
-    border-bottom: 0px;
+    border-bottom: 0;
     margin-bottom: 10px;
 }
 

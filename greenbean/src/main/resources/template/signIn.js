@@ -1,39 +1,39 @@
 (function() {
-    $(document).ready(function() {
+    $(function() {
 
         // XXX 可以重构
-        var activeClassName = "active";
-        var formHideClassName = "formHide";
-        var signInTab = $("#signInTab");
-        var signUpTab = $("#signUpTab");
-        var signInForm = $("#signInForm");
-        var signUpForm = $("#signUpForm");
+        const activeClassName = "active";
+        const formHideClassName = "formHide";
+        const signInTab = $("#signInTab");
+        const signUpTab = $("#signUpTab");
+        const signInForm = $("#signInForm");
+        const signUpForm = $("#signUpForm");
 
-        var signInObject = {
+        const signInObject = {
             tab : signInTab,
             form : signInForm
         };
-        var signUpObject = {
+        const signUpObject = {
             tab : signUpTab,
             form : signUpForm
         };
-        var signObjectArray = new Array(signInObject, signUpObject);
+        const signObjectArray = [signInObject, signUpObject];
 
-        var handlerDataObject = {
+        const handlerDataObject = {
             activeClassName : activeClassName,
-            formHideClassName : formHideClassName,
-            signObjectArray : signObjectArray
+                formHideClassName : formHideClassName,
+                signObjectArray : signObjectArray
         };
 
-        var tabClickHandler = function(event) {
-            var handlerDataObject = event.data;
-            var targetDOMObject = $(event.target);
-            var signObjectArray = handlerDataObject.signObjectArray;
-            for(var i = 0; i < signObjectArray.length; i++) {
+        const tabClickHandler = function(event) {
+            const handlerDataObject = event.data;
+            const targetDOMObject = $(event.target);
+            const signObjectArray = handlerDataObject.signObjectArray;
+            for(let i = 0; i < signObjectArray.length; i++) {
                 if(signObjectArray[i].tab.is(targetDOMObject)) {
                     if(!targetDOMObject.hasClass(handlerDataObject.activeClassName)) {
                         targetDOMObject.addClass(handlerDataObject.activeClassName);
-                        var targetForm = signObjectArray[i].form;
+                        const targetForm = signObjectArray[i].form;
                         targetForm.removeClass(handlerDataObject.formHideClassName);
                     }
                 } else {
@@ -43,12 +43,12 @@
             }
         };
 
-        for(var i = 0; i < signObjectArray.length; i++) {
-            signObjectArray[i].tab.click(handlerDataObject, tabClickHandler);
+        for(let i = 0; i < signObjectArray.length; i++) {
+            signObjectArray[i].tab.on("click", handlerDataObject, tabClickHandler);
         }
 
 
-        var validator = signUpForm.validate({
+        signUpForm.validate({
             //TODO 验证username password的长度
             rules : {
                 username : {

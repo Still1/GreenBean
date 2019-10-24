@@ -8,8 +8,13 @@ import javax.validation.ConstraintValidatorContext;
 
 public class UserDtoUsernameNotExistsValidator implements ConstraintValidator<UserDtoUsernameNotExistsConstraint, String> {
 
-    @Autowired
+
     private UserService userService;
+
+    @Autowired
+    public UserDtoUsernameNotExistsValidator(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
