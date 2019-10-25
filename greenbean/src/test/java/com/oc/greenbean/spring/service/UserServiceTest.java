@@ -15,6 +15,11 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
         mockUserMapper = Mockito.mock(UserMapper.class);
+        Mockito.doAnswer((invocationOnMock) -> {
+            User mockUser = invocationOnMock.getArgument(0);
+            Mockito.when(mockUser.getId()).thenReturn(555);
+            return null;
+        }).when(mockUserMapper).insertUserBasicInfo(Mockito.any(User.class));
         userService = new UserService(mockUserMapper);
     }
 
@@ -24,6 +29,6 @@ class UserServiceTest {
         userService.insertUser(mockUser);
         InOrder inOrder = Mockito.inOrder(mockUserMapper);
         inOrder.verify(mockUserMapper).insertUserBasicInfo(mockUser);
-        inOrder.verify(mockUserMapper).insertUserAuthority(mockUser.getId(), mockUser.getAuthority());
+        inOrder.verify(mockUserMapper).insertUserAuthority(555, mockUser.getAuthority());
     }
 }
