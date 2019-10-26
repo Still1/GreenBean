@@ -20,7 +20,7 @@ class UserServiceTest {
     private UserMapper mockUserMapper;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         mockUserMapper = Mockito.mock(UserMapper.class);
         userService = new UserService(mockUserMapper);
     }
