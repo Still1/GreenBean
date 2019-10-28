@@ -37,8 +37,7 @@ public class SignController {
 
     @RequestMapping("/signInError")
     public String signInError(Model model) {
-        //TODO 加上注册错误的提示内容
-        //TODO 整理一下注册失败的页面处理
+        //TODO 加上登录错误的提示内容
         model.addAttribute("signInError", true);
         return "signIn";
     }
