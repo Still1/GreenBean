@@ -60,7 +60,8 @@
                             username : function() {
                                 return $("#usernameSignUp").val();
                             }
-                        }
+                        },
+                        dataType : "text"
                     }
                 },
                 password : {

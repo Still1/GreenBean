@@ -5,6 +5,7 @@ import com.oc.greenbean.spring.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -64,5 +65,27 @@ class SignControllerTest {
             .param("confirmPassword", defaultPassword))
             .andExpect(MockMvcResultMatchers.status().isForbidden())
             .andExpect(MockMvcResultMatchers.view().name("signUpFail"));
+    }
+
+    @Test
+    void testSignUpValidateUsername() throws Exception {
+        Mockito.when(mockUserService.validateUsernameDuplicated(notExistUsername)).thenReturn(true);
+        mockMvc.perform(MockMvcRequestBuilders.get("/signUp/validateUsername")
+            .param("username", notExistUsername))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_PLAIN))
+            .andExpect(MockMvcResultMatchers.content().encoding("UTF-8"))
+            .andExpect(MockMvcResultMatchers.content().string("true"));
+    }
+
+    @Test
+    void testSignUpValidateUsernameWithDuplicatedUsername() throws Exception {
+        Mockito.when(mockUserService.validateUsernameDuplicated(existUsername)).thenReturn(false);
+        mockMvc.perform(MockMvcRequestBuilders.get("/signUp/validateUsername")
+            .param("username", existUsername))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentType(MediaType.TEXT_PLAIN))
+            .andExpect(MockMvcResultMatchers.content().encoding("UTF-8"))
+            .andExpect(MockMvcResultMatchers.content().string("false"));
     }
 }
