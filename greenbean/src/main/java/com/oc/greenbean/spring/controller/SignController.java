@@ -4,8 +4,8 @@ import com.oc.greenbean.domain.User;
 import com.oc.greenbean.dto.UserDto;
 import com.oc.greenbean.exception.UsernameDuplicatedException;
 import com.oc.greenbean.spring.service.UserService;
+import com.oc.greenbean.util.EncryptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +36,8 @@ public class SignController {
 
     @RequestMapping("/signInError")
     public String signInError(Model model) {
+        //TODO 加上注册错误的提示内容
+        //TODO 整理一下注册失败的页面处理
         model.addAttribute("signInError", true);
         return "signIn";
     }
@@ -54,18 +56,11 @@ public class SignController {
         return viewName;
     }
 
-    private String encode(String password) {
-        // XXX 这里的BCryptPasswordEncoder是否可以单例
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(password);
-        return encodedPassword;
-    }
-
     private User generateUser(UserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
         String password = userDto.getPassword();
-        String encodedPassword = this.encode(password);
+        String encodedPassword = EncryptionUtils.encode(password);
         user.setPassword(encodedPassword);
         user.setEnabled(true);
         String userAuthority = "USER";

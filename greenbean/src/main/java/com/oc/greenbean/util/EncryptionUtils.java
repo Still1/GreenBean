@@ -6,7 +6,6 @@ public class EncryptionUtils {
     public static String encode(String password) {
         // XXX 这里的BCryptPasswordEncoder是否可以单例
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(password);
-        return encodedPassword;
+        return passwordEncoder.encode(password);
     }
 }

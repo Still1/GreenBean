@@ -1,6 +1,7 @@
 package com.oc.greenbean.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private Integer id;
@@ -47,5 +48,22 @@ public class User {
 
     public void setAuthority(List<String> authority) {
         this.authority = authority;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) &&
+            Objects.equals(getUsername(), user.getUsername()) &&
+            Objects.equals(getPassword(), user.getPassword()) &&
+            Objects.equals(getEnabled(), user.getEnabled()) &&
+            Objects.equals(getAuthority(), user.getAuthority());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUsername(), getPassword(), getEnabled(), getAuthority());
     }
 }
