@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 @Configuration
 @PropertySource("classpath:properties/database.properties")
@@ -23,23 +24,16 @@ import javax.sql.DataSource;
     })
 public class RootConfig {
 
-    @Value("${db.driverClassName}")
-    private String driverClassName;
-    @Value("${db.url}")
-    private String url;
-    @Value("${db.username}")
-    private String username;
-    @Value("${db.password}")
-    private String password;
-
+    @Value("#{${greenbean.db}}")
+    private Map<String, String> databaseProperties;
 
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+        dataSource.setDriverClassName(databaseProperties.get("driverClassName"));
+        dataSource.setUrl(databaseProperties.get("url"));
+        dataSource.setUsername(databaseProperties.get("username"));
+        dataSource.setPassword(databaseProperties.get("password"));
         return dataSource;
     }
 
