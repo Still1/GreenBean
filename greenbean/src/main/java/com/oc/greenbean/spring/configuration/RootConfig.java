@@ -16,6 +16,7 @@ import java.util.Map;
 @Configuration
 @PropertySource("classpath:properties/database.properties")
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @ComponentScan(basePackages = "com.oc",
     includeFilters = {
         @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "com.oc..service..*"),
