@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface UserMapper {
 
-    //XXX 把SQL语句写回到XML配置文件中
-
     @SuppressWarnings("unused")
     User getUserById(Integer id);
 
