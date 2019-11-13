@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="greenbean:war exploded">
-    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.0.3-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.0.3</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -49,10 +49,12 @@
           <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.2" />
           <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: edu.washington.cs.types.checker:checker-framework:1.7.0" />
+          <element id="library" level="project" name="Maven: org.mybatis.caches:mybatis-ehcache:1.1.0" />
+          <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.6.11" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.0.3-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.0.3/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="greenbean/web/Web" />
     </root>

@@ -2,23 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--suppress SqlDialectInspection, SqlNoDataSourceInspection -->
 <mapper namespace="com.oc.greenbean.mybatis.mapper.UserMapper">
-    <select id="getUserById" resultType="com.oc.greenbean.domain.User">
-        select * from t_user where id = #{id}
-    </select>
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+    <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+  </cache>
+  <select id="getUserById" resultType="com.oc.greenbean.domain.User">
+    select * from t_user where id = #{id}
+  </select>
 
-    <select id="getUserByUsername" resultType="com.oc.greenbean.domain.User">
-        select * from t_user where username = #{username}
-    </select>
+  <select id="getUserByUsername" resultType="com.oc.greenbean.domain.User">
+    select * from t_user where username = #{username}
+  </select>
 
-    <insert id="insertUserBasicInfo">
-        <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
-        insert into t_user (username, password, enabled) values(#{username}, #{password}, #{enabled})
-    </insert>
+  <insert id="insertUserBasicInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
+    insert into t_user (username, password, enabled) values(#{username}, #{password}, #{enabled})
+  </insert>
 
-    <insert id="insertUserAuthority">
-        insert into t_authority (user_id, authority) values
-        <foreach item='item' collection='authority' separator=','>
-            (#{userId}, #{item})
-        </foreach>
-    </insert>
+  <insert id="insertUserAuthority">
+    insert into t_authority (user_id, authority) values
+    <foreach item='item' collection='authority' separator=','>
+      (#{userId}, #{item})
+    </foreach>
+  </insert>
 </mapper>
