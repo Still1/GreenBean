@@ -53,6 +53,7 @@
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.6.11" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-terracotta:2.6.11" />
           <element id="library" level="project" name="Maven: org.terracotta:terracotta-toolkit-1.6-runtime:5.10.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:5.2.1.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">
