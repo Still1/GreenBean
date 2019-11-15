@@ -10,4 +10,5 @@
       maxEntriesLocalDisk="10000000"
       diskExpiryThreadIntervalSeconds="3600"
       memoryStoreEvictionPolicy="LRU"/>
+  <cache name="userService" maxBytesLocalHeap="5000"/>
 </ehcache>
