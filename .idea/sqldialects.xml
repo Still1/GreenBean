@@ -2,5 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/greenbean/database/sql/mysql.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/greenbean/src/main/resources/sql/h2/greenbeanSchema.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/greenbean/src/main/resources/sql/h2/greenbeanTestData.sql" dialect="H2" />
   </component>
 </project>
