@@ -12,6 +12,8 @@ import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -34,6 +36,7 @@ public class RootConfig {
     private Map<String, String> databaseProperties;
 
     @Bean
+    @Profile("produce")
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(databaseProperties.get("driverClassName"));
@@ -44,16 +47,26 @@ public class RootConfig {
     }
 
     @Bean
-    public DataSourceTransactionManager dataSourceTransactionManager() {
+    @Profile("develop")
+    public DataSource embeddedDataSource() {
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        builder.setType(EmbeddedDatabaseType.H2);
+        builder.addScript("classpath:sql/h2/greenbeanSchema.sql");
+        builder.addScript("classpath:sql/h2/greenbeanTestData.sql");
+        return builder.build();
+    }
+
+    @Bean
+    public DataSourceTransactionManager dataSourceTransactionManager(DataSource dataSource) {
         DataSourceTransactionManager manager = new DataSourceTransactionManager();
-        manager.setDataSource(dataSource());
+        manager.setDataSource(dataSource);
         return manager;
     }
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource());
+        sqlSessionFactoryBean.setDataSource(dataSource);
         org.apache.ibatis.session.Configuration myBatisConfig = new org.apache.ibatis.session.Configuration();
         myBatisConfig.setLazyLoadingEnabled(true);
         myBatisConfig.setAggressiveLazyLoading(false);
@@ -64,8 +77,8 @@ public class RootConfig {
     }
 
     @Bean
-    public UserMapper userMapper() throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
+    public UserMapper userMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
     }
 
@@ -79,7 +92,6 @@ public class RootConfig {
 
     @Bean
     public EhCacheCacheManager ehCacheCacheManager() {
-        EhCacheCacheManager ehCacheCacheManager = new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
-        return ehCacheCacheManager;
+        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
     }
 }
