@@ -51,6 +51,7 @@ public class RootConfig {
     public DataSource embeddedDataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         builder.setType(EmbeddedDatabaseType.H2);
+        //FIXME 中文乱码
         builder.addScript("classpath:sql/h2/greenbeanSchema.sql");
         builder.addScript("classpath:sql/h2/greenbeanTestData.sql");
         return builder.build();

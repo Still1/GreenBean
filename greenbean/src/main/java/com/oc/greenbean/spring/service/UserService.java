@@ -8,6 +8,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 用户服务类
+ */
 @Service
 public class UserService {
 
@@ -18,6 +21,12 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    /**
+     * 插入用户相关的数据
+     *
+     * @param user 用户数据
+     * @throws UsernameDuplicatedException 如果插入的用户数据的用户名已存在，则抛出此异常
+     */
     @Transactional
     public void insertUser(User user) throws UsernameDuplicatedException {
         if(this.validateUsernameDuplicated(user.getUsername())) {
