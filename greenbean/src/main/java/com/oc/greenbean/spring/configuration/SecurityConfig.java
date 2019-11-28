@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/static/common/**", "/static/template/**", "/signUp", "/signUp/*").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().loginPage("/signIn").permitAll()
-            .successForwardUrl("/home")
+            .defaultSuccessUrl("/home", true)
             .failureUrl("/signInError")
             .and().logout().logoutUrl("/signOut").logoutSuccessUrl("/signIn")
             .and().rememberMe().key("greenbean").tokenValiditySeconds(120);
