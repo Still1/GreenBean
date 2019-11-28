@@ -18,6 +18,12 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    /**
+     * 插入用户相关的数据
+     *
+     * @param user 用户数据
+     * @throws UsernameDuplicatedException 如果插入的用户数据的用户名已存在，则抛出此异常
+     */
     @Transactional
     public void insertUser(User user) throws UsernameDuplicatedException {
         if(this.validateUsernameDuplicated(user.getUsername())) {
@@ -29,6 +35,12 @@ public class UserService {
     }
 
 
+    /**
+     * 验证用户名是否重复
+     *
+     * @param username 用户名
+     * @return 是否重复的结果
+     */
     @Cacheable(cacheNames = "userService" )
     public boolean validateUsernameDuplicated(String username) {
         User user = userMapper.getUserByUsername(username);
