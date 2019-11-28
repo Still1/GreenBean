@@ -8,9 +8,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 用户服务类
- */
 @Service
 public class UserService {
 
@@ -38,6 +35,12 @@ public class UserService {
     }
 
 
+    /**
+     * 验证用户名是否重复
+     *
+     * @param username 用户名
+     * @return 是否重复的结果
+     */
     @Cacheable(cacheNames = "userService" )
     public boolean validateUsernameDuplicated(String username) {
         User user = userMapper.getUserByUsername(username);

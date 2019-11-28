@@ -4,6 +4,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+/**
+ * Spring Validation自定义约束
+ * 约束密码与确认密码两个字段必须相等
+ *
+ * @see UserDtoPasswordEqualsValidator
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = UserDtoPasswordEqualsValidator.class)
