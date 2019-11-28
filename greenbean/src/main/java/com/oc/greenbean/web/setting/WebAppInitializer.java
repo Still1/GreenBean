@@ -4,9 +4,6 @@ import com.oc.greenbean.spring.configuration.DispatcherServletConfig;
 import com.oc.greenbean.spring.configuration.RootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -22,11 +19,5 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected String[] getServletMappings() {
         return new String[] {"/"};
-    }
-
-    @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.setInitParameter("spring.profiles.default", "develop");
-        super.onStartup(servletContext);
     }
 }
