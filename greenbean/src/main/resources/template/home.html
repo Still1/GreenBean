@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="../common/bootstrap-4.3.1/css/bootstrap.min.css" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../common/fontawesome-free-5.11.2-web/css/all.css" th:href="@{/static/common/fontawesome-free-5.11.2-web/css/all.css}">
     <link rel="stylesheet" href="home.css" th:href="@{/static/template/home.css}">
 </head>
 <body>
@@ -15,6 +16,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
                     <strong>Greenbean</strong>
                 </a>
+            </div>
+            <div class="input-group searchInput">
+                <input type="text" class="form-control" placeholder="Search books" aria-label="Search books" aria-describedby="searchButton">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
