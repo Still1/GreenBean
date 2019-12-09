@@ -13,3 +13,8 @@
 .bookRow {
     margin-top: 20px;
 }
+
+.bookHead {
+    height: 200px;
+    line-height: 200px;
+}
