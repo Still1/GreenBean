@@ -41,9 +41,15 @@ public class UserService {
      * @param username 用户名
      * @return 是否重复的结果
      */
-    @Cacheable(cacheNames = "userService" )
+    @Cacheable(cacheNames = "greenbean", key = "'validateUsernameDuplicated'.concat(#username)")
     public boolean validateUsernameDuplicated(String username) {
         User user = userMapper.getUserByUsername(username);
         return user == null;
+    }
+
+
+    @Cacheable(cacheNames = "greenbean", key = "'getUserByUsername'.concat(#username)")
+    public User getUserByUsername(String username) {
+        return userMapper.getUserByUsername(username);
     }
 }

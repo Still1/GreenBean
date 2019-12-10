@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection, SqlNoDataSourceInspection -->
+<mapper namespace="com.oc.greenbean.mybatis.mapper.MyBookMapper">
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+    <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+  </cache>
+  <select id="getMyBookCount" resultType="java.lang.Integer">
+    select count(*) from t_book_user where user_id = #{userId} and type = #{type}
+  </select>
+
+  <select id="getMyBookPictures" resultType="java.lang.String">
+    select picture from t_book_user inner join t_book on t_book_user.book_id = t_book.id where user_id = #{userId} and type = #{type} limit 5;
+  </select>
+</mapper>
