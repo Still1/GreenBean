@@ -10,6 +10,8 @@ public class User implements Serializable {
     private String password;
     private Boolean enabled;
     private List<String> authority;
+    private String nickname;
+    private String avatar;
 
     public Integer getId() {
         return id;
@@ -49,6 +51,22 @@ public class User implements Serializable {
 
     public void setAuthority(List<String> authority) {
         this.authority = authority;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

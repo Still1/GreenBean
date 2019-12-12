@@ -5,7 +5,6 @@ import com.oc.greenbean.domain.User;
 import com.oc.greenbean.spring.service.MyBookService;
 import com.oc.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +26,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home")
-    public String home(Model model, Principal principal, @Value("${bookPicturesPath}") String bookPicturesPath) {
+    public String home(Model model, Principal principal) {
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         Integer userId = user.getId();
