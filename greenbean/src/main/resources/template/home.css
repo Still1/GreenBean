@@ -1,0 +1,22 @@
+@import url(header.css);
+
+#bookDiv {
+    margin-top: 40px;
+}
+
+.bookPlace {
+    height: 200px;
+}
+
+.bookPlace>img {
+    max-height: 100%;
+}
+
+.bookRow {
+    margin-top: 20px;
+}
+
+.bookHead {
+    height: 200px;
+    line-height: 200px;
+}

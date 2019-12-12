@@ -1,5 +1,6 @@
 package com.oc.greenbean.spring.configuration;
 
+import com.oc.greenbean.mybatis.mapper.MyBookMapper;
 import com.oc.greenbean.mybatis.mapper.UserMapper;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,7 +19,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:properties/database.properties")
+@PropertySource({"classpath:properties/database.properties", "classpath:properties/path.properties"})
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 @EnableCaching
@@ -67,6 +68,12 @@ public class RootConfig {
     public UserMapper userMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
+    }
+
+    @Bean
+    public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        return sqlSessionTemplate.getMapper(MyBookMapper.class);
     }
 
     @Bean

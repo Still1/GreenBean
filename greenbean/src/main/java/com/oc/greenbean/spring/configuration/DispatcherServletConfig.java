@@ -1,6 +1,7 @@
 package com.oc.greenbean.spring.configuration;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -34,6 +36,9 @@ import java.util.List;
 public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
+    @Value("${picturesPath}")
+    private String picturesPath;
+
     @Bean
     public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -51,6 +56,7 @@ public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationCon
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
+        templateEngine.addDialect(new SpringSecurityDialect());
         return templateEngine;
     }
 
@@ -71,6 +77,10 @@ public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationCon
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/common/**").addResourceLocations("classpath:/common/");
         registry.addResourceHandler("/static/template/**").addResourceLocations("classpath:/template/");
+
+        String userHomePath = System.getProperty("user.home").replaceAll("\\\\", "/");
+        String picturesPath = "file:" + userHomePath + this.picturesPath;
+        registry.addResourceHandler("/static/picture/**").addResourceLocations(picturesPath);
     }
 
     @Override

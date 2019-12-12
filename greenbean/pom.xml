@@ -6,7 +6,7 @@
 
   <groupId>com.oc.greenbean</groupId>
   <artifactId>greenbean</artifactId>
-  <version>0.1</version>
+  <version>0.2.1</version>
 
   <packaging>war</packaging>
 
@@ -117,6 +117,12 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
       <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+      <version>3.0.4.RELEASE</version>
     </dependency>
 
     <dependency>
