@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments</title>
+    <link th:fragment="bootstrapCSS" rel="stylesheet" href="../common/bootstrap-4.3.1/css/bootstrap.min.css" th:href="@{/static/common/bootstrap-4.3.1/css/bootstrap.min.css}">
+    <link th:fragment="fontAwesomeCSS" rel="stylesheet" href="../common/fontawesome-free-5.11.2-web/css/all.css" th:href="@{/static/common/fontawesome-free-5.11.2-web/css/all.css}">
+    <link th:fragment="headerCSS" rel="stylesheet" href="header.css" th:href="@{/static/template/header.css}">
+</head>
+<body>
+    <header th:fragment="header">
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <strong>Greenbean</strong>
+                </a>
+            </div>
+            <div class="input-group searchInput">
+                <input type="text" class="form-control" placeholder="Search books" aria-label="Search books" aria-describedby="searchButton">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span sec:authentication="name">User</span>'s account
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="home">Home</a>
+                    <a class="dropdown-item" href="setting">Account Setting</a>
+                    <a class="dropdown-item" id="signOutLink" href="javascript:void(0);">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <form id="signOutForm" style="display: none" method="post" th:action="@{/signOut}"></form>
+
+    <script th:fragment="jQueryJS" src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script th:fragment="popperJS" src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
+    <script th:fragment="bootstrapJS" src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+@import url(header.css);
+
 #bookDiv {
     margin-top: 40px;
 }
@@ -17,9 +19,4 @@
 .bookHead {
     height: 200px;
     line-height: 200px;
-}
-
-.searchInput {
-    width: 20%;
-    margin-right: 15px;
 }

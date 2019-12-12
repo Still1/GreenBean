@@ -43,4 +43,9 @@ public class HomeController {
 
         return "home";
     }
+
+    @RequestMapping("/setting")
+    public String setting() {
+        return "setting";
+    }
 }

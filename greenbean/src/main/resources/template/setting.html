@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Setting</title>
+    <link th:replace="fragments :: bootstrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: headerCSS">
+</head>
+<body>
+    <header th:include="fragments :: header"></header>
+    <form th:replace="~{fragments :: #signOutForm}"></form>
+
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+</body>
+</html>
