@@ -10,26 +10,37 @@
 <body>
     <header th:include="fragments :: header"></header>
 
+    <div class="container" id="userInfoDiv">
+        <div class="row">
+            <div class="col-sm-1">
+                <img id="avatar" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+            </div>
+            <div class="col-sm-1">
+                <h3 th:text="${session.userNickname}"></h3>
+            </div>
+        </div>
+    </div>
+
     <div class="container" id="bookDiv">
-        <h5>Books......( <span th:text="${readingCount}">9</span> reading . <span th:text="${readCount}">109</span> read )</h5>
+        <h5>Books......( <span th:text="${readingCount}"></span> reading . <span th:text="${readCount}"></span> read )</h5>
         <div class="row bookRow">
             <div class="col-sm-1 bookHead">
                 reading
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readingCount > 0}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[0]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readingCount > 0}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[0]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readingCount > 1}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[1]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readingCount > 1}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[1]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readingCount > 2}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[2]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readingCount > 2}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[2]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readingCount > 3}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[3]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readingCount > 3}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[3]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readingCount > 4}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[4]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readingCount > 4}" th:src="@{/static/picture/books/{readingPicture}(readingPicture=${readingPictures[4]})}">
             </div>
         </div>
         <div class="row bookRow">
@@ -37,19 +48,19 @@
                 read
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readCount > 0}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[0]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readCount > 0}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[0]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readCount > 1}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[1]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readCount > 1}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[1]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readCount > 2}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[2]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readCount > 2}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[2]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readCount > 3}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[3]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readCount > 3}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[3]})}">
             </div>
             <div class="col-sm bookPlace">
-                <img th:if="${readCount > 4}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[4]})}" src="sample.webp" alt="七个世界，一个星球">
+                <img th:if="${readCount > 4}" th:src="@{/static/picture/books/{readPicture}(readPicture=${readPictures[4]})}">
             </div>
         </div>
     </div>

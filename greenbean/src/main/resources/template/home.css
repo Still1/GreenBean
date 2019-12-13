@@ -20,3 +20,11 @@
     height: 200px;
     line-height: 200px;
 }
+
+#userInfoDiv {
+    margin-top: 40px;
+}
+
+#avatar {
+    max-width: 100%;
+}
