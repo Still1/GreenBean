@@ -6,13 +6,61 @@
     <link th:replace="fragments :: bootstrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
+    <link rel="stylesheet" href="setting.css" th:href="@{/static/template/setting.css}">
 </head>
 <body>
     <header th:include="fragments :: header"></header>
     <form th:replace="~{fragments :: #signOutForm}"></form>
 
+    <div id="settingFormDiv">
+        <form>
+            <div class="form-group">
+                <label for="avatarInput">Avatar</label>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img class="avatar" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+                        </div>
+                        <div class="col-sm-3">
+                            <img class="avatar" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="file" class="form-control-file" id="avatarInput" aria-describedby="avatar">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nicknameInput">Nickname</label>
+                <input type="text" class="form-control" id="nicknameInput" aria-describedby="nickname" th:value="${session.userNickname}">
+            </div>
+            <button type="button" class="btn btn-primary" id="updateSettingButton">Update settings</button>
+        </form>
+    </div>
+
+    <div id="toastWrapper">
+        <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="mr-auto">Message</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Update success.
+            </div>
+        </div>
+    </div>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:inline="javascript">
+        const csrfObject = {
+            parameterName : [[${_csrf.parameterName}]],
+            headerName : [[${_csrf.headerName}]],
+            token : [[${_csrf.token}]]
+        }
+    </script>
+    <script src="setting.js" th:src="@{/static/template/setting.js}"></script>
 </body>
 </html>

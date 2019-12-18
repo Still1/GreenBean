@@ -16,4 +16,6 @@ public interface UserMapper {
     void insertUserBasicInfo(User user);
 
     void insertUserAuthority(@Param("userId")Integer userId, @Param("authority")List<String> authority);
+
+    void updateNickname(@Param("username")String username, @Param("nickname")String nickname);
 }

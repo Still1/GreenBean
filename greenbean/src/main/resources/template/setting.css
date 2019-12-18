@@ -1,0 +1,18 @@
+#settingFormDiv {
+    margin: 30px auto;
+    width: 600px;
+}
+
+.avatar {
+    max-width: 100%;
+}
+
+#toastWrapper {
+    position: relative;
+}
+
+#toast {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

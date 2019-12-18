@@ -4,6 +4,7 @@ import com.oc.greenbean.domain.User;
 import com.oc.greenbean.exception.UsernameDuplicatedException;
 import com.oc.greenbean.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,5 +52,10 @@ public class UserService {
     @Cacheable(cacheNames = "greenbean", key = "'getUserByUsername'.concat(#username)")
     public User getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);
+    }
+
+    @CacheEvict(cacheNames = "greenbean", key = "'getUserByUsername'.concat(#username)")
+    public void updateNickname(String username, String nickname) {
+        userMapper.updateNickname(username, nickname);
     }
 }
