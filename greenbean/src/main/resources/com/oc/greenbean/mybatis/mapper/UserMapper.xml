@@ -32,4 +32,8 @@
   <update id="updateNickname">
     update t_user set nickname = #{nickname} where username = #{username}
   </update>
+
+  <update id="updateAvatar">
+    update t_user set avatar = #{avatar} where username = #{username}
+  </update>
 </mapper>

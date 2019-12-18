@@ -5,12 +5,17 @@ import com.oc.greenbean.domain.User;
 import com.oc.greenbean.spring.service.MyBookService;
 import com.oc.greenbean.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -20,6 +25,10 @@ public class HomeController {
 
     private MyBookService myBookService;
     private UserService userService;
+
+    //XXX 解决与DispatcherServletConfig重复
+    @Value("${picturesPath}")
+    private String picturesPath;
 
     @Autowired
     public HomeController(MyBookService myBookService, UserService userService) {
@@ -52,9 +61,24 @@ public class HomeController {
 
     @RequestMapping(value = "/updateUserSettings")
     @ResponseBody
-    public String updateUserSettings(String nickname, Principal principal, HttpSession session) {
-        userService.updateNickname(principal.getName(), nickname);
+    public String updateUserSettings(@RequestParam(value = "nickname")String nickname, @RequestParam(value = "avatar", required = false) MultipartFile avatar, Principal principal, HttpSession session) throws IOException {
+        String username = principal.getName();
+        userService.updateNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
+        if(avatar != null) {
+            //XXX 不使用图片原来的名字，改成UUID
+            String avatarFileName = avatar.getOriginalFilename();
+            String userHomePath = System.getProperty("user.home").replaceAll("\\\\", "/");
+            String picturesPath = userHomePath + this.picturesPath;
+            File avatarFolder = new File(picturesPath + "/avatars/");
+            if(!avatarFolder.exists()) {
+                avatarFolder.mkdir();
+            }
+            File avatarFile = new File(avatarFolder, avatarFileName);
+            avatar.transferTo(avatarFile.toPath());
+            userService.updateAvatar(username, avatarFileName);
+            session.setAttribute("userAvatar", avatarFileName);
+        }
         return "success";
     }
 }

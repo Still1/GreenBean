@@ -58,4 +58,9 @@ public class UserService {
     public void updateNickname(String username, String nickname) {
         userMapper.updateNickname(username, nickname);
     }
+
+    @CacheEvict(cacheNames = "greenbean", key = "'getUserByUsername'.concat(#username)")
+    public void updateAvatar(String username, String avatar) {
+        userMapper.updateAvatar(username, avatar);
+    }
 }

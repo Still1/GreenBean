@@ -4,6 +4,9 @@ import com.oc.greenbean.spring.configuration.DispatcherServletConfig;
 import com.oc.greenbean.spring.configuration.RootConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -19,5 +22,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected String[] getServletMappings() {
         return new String[] {"/"};
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        //XXX 处理路径配置
+        registration.setMultipartConfig(new MultipartConfigElement("/tmp", 5 * 1024 * 1024, 10 * 1024 * 1024, 0));
     }
 }
