@@ -78,6 +78,7 @@ public class HomeController {
                 avatarFolder.mkdir();
             }
             File avatarFile = new File(avatarFolder, avatarFileName);
+            //TODO 删除旧头像
             avatar.transferTo(avatarFile.toPath());
             userService.updateAvatar(username, avatarFileName);
             session.setAttribute("userAvatar", avatarFileName);
