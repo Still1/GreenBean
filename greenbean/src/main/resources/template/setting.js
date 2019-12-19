@@ -4,7 +4,6 @@
         const updateSettingButton = $('#updateSettingButton');
 
         updateSettingButton.on("click", function () {
-            debugger;
             const nickname = $("#nicknameInput").val();
             const avatar = $("#avatarInput")[0].files[0];
 
@@ -22,14 +21,16 @@
                 headers : headerObject,
                 data : formData,
                 processData : false
-            }).done(function() {
-                //TODO 刷新头像
+            }).done(function(data) {
                 $("#userNickname").text(nickname);
+                if(data != undefined && data != "") {
+                    //XXX 处理URL
+                    $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data)
+                }
                 $('#toast').toast('show');
             }).fail(function() {
             });
         });
-
         $('.toast').toast({delay : 2000});
     });
 })();

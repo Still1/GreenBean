@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -65,9 +66,11 @@ public class HomeController {
         String username = principal.getName();
         userService.updateNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
+        String avatarFileName = null;
         if(avatar != null) {
-            //XXX 不使用图片原来的名字，改成UUID
-            String avatarFileName = avatar.getOriginalFilename();
+            String avatarFileOriginalFileName = avatar.getOriginalFilename();
+            String avatarFileExtension = avatarFileOriginalFileName.substring(avatarFileOriginalFileName.lastIndexOf('.'));
+            avatarFileName = UUID.randomUUID().toString() + avatarFileExtension;
             String userHomePath = System.getProperty("user.home").replaceAll("\\\\", "/");
             String picturesPath = userHomePath + this.picturesPath;
             File avatarFolder = new File(picturesPath + "/avatars/");
@@ -79,6 +82,6 @@ public class HomeController {
             userService.updateAvatar(username, avatarFileName);
             session.setAttribute("userAvatar", avatarFileName);
         }
-        return "success";
+        return avatarFileName;
     }
 }
