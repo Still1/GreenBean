@@ -23,14 +23,20 @@
                 processData : false
             }).done(function(data) {
                 $("#userNickname").text(nickname);
-                if(data != undefined && data != "") {
+                if(data !== undefined && data !== "") {
                     //XXX 处理URL
                     $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data)
                 }
+                //XXX 抽取方法
+                $("#toastBody").text("Update successfully.");
+                $("#toastRect").attr("fill", "#54FF9F");
                 $('#toast').toast('show');
             }).fail(function() {
+                $("#toastBody").text("Update unsuccessfully.");
+                $("#toastRect").attr("fill", "#FF3030");
+                $('#toast').toast('show');
             });
         });
-        $('.toast').toast({delay : 2000});
+        $('.toast').toast({delay : 5000});
     });
 })();
