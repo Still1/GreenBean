@@ -5,3 +5,47 @@
 .bookPicture {
     max-width: 100%;
 }
+
+#searchTitle {
+    margin: 40px 0;
+}
+
+.bookRow {
+    margin-bottom: 40px;
+}
+
+.ratingRow {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.infoRow {
+    color: #999999;
+    font-size: 16px;
+}
+
+.nameRow {
+    font-size: 18px;
+}
+
+#addBookDiv {
+    position: absolute;
+    top: 130px;
+}
+
+#addBookQuestion {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#addBookLink {
+    font-size: 14px;
+}
+
+#star {
+    width: 55px;
+    height: 11px;
+    background-image: url("../pic/star.png");
+    margin-top: 7px;
+}

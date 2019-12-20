@@ -6,6 +6,7 @@
     <link th:replace="fragments :: bootstrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
+    <link th:replace="fragments :: starCSS">
     <link rel="stylesheet" th:href="@{/static/template/search.css}">
 </head>
 <body>
@@ -19,45 +20,33 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h1>search <span>aaa</span></h1>
+                                    <h1 id="searchTitle">search <span>aaa</span></h1>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="container">
-                                        <div class="row">
+                                        <div class="row bookRow">
                                             <div class="col-sm-2">
                                                 <img th:src="@{/static/picture/books/s4468484.jpg}" class="bookPicture">
                                             </div>
                                             <div class="col-sm-10">
                                                 <div class="container">
-                                                    <div class="row">百年孤独</div>
-                                                    <div class="row">(246899人评价)</div>
-                                                    <div class="row">[哥伦比亚] 加西亚·马尔克斯 / 范晔 / 南海出版公司 / 2011-6 / 39.50元</div>
+                                                    <div class="row nameRow"><a href="">百年孤独</a></div>
+                                                    <div class="row ratingRow"><span id="star" class="star10"></span><span>(246899人评价)</span></div>
+                                                    <div class="row infoRow"><span>[哥伦比亚] 加西亚·马尔克斯 / 范晔 / 南海出版公司 / 2011-6 / 39.50元</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row bookRow">
                                             <div class="col-sm-2">
                                                 <img th:src="@{/static/picture/books/s4468484.jpg}" class="bookPicture">
                                             </div>
                                             <div class="col-sm-10">
                                                 <div class="container">
-                                                    <div class="row">百年孤独</div>
-                                                    <div class="row">(246899人评价)</div>
-                                                    <div class="row">[哥伦比亚] 加西亚·马尔克斯 / 范晔 / 南海出版公司 / 2011-6 / 39.50元</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-2">
-                                                <img th:src="@{/static/picture/books/s4468484.jpg}" class="bookPicture">
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <div class="container">
-                                                    <div class="row">百年孤独</div>
-                                                    <div class="row">(246899人评价)</div>
-                                                    <div class="row">[哥伦比亚] 加西亚·马尔克斯 / 范晔 / 南海出版公司 / 2011-6 / 39.50元</div>
+                                                    <div class="row nameRow">百年孤独</div>
+                                                    <div class="row ratingRow">(246899人评价)</div>
+                                                    <div class="row infoRow">[哥伦比亚] 加西亚·马尔克斯 / 范晔 / 南海出版公司 / 2011-6 / 39.50元</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -67,6 +56,12 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
+                        <div id="addBookDiv">
+                            <div id="addBookQuestion">Can't find the book you want to search?</div>
+                            <div id="addBookLink">
+                                <a href="">&gt;Add a new book</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
