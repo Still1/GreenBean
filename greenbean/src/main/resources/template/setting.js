@@ -25,7 +25,16 @@
                 $("#userNickname").text(nickname);
                 if(data !== undefined && data !== "") {
                     //XXX 处理URL
-                    $(".avatar").attr("src", "/greenbean/static/picture/avatars/" + data)
+                    const avatarElements = $(".avatar");
+                    const avatarSrc = "/greenbean/static/picture/avatars/" + data;
+                    if(avatarElements.length > 0) {
+                        avatarElements.attr("src", avatarSrc)
+                    } else {
+                        const imgElement = $("<img src='' alt='avatar'>");
+                        imgElement.addClass("avatar");
+                        imgElement.attr("src", avatarSrc);
+                        $(".avatarWrapper").append(imgElement);
+                    }
                 }
                 //XXX 抽取方法
                 $("#toastBody").text("Update successfully.");

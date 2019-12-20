@@ -18,10 +18,10 @@
                 <label for="avatarInput">Avatar</label>
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 avatarWrapper">
                             <img class="avatar" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 avatarWrapper">
                             <img class="avatar" th:if="${session.userAvatar != null}" th:src="@{/static/picture/avatars/{userAvatar}(userAvatar=${session.userAvatar})}">
                         </div>
                         <div class="col-sm-7">

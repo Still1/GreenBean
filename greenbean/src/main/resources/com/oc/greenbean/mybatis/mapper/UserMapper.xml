@@ -19,7 +19,7 @@
 
   <insert id="insertUserBasicInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
-    insert into t_user (username, password, enabled) values(#{username}, #{password}, #{enabled})
+    insert into t_user (username, password, enabled, nickname) values(#{username}, #{password}, #{enabled}, #{nickname})
   </insert>
 
   <insert id="insertUserAuthority">

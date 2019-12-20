@@ -58,7 +58,9 @@ public class SignController {
 
     private User generateUser(UserDto userDto) {
         User user = new User();
-        user.setUsername(userDto.getUsername());
+        String username = userDto.getUsername();
+        user.setUsername(username);
+        user.setNickname(username);
         String password = userDto.getPassword();
         String encodedPassword = EncryptionUtils.encode(password);
         user.setPassword(encodedPassword);
