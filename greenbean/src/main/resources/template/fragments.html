@@ -16,12 +16,14 @@
                     <strong>Greenbean</strong>
                 </a>
             </div>
-            <div class="input-group searchInput">
-                <input type="text" class="form-control" placeholder="Search books" aria-label="Search books" aria-describedby="searchButton">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
+            <form method="get" th:action="@{/search}" class="searchForm">
+                <div class="input-group">
+                    <input type="text" name="searchKeyWord" class="form-control" placeholder="Search books" aria-label="Search books" aria-describedby="searchButton">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="searchButton"><i class="fas fa-search"></i></button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span id="userNickname" th:text="${session.userNickname}"></span>'s account
@@ -33,9 +35,10 @@
                 </div>
             </div>
         </div>
+        <form id="signOutForm" style="display: none" method="post" th:action="@{/signOut}"></form>
     </header>
 
-    <form id="signOutForm" style="display: none" method="post" th:action="@{/signOut}"></form>
+
 
     <script th:fragment="jQueryJS" src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
     <script th:fragment="popperJS" src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
