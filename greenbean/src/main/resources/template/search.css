@@ -43,7 +43,7 @@
     font-size: 14px;
 }
 
-#star {
+.star {
     width: 55px;
     height: 11px;
     background-image: url("../pic/star.png");
