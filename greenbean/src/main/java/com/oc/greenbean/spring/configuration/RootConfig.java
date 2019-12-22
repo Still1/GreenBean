@@ -1,5 +1,6 @@
 package com.oc.greenbean.spring.configuration;
 
+import com.oc.greenbean.mybatis.mapper.BookMapper;
 import com.oc.greenbean.mybatis.mapper.MyBookMapper;
 import com.oc.greenbean.mybatis.mapper.UserMapper;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -64,6 +65,7 @@ public class RootConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
+    //XXX Mapper独立一个类配置
     @Bean
     public UserMapper userMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
@@ -74,6 +76,12 @@ public class RootConfig {
     public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(MyBookMapper.class);
+    }
+
+    @Bean
+    public BookMapper bookMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
+        return sqlSessionTemplate.getMapper(BookMapper.class);
     }
 
     @Bean

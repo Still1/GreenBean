@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlDialectInspection, SqlNoDataSourceInspection -->
+<mapper namespace="com.oc.greenbean.mybatis.mapper.BookMapper">
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache">
+    <property name="timeToIdleSeconds" value="3600"/>
+    <property name="timeToLiveSeconds" value="3600"/>
+    <property name="maxEntriesLocalHeap" value="1000"/>
+    <property name="maxEntriesLocalDisk" value="10000000"/>
+    <property name="memoryStoreEvictionPolicy" value="LRU"/>
+  </cache>
+  <select id="getSearchBooks" resultType="java.util.Map">
+    <bind name="keywordLike" value="'%' + keyword + '%'"/>
+    select distinct book_id from v_search_book where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
+  </select>
+
+</mapper>

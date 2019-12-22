@@ -49,3 +49,16 @@
     background-image: url("../pic/star.png");
     margin-top: 7px;
 }
+
+.rating {
+    color: #e09015;
+    padding: 0 3px;
+}
+
+.infoRow>span {
+    padding: 0 5px;
+}
+
+#firstInfo {
+    padding-left: 0;
+}
