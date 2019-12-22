@@ -11,7 +11,19 @@
   </cache>
   <select id="getSearchBooks" resultType="java.util.Map">
     <bind name="keywordLike" value="'%' + keyword + '%'"/>
-    select distinct book_id from v_search_book where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
+    select distinct id from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
+  </select>
+
+  <select id="getBookBasicInfo" resultType="com.oc.greenbean.domain.Book">
+    select name, picture, publisher, publication_year as publicationYear, publication_month as publicationMonth, publication_day as publicationDay, price from t_book where id = #{id}
+  </select>
+
+  <select id="getBookAuthors" resultType="com.oc.greenbean.domain.Author">
+    select author_name as name from v_book_author where book_id = #{id}
+  </select>
+
+  <select id="getBookTranslators" resultType="com.oc.greenbean.domain.Translator">
+    select translator_name as name from v_book_translator where book_id = #{id}
   </select>
 
 </mapper>

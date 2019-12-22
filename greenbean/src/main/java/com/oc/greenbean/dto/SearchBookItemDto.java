@@ -10,6 +10,15 @@ public class SearchBookItemDto {
     private String publisher;
     private String publicationDate;
     private String price;
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getBookName() {
         return bookName;
