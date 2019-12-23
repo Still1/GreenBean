@@ -8,6 +8,9 @@ import com.oc.greenbean.mybatis.mapper.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +29,6 @@ public class BookService {
         List<SearchBookItemDto> searchBookItemDtos = new ArrayList<>();
         for(Map<String, Integer> idMap : searchBooksId) {
             Integer id = idMap.get("id");
-            //TODO 书信息
             SearchBookItemDto dto = new SearchBookItemDto();
             Book book = this.getBookBasicInfo(id);
             this.setBookBasicInfoToDto(dto, book);
@@ -34,6 +36,8 @@ public class BookService {
             this.setAuthorsToDto(dto, authors);
             List<Translator> translators = this.getBookTranslators(id);
             this.setTranslatorsToDto(dto,translators);
+            Map<String, Object> ratingInfo = this.getBookRatingInfo(id);
+            this.setRatingInfoToDto(dto, ratingInfo);
             searchBookItemDtos.add(dto);
         }
         return searchBookItemDtos;
@@ -53,6 +57,10 @@ public class BookService {
 
     public List<Translator> getBookTranslators(Integer id) {
         return this.bookMapper.getBookTranslators(id);
+    }
+
+    public Map<String, Object> getBookRatingInfo(Integer id) {
+        return this.bookMapper.getBookRatingInfo(id);
     }
 
     private void setBookBasicInfoToDto(SearchBookItemDto dto, Book book) {
@@ -89,12 +97,36 @@ public class BookService {
     }
 
     private void setTranslatorsToDto(SearchBookItemDto dto, List<Translator> translators) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(Translator translator : translators) {
-            stringBuilder.append(translator.getName());
-            stringBuilder.append(" / ");
+        if(translators.size() > 0) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for(Translator translator : translators) {
+                stringBuilder.append(translator.getName());
+                stringBuilder.append(" / ");
+            }
+            if(stringBuilder.length() > 0) {
+                stringBuilder.delete(stringBuilder.length() - 3, stringBuilder.length());
+            }
+            dto.setTranslatorName(stringBuilder.toString());
         }
-        stringBuilder.delete(stringBuilder.length() - 3, stringBuilder.length());
-        dto.setTranslatorName(stringBuilder.toString());
+    }
+
+    private void setRatingInfoToDto(SearchBookItemDto dto, Map<String, Object> ratingInfo) {
+        Long ratingCount = (Long)ratingInfo.get("ratingCount");
+        dto.setRatingCount(ratingCount.intValue());
+        if(ratingCount > 0) {
+            BigDecimal rating = (BigDecimal)ratingInfo.get("rating");
+            BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
+            DecimalFormat decimalFormat = new DecimalFormat("#.0");
+            dto.setRating(decimalFormat.format(ratingWithOneDecimal.floatValue()));
+
+            BigDecimal ratingWithNoDecimal = rating.setScale(0, RoundingMode.HALF_UP);
+            BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
+            decimalFormat = new DecimalFormat("00");
+            String starClassName = "star" + decimalFormat.format(starSuffixNumber.longValue());
+            dto.setStarClassName(starClassName);
+        } else {
+            //XXX 修改硬编码
+            dto.setStarClassName("star00");
+        }
     }
 }

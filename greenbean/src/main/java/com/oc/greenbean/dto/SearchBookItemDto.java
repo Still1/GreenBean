@@ -4,7 +4,7 @@ public class SearchBookItemDto {
     private String bookName;
     private String starClassName;
     private String rating;
-    private String ratingCount;
+    private Integer ratingCount;
     private String authorName;
     private String translatorName;
     private String publisher;
@@ -44,11 +44,11 @@ public class SearchBookItemDto {
         this.rating = rating;
     }
 
-    public String getRatingCount() {
+    public Integer getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(String ratingCount) {
+    public void setRatingCount(Integer ratingCount) {
         this.ratingCount = ratingCount;
     }
 

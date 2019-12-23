@@ -13,4 +13,5 @@ public interface BookMapper {
     Book getBookBasicInfo(Integer id);
     List<Author> getBookAuthors(Integer id);
     List<Translator> getBookTranslators(Integer id);
+    Map<String ,Object> getBookRatingInfo(Integer id);
 }
