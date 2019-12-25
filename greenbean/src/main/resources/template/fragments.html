@@ -20,6 +20,7 @@
             <form method="get" th:action="@{/search}" class="searchForm">
                 <div class="input-group">
                     <input type="text" name="searchKeyWord" class="form-control" placeholder="Search books" aria-label="Search books" aria-describedby="searchButton">
+                    <input type="hidden" name="start" class="form-control">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit" id="searchButton"><i class="fas fa-search"></i></button>
                     </div>

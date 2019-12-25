@@ -20,7 +20,11 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@PropertySource({"classpath:properties/database.properties", "classpath:properties/path.properties"})
+@PropertySource({
+    "classpath:properties/database.properties",
+    "classpath:properties/path.properties",
+    "classpath:properties/system.properties"
+})
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 @EnableCaching

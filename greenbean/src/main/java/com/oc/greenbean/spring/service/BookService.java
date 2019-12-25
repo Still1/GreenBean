@@ -4,8 +4,11 @@ import com.oc.greenbean.domain.Author;
 import com.oc.greenbean.domain.Book;
 import com.oc.greenbean.domain.Translator;
 import com.oc.greenbean.dto.SearchBookItemDto;
+import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
+import com.oc.greenbean.vo.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,13 +22,30 @@ import java.util.Map;
 public class BookService {
     private BookMapper bookMapper;
 
+    @Value("${greenbean.pagination.size}")
+    private Integer paginationSize;
+
     @Autowired
     public BookService(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
     }
 
-    public List<SearchBookItemDto> getSearchBooks(String keyword) {
-        List<Map<String, Integer>> searchBooksId = this.getSearchBooksId(keyword);
+    public SearchPageDto getSearchPage(String keyword, Integer start) {
+        SearchPageDto searchPageDto = new SearchPageDto();
+        List<SearchBookItemDto> bookItems = this.getSearchBooksInOnePage(keyword, start);
+        searchPageDto.setBookItems(bookItems);
+        Integer totalBookItemsCount = this.getSearchBooksCount(keyword);
+        Pagination pagination = new Pagination(paginationSize, start, totalBookItemsCount);
+        searchPageDto.setPagination(pagination);
+        return searchPageDto;
+    }
+
+    private Integer getSearchBooksCount(String keyword) {
+        return this.bookMapper.getSearchBooksCount(keyword);
+    }
+
+    private List<SearchBookItemDto> getSearchBooksInOnePage(String keyword, Integer start) {
+        List<Map<String, Integer>> searchBooksId = this.getSearchBooksIdInOnePage(keyword, start);
         List<SearchBookItemDto> searchBookItemDtos = new ArrayList<>();
         for(Map<String, Integer> idMap : searchBooksId) {
             Integer id = idMap.get("id");
@@ -43,8 +63,8 @@ public class BookService {
         return searchBookItemDtos;
     }
 
-    public List<Map<String, Integer>> getSearchBooksId(String keyword) {
-        return this.bookMapper.getSearchBooks(keyword);
+    private List<Map<String, Integer>> getSearchBooksIdInOnePage(String keyword, Integer start) {
+        return this.bookMapper.getSearchBooksWithPagination(keyword, start, paginationSize);
     }
 
     public Book getBookBasicInfo(Integer id) {

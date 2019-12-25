@@ -51,7 +51,8 @@
                                                     <div class="row infoRow">
                                                         <!-- TODO 信息过长使用省略号，不换行 -->
                                                         <span id="firstInfo" th:text="${bookItem.authorName}"></span> /
-                                                        <span th:if="${bookItem.translatorName}" th:text="${bookItem.translatorName}"></span> <span th:if="${bookItem.translatorName}">/</span>
+                                                        <span th:if="${bookItem.translatorName}" th:text="${bookItem.translatorName}"></span>
+                                                        <span th:if="${bookItem.translatorName}">/</span>
                                                         <span th:text="${bookItem.publisher}"></span> /
                                                         <span th:text="${bookItem.publicationDate}"></span> /
                                                         <span th:text="${bookItem.price}"></span>
@@ -71,10 +72,9 @@
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item" th:classappend="${i == pagination.number} ? 'active'" th:each="i : ${#numbers.sequence(1, pagination.totalPagesCount)}">
+                                                <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyword},start=${(i - 1) * pagination.singleSize})}" th:text="${i}">1</a>
+                                            </li>
                                             <li class="page-item">
                                                 <a class="page-link" href="#" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>

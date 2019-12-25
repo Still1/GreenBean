@@ -30,4 +30,14 @@
     select count(*) as ratingCount, avg(score) as rating from t_book_user where book_id = #{id} and score is not null
   </select>
 
+  <!-- XXX 有没有更好的写法 -->
+  <select id="getSearchBooksWithPagination" resultType="java.util.Map">
+    <bind name="keywordLike" value="'%' + keyword + '%'"/>
+    select distinct book_id as id from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword} limit #{start}, #{size}
+  </select>
+
+  <select id="getSearchBooksCount" resultType="java.lang.Integer">
+    <bind name="keywordLike" value="'%' + keyword + '%'"/>
+    select count(distinct book_id) as count from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
+  </select>
 </mapper>
