@@ -65,23 +65,28 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <nav aria-label="Page navigation">
+                                    <nav aria-label="Page navigation" th:if="${pagination.totalPagesCount} &gt; 0">
                                         <ul class="pagination justify-content-center">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" aria-label="Previous">
+                                            <li class="page-item" th:classappend="${pagination.number == 1} ? 'disabled'">
+                                                <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyword},start=${(pagination.number - 2) * pagination.singleSize})}" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
+                                            <!-- TODO 很多页数的情况处理 -->
                                             <li class="page-item" th:classappend="${i == pagination.number} ? 'active'" th:each="i : ${#numbers.sequence(1, pagination.totalPagesCount)}">
                                                 <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyword},start=${(i - 1) * pagination.singleSize})}" th:text="${i}">1</a>
                                             </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
+                                            <li class="page-item" th:classappend="${pagination.number == pagination.totalPagesCount} ? 'disabled'">
+                                                <a class="page-link" th:href="@{/search/(searchKeyWord=${param.searchKeyword},start=${(pagination.number) * pagination.singleSize})}" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>
                                         </ul>
                                     </nav>
+                                    <div th:if="${pagination.totalPagesCount} &lt; 1">
+                                        <p>Search nothing by keyword &quot;<span th:text="${param.searchKeyWord}"></span>&quot;.</p>
+                                        <p>Please try a different keyword.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

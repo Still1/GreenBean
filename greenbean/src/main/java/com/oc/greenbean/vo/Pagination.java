@@ -49,8 +49,9 @@ public class Pagination {
     public int getTotalPagesCount() {
         int count = 0;
         if(singleSize != 0) {
-            count = totalItemsCount / singleSize;
-            BigDecimal bigDecimalCount = new BigDecimal(count);
+            BigDecimal totalItemsCountBigDecimal = new BigDecimal(totalItemsCount);
+            BigDecimal singleSizeBigDecimal = new BigDecimal(singleSize);
+            BigDecimal bigDecimalCount = totalItemsCountBigDecimal.divide(singleSizeBigDecimal);
             bigDecimalCount = bigDecimalCount.setScale(0, RoundingMode.UP);
             count = bigDecimalCount.intValue();
         }
