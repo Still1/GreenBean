@@ -1,0 +1,12 @@
+#wrapper {
+    margin-top: 40px;
+}
+
+#title {
+    margin: 40px 0;
+}
+
+#information {
+    position: absolute;
+    top: 130px;
+}

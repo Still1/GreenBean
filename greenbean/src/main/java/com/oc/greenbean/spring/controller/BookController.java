@@ -27,4 +27,9 @@ public class BookController {
         model.addAttribute("pagination", searchPageDto.getPagination());
         return "search";
     }
+
+    @GetMapping("/addBook")
+    public String addBook() {
+        return "addBook";
+    }
 }
