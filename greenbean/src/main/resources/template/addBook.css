@@ -10,3 +10,28 @@
     position: absolute;
     top: 130px;
 }
+
+#buttonDiv {
+    text-align: center;
+}
+
+.row>label {
+    text-align: right;
+}
+
+.authorNumber {
+    line-height: 38px;
+}
+
+.addButton {
+    height: 38px;
+    position: relative;
+}
+
+#addAuthorButton {
+    top: 76px;
+}
+
+#addTranslatorButton {
+    top: 38px;
+}

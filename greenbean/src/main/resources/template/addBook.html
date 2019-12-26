@@ -23,22 +23,22 @@
                         <form>
                             <div class="form-group row">
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="isbn" class="col-sm-2 col-form-label">ISBN</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="isbn">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row d-none">
                                 <label for="authorFirst" class="col-sm-2 col-form-label">Author</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <div class="row">
                                         <div class="col-sm-1">
-                                            <span>1.</span>
+                                            <span class="authorNumber">1.</span>
                                         </div>
                                         <div class="col-sm-11">
                                             <input type="text" class="form-control" name="author" id="authorFirst">
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-1">
-                                            <span>2.</span>
+                                            <span class="authorNumber">2.</span>
                                         </div>
                                         <div class="col-sm-11">
                                             <input type="text" class="form-control">
@@ -54,20 +54,23 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-1">
-                                            <span>3.</span>
+                                            <span class="authorNumber">3.</span>
                                         </div>
                                         <div class="col-sm-11">
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-outline-primary addButton" id="addAuthorButton">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row d-none">
                                 <label for="translatorFirst" class="col-sm-2 col-form-label">Translator</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <div class="row">
                                         <div class="col-sm-1">
-                                            <span>1.</span>
+                                            <span class="authorNumber">1.</span>
                                         </div>
                                         <div class="col-sm-11">
                                             <input type="text" class="form-control" name="author" id="translatorFirst">
@@ -75,27 +78,30 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-1">
-                                            <span>2.</span>
+                                            <span class="authorNumber">2.</span>
                                         </div>
                                         <div class="col-sm-11">
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-outline-primary addButton" id="addTranslatorButton">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row d-none">
                                 <label for="price" class="col-sm-2 col-form-label">Price</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="price">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row d-none">
                                 <label for="publisher" class="col-sm-2 col-form-label">Publisher</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="publisher">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row d-none">
                                 <label for="publicationYear" class="col-sm-2 col-form-label">Date</label>
                                 <div class="col-sm-2">
                                     <select class="custom-select" id="publicationYear">
@@ -122,11 +128,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-2"></div>
-                                <div class="col-sm-10">
-                                    <button type="button" class="btn btn-outline-primary">Next</button>
-                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-sm-4" id="buttonDiv">
+                                    <button type="button" class="btn btn-outline-primary" id="nextButton">Next</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="cancelButton">Cancel</button>
                                 </div>
                             </div>
                         </form>
