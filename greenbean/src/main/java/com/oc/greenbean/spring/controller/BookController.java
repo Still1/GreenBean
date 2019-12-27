@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class BookController {
@@ -29,7 +30,12 @@ public class BookController {
     }
 
     @GetMapping("/addBook")
-    public String addBook() {
+    public String addBookPage() {
         return "addBook";
+    }
+
+    @PostMapping("/book")
+    public String addBook() {
+        return null;
     }
 }
