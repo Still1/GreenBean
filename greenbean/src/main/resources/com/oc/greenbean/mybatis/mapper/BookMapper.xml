@@ -40,4 +40,22 @@
     <bind name="keywordLike" value="'%' + keyword + '%'"/>
     select count(distinct book_id) as count from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
   </select>
+
+  <insert id="insertBookBasicInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
+    insert into t_book (name, isbn, publisher, price, publication_year, publication_month, publication_day) values(#{name}, #{isbn}, #{publisher}, #{price}, #{publicationYear}, #{publicationMonth}, #{publicationDay})
+  </insert>
+
+  <insert id="insertBookAuthor">
+    insert into t_book_author (book_id, author_id) values
+    <foreach item='item' collection='author' separator=','>
+      (#{bookId}, #{item})
+    </foreach>
+  </insert>
+  <insert id="insertBookTranslator">
+    insert into t_book_translator (book_id, translator_id) values
+    <foreach item='item' collection='translator' separator=','>
+      (#{bookId}, #{item})
+    </foreach>
+  </insert>
 </mapper>

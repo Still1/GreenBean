@@ -3,6 +3,7 @@ package com.oc.greenbean.spring.service;
 import com.oc.greenbean.domain.Author;
 import com.oc.greenbean.domain.Book;
 import com.oc.greenbean.domain.Translator;
+import com.oc.greenbean.dto.BookDto;
 import com.oc.greenbean.dto.SearchBookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
@@ -10,6 +11,7 @@ import com.oc.greenbean.vo.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,6 +40,27 @@ public class BookService {
         Pagination pagination = new Pagination(paginationSize, start, totalBookItemsCount);
         searchPageDto.setPagination(pagination);
         return searchPageDto;
+    }
+
+    @Transactional
+    public void saveBook(BookDto bookDto) {
+        Book book = this.generateBook(bookDto);
+        this.bookMapper.insertBookBasicInfo(book);
+        this.bookMapper.insertBookAuthor(book.getId(), bookDto.getAuthor());
+        this.bookMapper.insertBookTranslator(book.getId(), bookDto.getTranslator());
+    }
+
+    private Book generateBook(BookDto bookDto) {
+        Book book = new Book();
+        //XXX 反射处理
+        book.setName(bookDto.getName());
+        book.setIsbn(bookDto.getIsbn());
+        book.setPrice(bookDto.getPrice());
+        book.setPublisher(bookDto.getPublisher());
+        book.setPublicationYear(bookDto.getPublicationYear());
+        book.setPublicationMonth(bookDto.getPublicationMonth());
+        book.setPublicationDay(bookDto.getPublicationDay());
+        return book;
     }
 
     private Integer getSearchBooksCount(String keyword) {

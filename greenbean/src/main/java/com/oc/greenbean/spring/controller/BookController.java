@@ -1,5 +1,6 @@
 package com.oc.greenbean.spring.controller;
 
+import com.oc.greenbean.dto.BookDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,8 @@ public class BookController {
     }
 
     @PostMapping("/book")
-    public String addBook() {
-        return null;
+    public String addBook(BookDto bookDto) {
+        this.bookService.saveBook(bookDto);
+        return "addBookSuccess";
     }
 }
