@@ -19,4 +19,5 @@ public interface BookMapper {
     void insertBookBasicInfo(Book book);
     void insertBookAuthor(@Param("bookId") Integer bookId, @Param("author") List<Integer> author);
     void insertBookTranslator(@Param("bookId") Integer bookId, @Param("translator") List<Integer> translator);
+    List<String> getAuthorSuggestion(String keyword);
 }

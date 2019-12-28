@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -91,6 +92,9 @@ public class DispatcherServletConfig implements WebMvcConfigurer, ApplicationCon
         Charset utf8Charset = StandardCharsets.UTF_8;
         StringHttpMessageConverter converter = new StringHttpMessageConverter(utf8Charset);
         converters.add(converter);
+
+        MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
+        converters.add(jsonConverter);
     }
 
     @Bean

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class BookController {
@@ -36,8 +39,16 @@ public class BookController {
     }
 
     @PostMapping("/book")
+    //TODO 表单数据验证
     public String addBook(BookDto bookDto) {
         this.bookService.saveBook(bookDto);
         return "addBookSuccess";
+    }
+
+
+    @GetMapping("/getAuthorSuggestion")
+    @ResponseBody
+    public List<String> getAuthorSuggestion(String keyword) {
+        return this.bookService.getAuthorSuggestion(keyword);
     }
 }

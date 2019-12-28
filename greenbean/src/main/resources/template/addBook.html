@@ -6,6 +6,7 @@
     <link th:replace="fragments :: bootstrapCSS">
     <link th:replace="fragments :: fontAwesomeCSS">
     <link th:replace="fragments :: headerCSS">
+    <link rel="stylesheet" th:href="@{/static/common/jquery-ui-1.12.1/css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{/static/template/addBook.css}">
 </head>
 <body>
@@ -41,7 +42,7 @@
                                             <span th:text="${i}"></span><span>.</span>
                                         </div>
                                         <div class="col-sm-11">
-                                            <input type="text" class="form-control" name="author">
+                                            <input type="text" class="form-control" name="author" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +127,7 @@
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>
     <script th:replace="fragments :: headerJS"></script>
+    <script th:src="@{/static/common/jquery-ui-1.12.1/js/jquery-ui.min.js}"></script>
     <script th:src="@{/static/template/addBook.js}"></script>
 </body>
 </html>

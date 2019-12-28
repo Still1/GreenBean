@@ -50,6 +50,10 @@ public class BookService {
         this.bookMapper.insertBookTranslator(book.getId(), bookDto.getTranslator());
     }
 
+    public List<String> getAuthorSuggestion(String keyword) {
+        return this.bookMapper.getAuthorSuggestion(keyword);
+    }
+
     private Book generateBook(BookDto bookDto) {
         Book book = new Book();
         //XXX 反射处理
@@ -58,8 +62,12 @@ public class BookService {
         book.setPrice(bookDto.getPrice());
         book.setPublisher(bookDto.getPublisher());
         book.setPublicationYear(bookDto.getPublicationYear());
-        book.setPublicationMonth(bookDto.getPublicationMonth());
-        book.setPublicationDay(bookDto.getPublicationDay());
+        if(bookDto.getPublicationMonth() != 0) {
+            book.setPublicationMonth(bookDto.getPublicationMonth());
+        }
+        if(bookDto.getPublicationDay() != 0) {
+            book.setPublicationDay(bookDto.getPublicationDay());
+        }
         return book;
     }
 

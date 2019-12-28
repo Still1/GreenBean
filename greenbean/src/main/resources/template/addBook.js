@@ -3,7 +3,38 @@
         bindNextButtonClickEvent();
         bindCancelButtonClickEvent();
         bindAddButtonClickEvent();
+        initAutocomplete();
     });
+
+    function initAutocomplete() {
+        $('input[name="author"]').autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url : "getAuthorSuggestion",
+                    method : "GET",
+                    data : {
+                        keyword : request.term
+                    },
+                    dataType : "json"
+                }).done(function(data) {
+                    response(data);
+                }).fail(function() {
+                });
+            },
+            minLength: 1,
+            select: function(event, ui) {
+                // log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+            }
+        });
+    }
+
+    function bindAuthorInputChangeEvent() {
+        const authorInput = $('input[name="author"]');
+        authorInput.on('keydown', function(event) {
+            //TODO 关键词为空，不发请求
+            //TODO 点击选择后，不发请求
+        });
+    }
 
     function bindNextButtonClickEvent() {
         const nextButton = $('#nextButton');

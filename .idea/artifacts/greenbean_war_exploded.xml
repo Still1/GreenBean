@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="greenbean:war exploded">
-    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.1</output-path>
+    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.2.3-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -51,6 +51,9 @@
           <element id="library" level="project" name="Maven: edu.washington.cs.types.checker:checker-framework:1.7.0" />
           <element id="library" level="project" name="Maven: org.mybatis.caches:mybatis-ehcache:1.1.0" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.6.11" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.1" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-terracotta:2.6.11" />
           <element id="library" level="project" name="Maven: org.terracotta:terracotta-toolkit-1.6-runtime:5.10.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:5.2.1.RELEASE" />
@@ -58,7 +61,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.1/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.2.3-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="greenbean/web/Web" />
     </root>

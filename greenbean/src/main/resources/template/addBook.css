@@ -35,3 +35,8 @@
 #addTranslatorButton {
     top: 38px;
 }
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}

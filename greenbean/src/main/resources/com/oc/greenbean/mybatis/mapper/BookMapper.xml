@@ -58,4 +58,9 @@
       (#{bookId}, #{item})
     </foreach>
   </insert>
+
+  <select id="getAuthorSuggestion" resultType="java.lang.String">
+    <bind name="keywordLike" value="'%' + keyword + '%'"/>
+    select name from t_author where name like #{keywordLike};
+  </select>
 </mapper>
