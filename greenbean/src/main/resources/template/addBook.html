@@ -42,6 +42,7 @@
                                             <span th:text="${i}"></span><span>.</span>
                                         </div>
                                         <div class="col-sm-11">
+                                            <!-- XXX 上下间距稍微加大一点 -->
                                             <input type="text" class="form-control" name="author" autocomplete="off">
                                         </div>
                                     </div>
@@ -58,7 +59,7 @@
                                             <span th:text="${i}"></span><span>.</span>
                                         </div>
                                         <div class="col-sm-11">
-                                            <input type="text" class="form-control" name="translator">
+                                            <input type="text" class="form-control" name="translator" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -82,26 +83,19 @@
                                 <label for="publicationYear" class="col-sm-2 col-form-label">Date</label>
                                 <div class="col-sm-2">
                                     <select class="custom-select" id="publicationYear" name="publicationYear">
-                                        <option selected value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
+                                        <!-- XXX 长度限制 -->
+                                        <option th:selected="${i == #dates.year(#dates.createToday())} ? 'true' : 'false'" th:each="i : ${#numbers.sequence(#dates.year(#dates.createToday()) + 3, 1970, -1)}" th:value="${i}" th:text="${i}"></option>
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
                                     <select class="custom-select" id="publicationMonth" name="publicationMonth">
                                         <option selected value="0">N/A</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option th:each="i : ${#numbers.sequence(1, 12)}" th:value="${i}" th:text="${i}"></option>
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
                                     <select class="custom-select" id="publicationDay" name="publicationDay">
                                         <option selected value="0">N/A</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>

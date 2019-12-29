@@ -54,6 +54,10 @@ public class BookService {
         return this.bookMapper.getAuthorSuggestion(keyword);
     }
 
+    public List<String> getTranslatorSuggestion(String keyword) {
+        return this.bookMapper.getTranslatorSuggestion(keyword);
+    }
+
     private Book generateBook(BookDto bookDto) {
         Book book = new Book();
         //XXX 反射处理

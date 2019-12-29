@@ -63,4 +63,9 @@
     <bind name="keywordLike" value="'%' + keyword + '%'"/>
     select name from t_author where name like #{keywordLike};
   </select>
+
+  <select id="getTranslatorSuggestion" resultType="java.lang.String">
+    <bind name="keywordLike" value="'%' + keyword + '%'"/>
+    select name from t_translator where name like #{keywordLike};
+  </select>
 </mapper>
