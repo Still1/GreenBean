@@ -40,3 +40,11 @@ input::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
 }
+
+#bindingRow {
+    line-height: 38px;
+}
+
+textarea {
+    resize: none;
+}

@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -41,8 +43,20 @@ public class BookController {
     @PostMapping("/book")
     //TODO 表单数据验证
     public String addBook(BookDto bookDto) {
+        removeBlankName(bookDto.getAuthor());
+        removeBlankName(bookDto.getTranslator());
         this.bookService.saveBook(bookDto);
         return "addBookSuccess";
+    }
+
+    private void removeBlankName(List<String> nameList) {
+        Iterator<String> iterator = nameList.iterator();
+        //XXX Collection.removeIf
+        while(iterator.hasNext()) {
+            if(StringUtils.isEmptyOrWhitespace(iterator.next())) {
+                iterator.remove();
+            }
+        }
     }
 
 
@@ -57,4 +71,6 @@ public class BookController {
     public List<String> getTranslatorSuggestion(String keyword) {
         return this.bookService.getTranslatorSuggestion(keyword);
     }
+
+    //TODO 出错视图
 }

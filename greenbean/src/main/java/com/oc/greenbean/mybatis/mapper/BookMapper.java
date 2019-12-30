@@ -21,4 +21,8 @@ public interface BookMapper {
     void insertBookTranslator(@Param("bookId") Integer bookId, @Param("translator") List<Integer> translator);
     List<String> getAuthorSuggestion(String keyword);
     List<String> getTranslatorSuggestion(String keyword);
+    List<Integer> getAuthorIdByName(@Param("authorName") String authorName);
+    List<Integer> getTranslatorIdByName(@Param("translatorName") String translatorName);
+    void insertAuthor(Author author);
+    void insertTranslator(Translator translator);
 }

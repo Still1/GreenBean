@@ -43,7 +43,7 @@
 
   <insert id="insertBookBasicInfo">
     <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
-    insert into t_book (name, isbn, publisher, price, publication_year, publication_month, publication_day) values(#{name}, #{isbn}, #{publisher}, #{price}, #{publicationYear}, #{publicationMonth}, #{publicationDay})
+    insert into t_book (name, isbn, publisher, price, publication_year, publication_month, publication_day, subtitle, original_name, binding, page, content_intro, author_intro, directory) values(#{name}, #{isbn}, #{publisher}, #{price}, #{publicationYear}, #{publicationMonth}, #{publicationDay}, #{subtitle}, #{originalName}, #{binding}, #{page}, #{contentIntro}, #{authorIntro}, #{directory})
   </insert>
 
   <insert id="insertBookAuthor">
@@ -61,11 +61,29 @@
 
   <select id="getAuthorSuggestion" resultType="java.lang.String">
     <bind name="keywordLike" value="'%' + keyword + '%'"/>
-    select name from t_author where name like #{keywordLike};
+    select name from t_author where name like #{keywordLike}
   </select>
 
   <select id="getTranslatorSuggestion" resultType="java.lang.String">
     <bind name="keywordLike" value="'%' + keyword + '%'"/>
-    select name from t_translator where name like #{keywordLike};
+    select name from t_translator where name like #{keywordLike}
   </select>
+
+  <select id="getAuthorIdByName" resultType="java.lang.Integer">
+    select id from t_author where name = #{authorName}
+  </select>
+
+  <select id="getTranslatorIdByName" resultType="java.lang.Integer">
+    select id from t_translator where name = #{translatorName}
+  </select>
+
+  <insert id="insertAuthor">
+    <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
+    insert into t_author (name) values (#{name})
+  </insert>
+
+  <insert id="insertTranslator">
+    <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
+    insert into t_translator (name) values (#{name})
+  </insert>
 </mapper>

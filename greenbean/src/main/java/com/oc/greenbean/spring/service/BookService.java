@@ -46,8 +46,40 @@ public class BookService {
     public void saveBook(BookDto bookDto) {
         Book book = this.generateBook(bookDto);
         this.bookMapper.insertBookBasicInfo(book);
-        this.bookMapper.insertBookAuthor(book.getId(), bookDto.getAuthor());
-        this.bookMapper.insertBookTranslator(book.getId(), bookDto.getTranslator());
+        //XXX 考虑重名作者与译者
+        //XXX 处理作者与处理译者的代码重复
+        List<Integer> authorIds = new ArrayList<>();
+        for(String authorName : bookDto.getAuthor()) {
+            List<Integer> resultList = this.bookMapper.getAuthorIdByName(authorName);
+            if(resultList.size() >= 1) {
+                authorIds.add(resultList.get(0));
+            } else {
+                Author author = new Author();
+                author.setName(authorName);
+                this.bookMapper.insertAuthor(author);
+                authorIds.add(author.getId());
+            }
+        }
+        if(authorIds.size() > 0) {
+            this.bookMapper.insertBookAuthor(book.getId(), authorIds);
+        }
+
+        List<Integer> translatorIds = new ArrayList<>();
+        for(String translatorName : bookDto.getTranslator()) {
+            List<Integer> resultList = this.bookMapper.getTranslatorIdByName(translatorName);
+            if(resultList.size() >= 1) {
+                translatorIds.add(resultList.get(0));
+            } else {
+                Translator translator = new Translator();
+                translator.setName(translatorName);
+                this.bookMapper.insertTranslator(translator);
+                translatorIds.add(translator.getId());
+            }
+        }
+        if(translatorIds.size() > 0) {
+            this.bookMapper.insertBookTranslator(book.getId(), translatorIds);
+
+        }
     }
 
     public List<String> getAuthorSuggestion(String keyword) {
@@ -66,6 +98,13 @@ public class BookService {
         book.setPrice(bookDto.getPrice());
         book.setPublisher(bookDto.getPublisher());
         book.setPublicationYear(bookDto.getPublicationYear());
+        book.setSubtitle(bookDto.getSubtitle());
+        book.setOriginalName(bookDto.getOriginalName());
+        book.setBinding(bookDto.getBinding());
+        book.setPage(bookDto.getPage());
+        book.setContentIntro(bookDto.getContentIntro());
+        book.setAuthorIntro(bookDto.getAuthorIntro());
+        book.setDirectory(bookDto.getDirectory());
         if(bookDto.getPublicationMonth() != 0) {
             book.setPublicationMonth(bookDto.getPublicationMonth());
         }

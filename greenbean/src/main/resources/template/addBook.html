@@ -22,10 +22,23 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <form method="post" th:action="@{/book}">
+                            <!-- XXX 优化表单样式 -->
                             <div class="form-group row">
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="name" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="subtitle" class="col-sm-2 col-form-label">Subtitle</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="subtitle" name="subtitle">
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="originalName" class="col-sm-2 col-form-label">Original</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="originalName" name="originalName">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -97,6 +110,43 @@
                                     <select class="custom-select" id="publicationDay" name="publicationDay">
                                         <option selected value="0">N/A</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group row d-none" id="bindingRow">
+                                <label class="col-sm-2 col-form-label">Binding</label>
+                                <div class="col-sm-8">
+                                    <div class="form-check form-check-inline">
+                                        <input id="binding_1" class="form-check-input" type="radio" name="binding" value="1">
+                                        <label class="form-check-label" for="binding_1">平装</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input id="binding_2" class="form-check-input" type="radio" name="binding" value="2">
+                                        <label class="form-check-label" for="binding_2">精装</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="page" class="col-sm-2 col-form-label">Page</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="page" name="page">
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="contentIntro" class="col-sm-2 col-form-label">Content</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" id="contentIntro" rows="10" name="contentIntro"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="authorIntro" class="col-sm-2 col-form-label">Author</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" id="authorIntro" rows="10" name="authorIntro"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row d-none">
+                                <label for="directory" class="col-sm-2 col-form-label">Directory</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" id="directory" rows="10" name="directory"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row justify-content-center">
