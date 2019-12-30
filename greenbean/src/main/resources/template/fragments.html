@@ -9,7 +9,6 @@
     <link th:fragment="starCSS" rel="stylesheet" href="star.css" th:href="@{/static/template/star.css}">
 </head>
 <body>
-    <!-- TODO header固定在视口的上端 -->
     <header th:fragment="header">
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
@@ -41,6 +40,7 @@
         <form id="signOutForm" style="display: none" method="post" th:action="@{/signOut}"></form>
     </header>
 
+    <!-- XXX 把页面布局做成fragment -->
 
 
     <script th:fragment="jQueryJS" src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
