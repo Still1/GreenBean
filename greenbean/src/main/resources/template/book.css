@@ -1,9 +1,12 @@
 #wrapper {
     margin-top: 96px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 #bookImg {
     width: 100%;
+    max-height: 200px;
+    object-fit: contain;
 }
 
 #bookInfo>p {
@@ -20,4 +23,68 @@
     background-image: url("../pic/bigStar.png");
     height: 15px;
     width: 75px ;
+}
+
+.ratingPower {
+    background-color: #ffd596;
+    height: 10px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+#ratingPowerColumn span {
+    line-height: 14px;
+}
+
+#ratingInfo{
+    border-left: 1px solid #eaeaea;
+    font-size: 13px;
+}
+
+#ratingTitle {
+    color: #9b9b9b;
+}
+
+#ratingScore {
+    font-size: 28px;
+    line-height: 2;
+}
+
+#ratingRight {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#ratingCount {
+    line-height: 2;
+}
+
+.starTitle {
+    padding-right: 5px;
+}
+
+.starPercentage {
+    padding-left: 5px;
+}
+
+#bookImg+p{
+    text-align: center;
+    color: #BBBBBB;
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+#ratingOperation button {
+    width: 71px;
+}
+
+#ratingClickStar {
+    font-size: 0;
+    position: relative;
+    top: -5px;
+}
+
+#ratingButton>button:last-of-type {
+    margin-left: 10px;
+    margin-right: 10px;
 }

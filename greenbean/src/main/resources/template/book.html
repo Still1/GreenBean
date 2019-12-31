@@ -14,7 +14,7 @@
     <div class="container" id="wrapper">
         <div class="row">
             <div class="col-sm-8">
-                <div class="row">
+                <div class="row my-sm-3">
                     <div class="col-sm-12">
                         <h3 id="bookName">呼吸</h3>
                     </div>
@@ -22,38 +22,112 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <img id="bookImg" th:src="@{/static/pic/bookDefault.gif}">
+                        <p>Update information</p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
-                        <p>作者: [美] 特德·姜</p>
-                        <p>出版社: 译林出版社</p>
-                        <p>原作名: Exhalation: Stories</p>
-                        <p>译者: 耿辉 / Ent / 李克勤 / 姚向辉</p>
-                        <p>出版年: 2019-12</p>
-                        <p>页数: 330</p>
-                        <p>定价: 42</p>
-                        <p>装帧: 平装</p>
-                        <p>丛书: 特德·姜科幻作品</p>
+                        <p>Author: [美] 特德·姜</p>
+                        <p>Publisher: 译林出版社</p>
+                        <p>Original: Exhalation: Stories</p>
+                        <p>Translator: 耿辉 / Ent / 李克勤 / 姚向辉</p>
+                        <p>Publication: 2019-12</p>
+                        <p>Page: 330</p>
+                        <p>Price: 42</p>
+                        <p>Binding: 平装</p>
                         <p>ISBN: 9787544779319</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" id="ratingInfo">
                         <div class="row">
                             <div class="col-sm-12">
-                                <span>豆瓣评分</span>
+                                <span id="ratingTitle">Greenbean Rating</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <span>9.2</span>
+                                <span id="ratingScore">9.2</span>
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8" id="ratingRight">
                                 <div id="ratingStar" class="bigStar20"></div>
-                                <div>1364人评价</div>
+                                <div id="ratingCount">1364 Ratings</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" id="ratingPowerColumn">
+                                <div class="row">
+                                    <div class="col-sm-4 starTitle">
+                                        <span>5 stars</span>
+                                    </div>
+                                    <div class="col-sm-5 px-sm-0">
+                                        <div class="ratingPower"></div>
+                                    </div>
+                                    <div class="col-sm-3 starPercentage">
+                                        <span>54.8%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 starTitle">
+                                        <span>5 stars</span>
+                                    </div>
+                                    <div class="col-sm-5 px-sm-0">
+                                        <div class="ratingPower"></div>
+                                    </div>
+                                    <div class="col-sm-3 starPercentage">
+                                        <span>54.8%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 starTitle">
+                                        <span>5 stars</span>
+                                    </div>
+                                    <div class="col-sm-5 px-sm-0">
+                                        <div class="ratingPower"></div>
+                                    </div>
+                                    <div class="col-sm-3 starPercentage">
+                                        <span>54.8%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 starTitle">
+                                        <span>5 stars</span>
+                                    </div>
+                                    <div class="col-sm-5 px-sm-0">
+                                        <div class="ratingPower"></div>
+                                    </div>
+                                    <div class="col-sm-3 starPercentage">
+                                        <span>54.8%</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 starTitle">
+                                        <span>5 stars</span>
+                                    </div>
+                                    <div class="col-sm-5 px-sm-0">
+                                        <div class="ratingPower"></div>
+                                    </div>
+                                    <div class="col-sm-3 starPercentage">
+                                        <span>54.8%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
+
+            </div>
+        </div>
+        <div class="row my-sm-5" id="ratingOperation">
+            <div class="col-sm-12" id="ratingButton">
+                <button type="button" class="btn btn-primary btn-sm">Reading</button>
+                <button type="button" class="btn btn-primary btn-sm">Read</button>
+                <span>Rating:</span>
+                <span id="ratingClickStar">
+                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
+                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
+                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
+                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
+                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
+                </span>
 
             </div>
         </div>
