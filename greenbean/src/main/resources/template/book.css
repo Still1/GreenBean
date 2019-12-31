@@ -1,0 +1,23 @@
+#wrapper {
+    margin-top: 96px;
+}
+
+#bookImg {
+    width: 100%;
+}
+
+#bookInfo>p {
+    margin-bottom: 0.2rem;
+    font-size: 13px;
+}
+
+#bookName {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+#ratingStar {
+    background-image: url("../pic/bigStar.png");
+    height: 15px;
+    width: 75px ;
+}
