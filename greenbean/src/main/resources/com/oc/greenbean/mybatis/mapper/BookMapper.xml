@@ -15,7 +15,7 @@
   </select>
 
   <select id="getBookBasicInfo" resultType="com.oc.greenbean.domain.Book">
-    select name, picture, publisher, publication_year as publicationYear, publication_month as publicationMonth, publication_day as publicationDay, price from t_book where id = #{id}
+    select id, name, isbn, picture, publisher, publication_year as publicationYear, price, publication_month as publicationMonth, publication_day as publicationDay, subtitle, original_name as originalName, binding, page, content_intro as contentIntro, author_intro as AuthorIntro, directory from t_book where id = #{id}
   </select>
 
   <select id="getBookAuthors" resultType="com.oc.greenbean.domain.Author">
@@ -28,6 +28,10 @@
 
   <select id="getBookRatingInfo" resultType="java.util.Map">
     select count(*) as ratingCount, avg(score) as rating from t_book_user where book_id = #{id} and score is not null
+  </select>
+  <!-- XXX 是否可以把上下两个语句合成一个 -->
+  <select id="getBookRatingCountGroupByScore" resultType="java.util.Map">
+    select score, count(*) as ratingCount from t_book_user where book_id = #{id} and score is not null group by score
   </select>
 
   <!-- XXX 有没有更好的写法 -->

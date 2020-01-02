@@ -23,23 +23,23 @@
                     <div class="col-sm-12">
                         <div class="row bookRow" th:each="bookItem : ${bookItems}">
                             <div class="col-sm-2">
-                                <!-- TODO 详情页链接 -->
-                                <a href="#">
+                                <a th:href="@{/book/{id}(id=${bookItem.id})}">
+                                    <!-- XXX IDEA语法错误的错误提示 -->
                                     <img th:if="${bookItem.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookItem.picture})}" class="bookPicture">
                                     <img th:if="${bookItem.picture == null}" th:src="@{/static/pic/bookDefault.gif}" class="bookPicture">
                                 </a>
                             </div>
                             <div class="col-sm-10">
                                 <div class="row nameRow">
-                                    <a href="#"><span th:text="${bookItem.bookName}"></span></a>
+                                    <a th:href="@{/book/{id}(id=${bookItem.id})}"><span th:text="${bookItem.bookName}"></span></a>
                                 </div>
                                 <div class="row ratingRow">
-                                    <span class="star" th:classappend="${bookItem.starClassName}"></span>
+                                    <span class="star" th:classappend="'star' + ${bookItem.starClassName}"></span>
                                     <span class="rating" th:if="${bookItem.rating != null}" th:text="${bookItem.rating}"></span>
-                                    <span th:if="${bookItem.ratingCount > 0}">
+                                    <span th:if="${#conversions.convert(bookItem.ratingCount, 'java.lang.Integer') > 0}">
                                         (<span th:text="${bookItem.ratingCount}"></span>&nbsp ratings)
                                     </span>
-                                    <span th:if="${bookItem.ratingCount == 0}">
+                                    <span th:if="${#conversions.convert(bookItem.ratingCount, 'java.lang.Integer') == 0}">
                                         (No ratings temporarily)
                                     </span>
                                 </div>

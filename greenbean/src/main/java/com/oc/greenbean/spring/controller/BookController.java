@@ -1,6 +1,7 @@
 package com.oc.greenbean.spring.controller;
 
 import com.oc.greenbean.dto.BookDto;
+import com.oc.greenbean.dto.BookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,9 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}")
-    public String showBook(@PathVariable Integer id) {
+    public String showBook(@PathVariable Integer id, Model model) {
+        BookItemDto bookItemDto = this.bookService.getBookPage(id);
+        model.addAttribute("bookPage", bookItemDto);
         return "book";
     }
 

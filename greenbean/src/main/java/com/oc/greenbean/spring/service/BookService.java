@@ -4,7 +4,7 @@ import com.oc.greenbean.domain.Author;
 import com.oc.greenbean.domain.Book;
 import com.oc.greenbean.domain.Translator;
 import com.oc.greenbean.dto.BookDto;
-import com.oc.greenbean.dto.SearchBookItemDto;
+import com.oc.greenbean.dto.BookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
 import com.oc.greenbean.vo.Pagination;
@@ -34,7 +34,7 @@ public class BookService {
 
     public SearchPageDto getSearchPage(String keyword, Integer start) {
         SearchPageDto searchPageDto = new SearchPageDto();
-        List<SearchBookItemDto> bookItems = this.getSearchBooksInOnePage(keyword, start);
+        List<BookItemDto> bookItems = this.getSearchBooksInOnePage(keyword, start);
         searchPageDto.setBookItems(bookItems);
         Integer totalBookItemsCount = this.getSearchBooksCount(keyword);
         Pagination pagination = new Pagination(paginationSize, start, totalBookItemsCount);
@@ -118,46 +118,57 @@ public class BookService {
         return this.bookMapper.getSearchBooksCount(keyword);
     }
 
-    private List<SearchBookItemDto> getSearchBooksInOnePage(String keyword, Integer start) {
+    private List<BookItemDto> getSearchBooksInOnePage(String keyword, Integer start) {
         List<Map<String, Integer>> searchBooksId = this.getSearchBooksIdInOnePage(keyword, start);
-        List<SearchBookItemDto> searchBookItemDtos = new ArrayList<>();
+        List<BookItemDto> bookItemDtos = new ArrayList<>();
         for(Map<String, Integer> idMap : searchBooksId) {
             Integer id = idMap.get("id");
-            SearchBookItemDto dto = new SearchBookItemDto();
-            Book book = this.getBookBasicInfo(id);
-            this.setBookBasicInfoToDto(dto, book);
-            List<Author> authors = this.getBookAuthors(id);
-            this.setAuthorsToDto(dto, authors);
-            List<Translator> translators = this.getBookTranslators(id);
-            this.setTranslatorsToDto(dto,translators);
-            Map<String, Object> ratingInfo = this.getBookRatingInfo(id);
-            this.setRatingInfoToDto(dto, ratingInfo);
-            searchBookItemDtos.add(dto);
+            bookItemDtos.add(this.getBookItemDtoById(id));
         }
-        return searchBookItemDtos;
+        return bookItemDtos;
+    }
+
+    private BookItemDto getBookItemDtoById(Integer id) {
+        BookItemDto dto = new BookItemDto();
+        Book book = this.getBookBasicInfo(id);
+        this.setBookBasicInfoToDto(dto, book);
+        List<Author> authors = this.getBookAuthors(id);
+        this.setAuthorsToDto(dto, authors);
+        List<Translator> translators = this.getBookTranslators(id);
+        this.setTranslatorsToDto(dto,translators);
+        Map<String, Object> ratingInfo = this.getBookRatingInfo(id);
+        List<Map<String, Object>> ratingCountGroupByScore = this.getBookRatingCountGroupByScore(id);
+        this.setRatingInfoToDto(dto, ratingInfo);
+        this.setRatingPercentageList(dto, ratingCountGroupByScore);
+        return dto;
     }
 
     private List<Map<String, Integer>> getSearchBooksIdInOnePage(String keyword, Integer start) {
         return this.bookMapper.getSearchBooksWithPagination(keyword, start, paginationSize);
     }
 
-    public Book getBookBasicInfo(Integer id) {
+    private Book getBookBasicInfo(Integer id) {
         return this.bookMapper.getBookBasicInfo(id);
     }
 
-    public List<Author> getBookAuthors(Integer id) {
+    private List<Author> getBookAuthors(Integer id) {
         return this.bookMapper.getBookAuthors(id);
     }
 
-    public List<Translator> getBookTranslators(Integer id) {
+    private List<Translator> getBookTranslators(Integer id) {
         return this.bookMapper.getBookTranslators(id);
     }
 
-    public Map<String, Object> getBookRatingInfo(Integer id) {
+    private Map<String, Object> getBookRatingInfo(Integer id) {
         return this.bookMapper.getBookRatingInfo(id);
     }
 
-    private void setBookBasicInfoToDto(SearchBookItemDto dto, Book book) {
+    private List<Map<String, Object>> getBookRatingCountGroupByScore(Integer id) {
+        return this.bookMapper.getBookRatingCountGroupByScore(id);
+    }
+
+    private void setBookBasicInfoToDto(BookItemDto dto, Book book) {
+        dto.setId(String.valueOf(book.getId()));
         dto.setBookName(book.getName());
         //XXX 判断是否为空
         dto.setPrice(String.valueOf(book.getPrice()));
@@ -177,10 +188,27 @@ public class BookService {
             stringBuilder.append(publicationDay);
         }
         dto.setPublicationDate(stringBuilder.toString());
+        dto.setOriginalName(book.getOriginalName());
+        dto.setPage(String.valueOf(book.getPage()));
+        dto.setPrice(String.valueOf(book.getPrice()));
+        //XXX 硬编码
+        String bindingString = null;
+        Integer binding = book.getBinding();
+        if(binding != null) {
+            if(binding == 1) {
+                bindingString = "平装";
+            } else if(binding == 2) {
+                bindingString = "精装";
+            }
+        }
+        dto.setBinding(bindingString);
+        dto.setContentIntro(book.getContentIntro());
+        dto.setAuthorIntro(book.getAuthorIntro());
+        dto.setDirectory(book.getDirectory());
     }
 
     //XXX 抽取重复
-    private void setAuthorsToDto(SearchBookItemDto dto, List<Author> authors) {
+    private void setAuthorsToDto(BookItemDto dto, List<Author> authors) {
         StringBuilder stringBuilder = new StringBuilder();
         for(Author author : authors) {
             stringBuilder.append(author.getName());
@@ -190,7 +218,7 @@ public class BookService {
         dto.setAuthorName(stringBuilder.toString());
     }
 
-    private void setTranslatorsToDto(SearchBookItemDto dto, List<Translator> translators) {
+    private void setTranslatorsToDto(BookItemDto dto, List<Translator> translators) {
         if(translators.size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
             for(Translator translator : translators) {
@@ -204,9 +232,9 @@ public class BookService {
         }
     }
 
-    private void setRatingInfoToDto(SearchBookItemDto dto, Map<String, Object> ratingInfo) {
+    private void setRatingInfoToDto(BookItemDto dto, Map<String, Object> ratingInfo) {
         Long ratingCount = (Long)ratingInfo.get("ratingCount");
-        dto.setRatingCount(ratingCount.intValue());
+        dto.setRatingCount(String.valueOf(ratingCount.intValue()));
         if(ratingCount > 0) {
             BigDecimal rating = (BigDecimal)ratingInfo.get("rating");
             BigDecimal ratingWithOneDecimal = rating.setScale(1, RoundingMode.HALF_UP);
@@ -216,11 +244,38 @@ public class BookService {
             BigDecimal ratingWithNoDecimal = rating.setScale(0, RoundingMode.HALF_UP);
             BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
             decimalFormat = new DecimalFormat("00");
-            String starClassName = "star" + decimalFormat.format(starSuffixNumber.longValue());
+            String starClassName = decimalFormat.format(starSuffixNumber.longValue());
             dto.setStarClassName(starClassName);
         } else {
             //XXX 修改硬编码
-            dto.setStarClassName("star00");
+            dto.setStarClassName("00");
         }
+    }
+
+    private void setRatingPercentageList(BookItemDto dto, List<Map<String, Object>> ratingCountGroupByScore) {
+        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
+        if(totalRatingCount != 0) {
+            List<String> ratingPercentageList = new ArrayList<>(5);
+            for(int i = 0; i < 5; i++) {
+                String zeroPercentage = "0.0%";
+                ratingPercentageList.add(zeroPercentage);
+            }
+            for(Map<String, Object> ratingCountGroupByScoreMap : ratingCountGroupByScore) {
+                BigDecimal singleRatingCount = new BigDecimal((Long)ratingCountGroupByScoreMap.get("ratingCount"));
+                BigDecimal totalRatingCountBigDecimal = new BigDecimal(totalRatingCount);
+                DecimalFormat decimalFormat = new DecimalFormat("#.0%");
+                String ratingPercentageGroupByScore = decimalFormat.format(singleRatingCount.divide(totalRatingCountBigDecimal).setScale(3, RoundingMode.HALF_UP).doubleValue());
+                Integer score = (Integer)ratingCountGroupByScoreMap.get("score");
+                // index的算法
+                // (score / 2 - 1) 分数分别有2，4，6，8，10五种情况，List总长度是5，把五种情况的值放在List的index为0到4的五个元素中
+                // 4 - (score / 2 - 1) 把顺序反过来
+                ratingPercentageList.set(4 - (score / 2 - 1), ratingPercentageGroupByScore);
+            }
+            dto.setRatingPercentageList(ratingPercentageList);
+        }
+    }
+
+    public BookItemDto getBookPage(Integer id) {
+        return this.getBookItemDtoById(id);
     }
 }
