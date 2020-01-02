@@ -61,7 +61,7 @@
                                         <span th:text="${5 - iterator.index}"></span><span th:text="${iterator.last} ? ' star' : ' stars'"></span>
                                     </div>
                                     <div class="col-sm-5 px-sm-0">
-                                        <div class="ratingPower"></div>
+                                        <div class="ratingPower" th:styleappend="'width: ' + ${bookPage.ratingPowerWidthPercentageList[iterator.index]}"></div>
                                     </div>
                                     <div class="col-sm-3 starPercentage">
                                         <span th:text="${percentage}"></span>

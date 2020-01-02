@@ -42,6 +42,10 @@ public class BookService {
         return searchPageDto;
     }
 
+    public BookItemDto getBookPage(Integer id) {
+        return this.getBookItemDtoById(id);
+    }
+
     @Transactional
     public void saveBook(BookDto bookDto) {
         Book book = this.generateBook(bookDto);
@@ -140,6 +144,7 @@ public class BookService {
         List<Map<String, Object>> ratingCountGroupByScore = this.getBookRatingCountGroupByScore(id);
         this.setRatingInfoToDto(dto, ratingInfo);
         this.setRatingPercentageList(dto, ratingCountGroupByScore);
+        this.setRatingPowerWidthPercentageList(dto, ratingCountGroupByScore);
         return dto;
     }
 
@@ -255,27 +260,41 @@ public class BookService {
     private void setRatingPercentageList(BookItemDto dto, List<Map<String, Object>> ratingCountGroupByScore) {
         Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
         if(totalRatingCount != 0) {
-            List<String> ratingPercentageList = new ArrayList<>(5);
-            for(int i = 0; i < 5; i++) {
-                String zeroPercentage = "0.0%";
-                ratingPercentageList.add(zeroPercentage);
-            }
-            for(Map<String, Object> ratingCountGroupByScoreMap : ratingCountGroupByScore) {
-                BigDecimal singleRatingCount = new BigDecimal((Long)ratingCountGroupByScoreMap.get("ratingCount"));
-                BigDecimal totalRatingCountBigDecimal = new BigDecimal(totalRatingCount);
-                DecimalFormat decimalFormat = new DecimalFormat("#.0%");
-                String ratingPercentageGroupByScore = decimalFormat.format(singleRatingCount.divide(totalRatingCountBigDecimal).setScale(3, RoundingMode.HALF_UP).doubleValue());
-                Integer score = (Integer)ratingCountGroupByScoreMap.get("score");
-                // index的算法
-                // (score / 2 - 1) 分数分别有2，4，6，8，10五种情况，List总长度是5，把五种情况的值放在List的index为0到4的五个元素中
-                // 4 - (score / 2 - 1) 把顺序反过来
-                ratingPercentageList.set(4 - (score / 2 - 1), ratingPercentageGroupByScore);
-            }
-            dto.setRatingPercentageList(ratingPercentageList);
+            dto.setRatingPercentageList(this.createPercentageList(ratingCountGroupByScore, totalRatingCount));
         }
     }
 
-    public BookItemDto getBookPage(Integer id) {
-        return this.getBookItemDtoById(id);
+    private void setRatingPowerWidthPercentageList(BookItemDto dto, List<Map<String, Object>> ratingCountGroupByScore) {
+        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
+        if(totalRatingCount != 0) {
+            long maxCount = 0;
+            for(Map<String, Object> ratingCountMap : ratingCountGroupByScore) {
+                long ratingCount = (long)ratingCountMap.get("ratingCount");
+                if(ratingCount > maxCount) {
+                    maxCount = ratingCount;
+                }
+            }
+            dto.setRatingPowerWidthPercentageList(this.createPercentageList(ratingCountGroupByScore, (int)maxCount));
+        }
+    }
+
+    private List<String> createPercentageList(List<Map<String, Object>> ratingCountGroupByScore, Integer divisor) {
+        List<String> ratingPercentageList = new ArrayList<>(5);
+        for(int i = 0; i < 5; i++) {
+            String zeroPercentage = "0.0%";
+            ratingPercentageList.add(zeroPercentage);
+        }
+        for(Map<String, Object> ratingCountGroupByScoreMap : ratingCountGroupByScore) {
+            BigDecimal singleRatingCount = new BigDecimal((Long)ratingCountGroupByScoreMap.get("ratingCount"));
+            BigDecimal totalRatingCountBigDecimal = new BigDecimal(divisor);
+            DecimalFormat decimalFormat = new DecimalFormat("#.0%");
+            String ratingPercentageGroupByScore = decimalFormat.format(singleRatingCount.divide(totalRatingCountBigDecimal, 3, RoundingMode.HALF_UP).doubleValue());
+            Integer score = (Integer)ratingCountGroupByScoreMap.get("score");
+            // index的算法
+            // (score / 2 - 1) 分数分别有2，4，6，8，10五种情况，List总长度是5，把五种情况的值放在List的index为0到4的五个元素中
+            // 4 - (score / 2 - 1) 把顺序反过来
+            ratingPercentageList.set(4 - (score / 2 - 1), ratingPercentageGroupByScore);
+        }
+        return ratingPercentageList;
     }
 }

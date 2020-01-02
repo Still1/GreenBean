@@ -22,6 +22,15 @@ public class BookItemDto {
     private String authorIntro;
     private String directory;
     private List<String> ratingPercentageList;
+    private List<String> ratingPowerWidthPercentageList;
+
+    public List<String> getRatingPowerWidthPercentageList() {
+        return ratingPowerWidthPercentageList;
+    }
+
+    public void setRatingPowerWidthPercentageList(List<String> ratingPowerWidthPercentageList) {
+        this.ratingPowerWidthPercentageList = ratingPowerWidthPercentageList;
+    }
 
     public String getId() {
         return id;
