@@ -8,6 +8,7 @@ import com.oc.greenbean.dto.BookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
 import com.oc.greenbean.vo.Pagination;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -207,9 +209,17 @@ public class BookService {
             }
         }
         dto.setBinding(bindingString);
-        dto.setContentIntro(book.getContentIntro());
-        dto.setAuthorIntro(book.getAuthorIntro());
-        dto.setDirectory(book.getDirectory());
+        dto.setContentIntro(this.separateParagraph(book.getContentIntro()));
+        dto.setAuthorIntro(this.separateParagraph(book.getAuthorIntro()));
+        dto.setDirectory(this.separateParagraph(book.getDirectory()));
+    }
+
+    private List<String> separateParagraph(String string) {
+        List<String> stringList = null;
+        if(StringUtils.isNotBlank(string)) {
+            stringList = Arrays.asList(string.split("\\n+"));
+        }
+        return stringList;
     }
 
     //XXX 抽取重复

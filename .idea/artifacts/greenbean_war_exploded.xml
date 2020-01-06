@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="greenbean:war exploded">
-    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.2.3-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/greenbean/target/greenbean-0.4-SNAPSHOT</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -58,10 +58,11 @@
           <element id="library" level="project" name="Maven: org.terracotta:terracotta-toolkit-1.6-runtime:5.10.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context-support:5.2.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.9" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.2.3-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/greenbean/target/greenbean-0.4-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="greenbean/web/Web" />
     </root>

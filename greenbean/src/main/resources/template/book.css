@@ -78,7 +78,7 @@
     width: 71px;
 }
 
-#ratingClickStar {
+#ratingClickStar,#dialogRatingClickStar {
     font-size: 0;
     position: relative;
     top: -5px;
@@ -89,10 +89,31 @@
     margin-right: 10px;
 }
 
-.introduction>h4 {
+.introduction h4 {
     font-size: 16px;
 }
 
 .introduction p {
     font-size: 13px;
+    text-indent: 2em;
+    line-height: 1.62;
+    margin-bottom: 0;
+}
+
+#directory {
+    text-indent: 0;
+}
+
+.introduction {
+    margin-bottom: 25px;
+}
+
+.ratingButtonText {
+    font-size: 13px;
+    line-height: 1.62;
+}
+
+#ratingIntroText,#dialogRatingIntroText {
+    margin-left: 5px;
+    color: #666666;
 }

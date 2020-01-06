@@ -73,53 +73,39 @@
                 </div>
                 <div class="row my-sm-5" id="ratingOperation">
                     <div class="col-sm-12" id="ratingButton">
-                        <button type="button" class="btn btn-primary btn-sm">Reading</button>
-                        <button type="button" class="btn btn-primary btn-sm">Read</button>
-                        <span>Rating:</span>
-                        <span id="ratingClickStar">
-                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
-                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
-                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
-                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
-                    <a><img th:src="@{/static/pic/singleHollowStar.png}"></a>
-                </span>
-
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
+                        <span class="ratingButtonText">Rating:</span>
+                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="2">
+                            <a th:each="i : ${#numbers.sequence(1, 5)}" data-toggle="modal" data-target="#ratingDialog" data-status="have read">
+                                <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
+                            </a>
+                        </span>
+                        <span class="ratingButtonText" id="ratingIntroText"></span>
                     </div>
                 </div>
-                <div class="row introduction" >
-                    <h4>Content introduction· · · · · ·</h4>
-                    <div>
-                        <p>
-                            ★ 《降临》原著小说作者，美国华裔科幻奇才特德·姜新结集。
-                            ★ 9个短篇，9集《黑镜》，融科幻的诗意与哲学的浪漫于一体：我所有的欲望和沉思，都是这个宇宙缓缓呼出的气流。
-                            ★ 每一个“科幻必读”书单上都有特德·姜。
-                            出道30年，仅17个短篇，却四获星云奖/四获雨果奖/三获 轨迹奖/三获日本科幻大奖，此外还获得过英国科幻协会奖/斯特金奖/坎贝尔奖。
-                            ★ 奥巴马诚挚推荐：这是优秀科幻小说应该有的样子。《呼吸》让你思考那些大问题，更加感受到生而为人的温度。
-                        </p>
+                <div class="row introduction" th:if="${bookPage.contentIntro}">
+                    <div class="col-sm-12">
+                        <h4>Content introduction· · · · · ·</h4>
+                        <div>
+                            <p th:each="item : ${bookPage.contentIntro}" th:text="${item}"></p>
+                        </div>
                     </div>
                 </div>
-                <div class="row introduction" >
-                    <h4>Author introduction· · · · · ·</h4>
-                    <div>
-                        <p>
-                            特德·姜 Ted Chiang，美国华裔科幻作家，当代最优秀的科幻作家之一。1967年生，毕业于布朗大学计算机专业，参加过“科幻黄埔”号角写作班，现为自由程序师。自1990年发表处女作《巴比伦塔》至今，只出版了17篇短篇或中篇小说，却让他捧回了包括星云奖、雨果奖、坎贝 尔奖在内的几乎所有科幻大奖的奖杯。
-                        </p>
+                <div class="row introduction">
+                    <div class="col-sm-12" th:if="${bookPage.authorIntro}">
+                        <h4>Author introduction· · · · · ·</h4>
+                        <div>
+                            <p th:each="item : ${bookPage.authorIntro}" th:text="${item}"></p>
+                        </div>
                     </div>
                 </div>
-                <div class="row introduction" >
-                    <h4>Contents· · · · · ·</h4>
-                    <div>
-                        <p>
-                            商人和炼金术师之门
-                            呼吸
-                            前路迢迢
-                            软件体的生命周期
-                            达西的新型自动机器保姆
-                            双面真相
-                            大寂静
-                            脐
-                            焦虑是自由引起的眩晕
-                        </p>
+                <div class="row introduction">
+                    <div class="col-sm-12" th:if="${bookPage.directory}">
+                        <h4>Contents· · · · · ·</h4>
+                        <div>
+                            <p id="directory" th:each="item : ${bookPage.directory}" th:text="${item}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,6 +116,33 @@
         </div>
 
 
+    </div>
+    <div class="modal fade" id="ratingDialog" tabindex="-1" role="dialog" aria-labelledby="ratingDialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">I <span></span> this book. Add a rating.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <span class="ratingButtonText">Rating(Optional):</span>
+                        <span id="dialogRatingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="2">
+                            <a th:each="i : ${#numbers.sequence(1, 5)}" data-status="have read">
+                                <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
+                            </a>
+                        </span>
+                        <span class="ratingButtonText" id="dialogRatingIntroText"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
