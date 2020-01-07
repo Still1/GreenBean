@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface BookMapper {
-    List<Map<String, Integer>> getSearchBooks(@Param("keyword") String keyword);
     Integer getSearchBooksCount(@Param("keyword") String keyword);
     List<Map<String, Integer>> getSearchBooksWithPagination(@Param("keyword") String keyword, @Param("start") Integer start, @Param("size") Integer size);
     Book getBookBasicInfo(Integer id);
-    List<Author> getBookAuthors(Integer id);
-    List<Translator> getBookTranslators(Integer id);
     Map<String ,Object> getBookRatingInfo(Integer id);
     List<Map<String ,Object>> getBookRatingCountGroupByScore(Integer id);
     void insertBookBasicInfo(Book book);

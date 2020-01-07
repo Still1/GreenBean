@@ -6,10 +6,7 @@ import com.oc.greenbean.domain.Translator;
 import com.oc.greenbean.dto.*;
 import com.oc.greenbean.exception.UserRatingDuplicatedException;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
-import com.oc.greenbean.vo.BookBriefBasicInfo;
-import com.oc.greenbean.vo.BookBriefRatingInfo;
-import com.oc.greenbean.vo.BookDetailBasicInfo;
-import com.oc.greenbean.vo.Pagination;
+import com.oc.greenbean.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,9 +43,9 @@ public class BookService {
         return searchPageDto;
     }
 
-//    public BookItemDto getBookPage(Integer id) {
-//        return this.(id);
-//    }
+    public BookPageDto getBookPage(Integer bookId, Integer userId) {
+        return this.getBookPageDto(bookId, userId);
+    }
 
     @Transactional
     public void saveBook(BookDto bookDto) {
@@ -146,21 +143,21 @@ public class BookService {
         return dto;
     }
 
-//    private BookPageDto getBookPageDto(Integer bookId, Integer userId) {
-//        BookPageDto dto = new BookPageDto();
-//        Book book = this.getBookBasicInfo(bookId);
-//        this.setBookBasicInfoToDto(dto, book);
-//        List<Author> authors = this.getBookAuthors(id);
-//        this.setAuthorsToDto(dto, authors);
-//        List<Translator> translators = this.getBookTranslators(id);
-//        this.setTranslatorsToDto(dto,translators);
-//        Map<String, Object> ratingInfo = this.getBookRatingInfo(id);
-//        List<Map<String, Object>> ratingCountGroupByScore = this.getBookRatingCountGroupByScore(id);
-//        this.setRatingInfoToDto(dto, ratingInfo);
-//        this.setRatingPercentageList(dto, ratingCountGroupByScore);
-//        this.setRatingPowerWidthPercentageList(dto, ratingCountGroupByScore);
-//        return dto;
-//    }
+    private BookPageDto getBookPageDto(Integer bookId, Integer userId) {
+        BookPageDto dto = new BookPageDto();
+        Book book = this.getBookBasicInfo(bookId);
+        this.setBookBriefBasicInfo(dto.getBookBriefBasicInfo(), book);
+        this.setBookDetailBasicInfo(dto.getBookDetailBasicInfo(), book);
+
+        Map<String, Object> ratingInfo = this.getBookRatingInfo(bookId);
+        this.setBookBriefRatingInfo(dto.getBookBriefRatingInfo(), ratingInfo);
+
+        List<Map<String, Object>> ratingCountGroupByScore = this.getBookRatingCountGroupByScore(bookId);
+        long totalRatingCount = (long)ratingInfo.get("ratingCount");
+        this.setRatingPercentageList(dto.getBookDetailRatingInfo(), ratingCountGroupByScore, totalRatingCount);
+        this.setRatingPowerWidthPercentageList(dto.getBookDetailRatingInfo(), ratingCountGroupByScore);
+        return dto;
+    }
 
     private List<Map<String, Integer>> getSearchBooksIdInOnePage(String keyword, Integer start) {
         return this.bookMapper.getSearchBooksWithPagination(keyword, start, paginationSize);
@@ -168,14 +165,6 @@ public class BookService {
 
     private Book getBookBasicInfo(Integer id) {
         return this.bookMapper.getBookBasicInfo(id);
-    }
-
-    private List<Author> getBookAuthors(Integer id) {
-        return this.bookMapper.getBookAuthors(id);
-    }
-
-    private List<Translator> getBookTranslators(Integer id) {
-        return this.bookMapper.getBookTranslators(id);
     }
 
     private Map<String, Object> getBookRatingInfo(Integer id) {
@@ -269,7 +258,7 @@ public class BookService {
             bookBriefRatingInfo.setRating(decimalFormat.format(ratingWithOneDecimal.floatValue()));
 
             BigDecimal ratingWithNoDecimal = rating.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2)).multiply(new BigDecimal(10));
+            BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2), RoundingMode.HALF_UP).multiply(new BigDecimal(10));
             decimalFormat = new DecimalFormat("00");
             String starClassName = decimalFormat.format(starSuffixNumber.longValue());
             bookBriefRatingInfo.setStarClassName(starClassName);
@@ -279,28 +268,26 @@ public class BookService {
         }
     }
 
-//    private void setRatingPercentageList(BookItemDto dto, List<Map<String, Object>> ratingCountGroupByScore) {
-//        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
-//        if(totalRatingCount != 0) {
-//            dto.setRatingPercentageList(this.createPercentageList(ratingCountGroupByScore, totalRatingCount));
-//        }
-//    }
+    private void setRatingPercentageList(BookDetailRatingInfo bookDetailRatingInfo, List<Map<String, Object>> ratingCountGroupByScore, long totalRatingCount) {
+        if(totalRatingCount != 0) {
+            bookDetailRatingInfo.setRatingPercentageList(this.createPercentageList(ratingCountGroupByScore, totalRatingCount));
+        }
+    }
 
-//    private void setRatingPowerWidthPercentageList(BookItemDto dto, List<Map<String, Object>> ratingCountGroupByScore) {
-//        Integer totalRatingCount = Integer.valueOf(dto.getRatingCount());
-//        if(totalRatingCount != 0) {
-//            long maxCount = 0;
-//            for(Map<String, Object> ratingCountMap : ratingCountGroupByScore) {
-//                long ratingCount = (long)ratingCountMap.get("ratingCount");
-//                if(ratingCount > maxCount) {
-//                    maxCount = ratingCount;
-//                }
-//            }
-//            dto.setRatingPowerWidthPercentageList(this.createPercentageList(ratingCountGroupByScore, (int)maxCount));
-//        }
-//    }
+    private void setRatingPowerWidthPercentageList(BookDetailRatingInfo bookDetailRatingInfo, List<Map<String, Object>> ratingCountGroupByScore) {
+        if(ratingCountGroupByScore.size() != 0) {
+            long maxCount = 0;
+            for(Map<String, Object> ratingCountMap : ratingCountGroupByScore) {
+                long ratingCount = (long)ratingCountMap.get("ratingCount");
+                if(ratingCount > maxCount) {
+                    maxCount = ratingCount;
+                }
+            }
+            bookDetailRatingInfo.setRatingPowerWidthPercentageList(this.createPercentageList(ratingCountGroupByScore, maxCount));
+        }
+    }
 
-    private List<String> createPercentageList(List<Map<String, Object>> ratingCountGroupByScore, Integer divisor) {
+    private List<String> createPercentageList(List<Map<String, Object>> ratingCountGroupByScore, long divisor) {
         List<String> ratingPercentageList = new ArrayList<>(5);
         for(int i = 0; i < 5; i++) {
             String zeroPercentage = "0.0%";

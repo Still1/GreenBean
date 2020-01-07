@@ -1,6 +1,7 @@
 package com.oc.greenbean.spring.controller;
 
 import com.oc.greenbean.dto.BookDto;
+import com.oc.greenbean.dto.BookPageDto;
 import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.dto.UserRatingDto;
 import com.oc.greenbean.spring.service.BookService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
@@ -81,12 +83,13 @@ public class BookController {
         return this.bookService.getTranslatorSuggestion(keyword);
     }
 
-//    @GetMapping("/book/{id}")
-//    public String showBook(@PathVariable Integer id, Model model) {
-//        BookItemDto bookItemDto = this.bookService.getBookPage(id);
-//        model.addAttribute("bookPage", bookItemDto);
-//        return "book";
-//    }
+    @GetMapping("/book/{id}")
+    public String showBook(@PathVariable Integer id, HttpSession session, Model model) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        BookPageDto bookPageDto = this.bookService.getBookPage(id, userId);
+        model.addAttribute("bookPage", bookPageDto);
+        return "book";
+    }
 
     @PostMapping("/addUserRating")
     public void addUserRating(UserRatingDto dto, HttpSession session, HttpServletResponse response) throws IOException {

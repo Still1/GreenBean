@@ -9,10 +9,6 @@
     <property name="maxEntriesLocalDisk" value="10000000"/>
     <property name="memoryStoreEvictionPolicy" value="LRU"/>
   </cache>
-  <select id="getSearchBooks" resultType="java.util.Map">
-    <bind name="keywordLike" value="'%' + keyword + '%'"/>
-    select distinct book_id as id from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
-  </select>
 
   <resultMap type="com.oc.greenbean.domain.Book" id="bookResultMap">
     <id property="id" column="id"/>

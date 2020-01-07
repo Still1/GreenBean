@@ -6,10 +6,10 @@ import com.oc.greenbean.vo.BookDetailBasicInfo;
 import com.oc.greenbean.vo.BookDetailRatingInfo;
 
 public class BookPageDto {
-    private BookBriefBasicInfo bookBriefBasicInfo;
-    private BookBriefRatingInfo bookBriefRatingInfo;
-    private BookDetailBasicInfo bookDetailBasicInfo;
-    private BookDetailRatingInfo bookDetailRatingInfo;
+    private BookBriefBasicInfo bookBriefBasicInfo = new BookBriefBasicInfo();
+    private BookBriefRatingInfo bookBriefRatingInfo = new BookBriefRatingInfo();
+    private BookDetailBasicInfo bookDetailBasicInfo = new BookDetailBasicInfo();
+    private BookDetailRatingInfo bookDetailRatingInfo = new BookDetailRatingInfo();
 
     public BookBriefBasicInfo getBookBriefBasicInfo() {
         return bookBriefBasicInfo;

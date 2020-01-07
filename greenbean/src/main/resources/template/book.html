@@ -17,26 +17,26 @@
             <div class="col-sm-8">
                 <div class="row my-sm-3">
                     <div class="col-sm-12">
-                        <h3 id="bookName" th:text="${bookPage.bookName}"></h3>
+                        <h3 id="bookName" th:text="${bookPage.bookBriefBasicInfo.bookName}"></h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
                         <!-- XXX IDEA语法错误的错误提示 -->
-                        <img class="bookImg" th:if="${bookPage.picture == null}" th:src="@{/static/pic/bookDefault.gif}">
-                        <img class="bookImg" th:if="${bookPage.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookPage.picture})}">
+                        <img class="bookImg" th:if="${bookPage.bookBriefBasicInfo.picture == null}" th:src="@{/static/pic/bookDefault.gif}">
+                        <img class="bookImg" th:if="${bookPage.bookBriefBasicInfo.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookPage.bookBriefBasicInfo.picture})}">
                         <p>Update information</p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
-                        <p th:if="${bookPage.authorName}">Author: <span th:text="${bookPage.authorName}"></span></p>
-                        <p th:if="${bookPage.publisher}">Publisher: <span th:text="${bookPage.publisher}"></span></p>
-                        <p th:if="${bookPage.originalName}">Original: <span th:text="${bookPage.originalName}"></span></p>
-                        <p th:if="${bookPage.translatorName}">Translator: <span th:text="${bookPage.translatorName}"></span></p>
-                        <p th:if="${bookPage.publicationDate}">Publication: <span th:text="${bookPage.publicationDate}"></span></p>
-                        <p th:if="${bookPage.page}">Page: <span th:text="${bookPage.page}"></span></p>
-                        <p th:if="${bookPage.price}">Price: <span th:text="${bookPage.price}"></span></p>
-                        <p th:if="${bookPage.binding}">Binding: <span th:text="${bookPage.binding}"></span></p>
-                        <p th:if="${bookPage.isbn}">ISBN: <span th:text="${bookPage.isbn}"></span></p>
+                        <p th:if="${bookPage.bookBriefBasicInfo.authorName}">Author: <span th:text="${bookPage.bookBriefBasicInfo.authorName}"></span></p>
+                        <p th:if="${bookPage.bookBriefBasicInfo.publisher}">Publisher: <span th:text="${bookPage.bookBriefBasicInfo.publisher}"></span></p>
+                        <p th:if="${bookPage.bookDetailBasicInfo.originalName}">Original: <span th:text="${bookPage.bookDetailBasicInfo.originalName}"></span></p>
+                        <p th:if="${bookPage.bookBriefBasicInfo.translatorName}">Translator: <span th:text="${bookPage.bookBriefBasicInfo.translatorName}"></span></p>
+                        <p th:if="${bookPage.bookBriefBasicInfo.publicationDate}">Publication: <span th:text="${bookPage.bookBriefBasicInfo.publicationDate}"></span></p>
+                        <p th:if="${bookPage.bookDetailBasicInfo.page}">Page: <span th:text="${bookPage.bookDetailBasicInfo.page}"></span></p>
+                        <p th:if="${bookPage.bookBriefBasicInfo.price}">Price: <span th:text="${bookPage.bookBriefBasicInfo.price}"></span></p>
+                        <p th:if="${bookPage.bookDetailBasicInfo.binding}">Binding: <span th:text="${bookPage.bookDetailBasicInfo.binding}"></span></p>
+                        <p th:if="${bookPage.bookDetailBasicInfo.isbn}">ISBN: <span th:text="${bookPage.bookDetailBasicInfo.isbn}"></span></p>
                     </div>
                     <div class="col-sm-3" id="ratingInfo">
                         <div class="row">
@@ -45,23 +45,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-4" th:if="${bookPage.rating}">
-                                <span id="ratingScore" th:text="${bookPage.rating}"></span>
+                            <div class="col-sm-4" th:if="${bookPage.bookBriefRatingInfo.rating}">
+                                <span id="ratingScore" th:text="${bookPage.bookBriefRatingInfo.rating}"></span>
                             </div>
                             <div class="col-sm-8" id="ratingRight">
-                                <div id="ratingStar" th:classappend="'bigStar' + ${bookPage.starClassName}"></div>
-                                <div th:if="${#conversions.convert(bookPage.ratingCount, 'java.lang.Integer') > 0}" class="ratingCount"><span th:text="${bookPage.ratingCount}"></span> Ratings</div>
-                                <div th:if="${#conversions.convert(bookPage.ratingCount, 'java.lang.Integer') == 0}" class="ratingCount">No ratings</div>
+                                <div id="ratingStar" th:classappend="'bigStar' + ${bookPage.bookBriefRatingInfo.starClassName}"></div>
+                                <div th:if="${#conversions.convert(bookPage.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') > 0}" class="ratingCount"><span th:text="${bookPage.bookBriefRatingInfo.ratingCount}"></span> Ratings</div>
+                                <div th:if="${#conversions.convert(bookPage.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') == 0}" class="ratingCount">No ratings</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12" id="ratingPowerColumn">
-                                <div class="row" th:each="percentage, iterator : ${bookPage.ratingPercentageList}">
+                                <div class="row" th:each="percentage, iterator : ${bookPage.bookDetailRatingInfo.ratingPercentageList}">
                                     <div class="col-sm-4 starTitle">
                                         <span th:text="${5 - iterator.index}"></span><span th:text="${iterator.last} ? ' star' : ' stars'"></span>
                                     </div>
                                     <div class="col-sm-5 px-sm-0">
-                                        <div class="ratingPower" th:styleappend="'width: ' + ${bookPage.ratingPowerWidthPercentageList[iterator.index]}"></div>
+                                        <div class="ratingPower" th:styleappend="'width: ' + ${bookPage.bookDetailRatingInfo.ratingPowerWidthPercentageList[iterator.index]}"></div>
                                     </div>
                                     <div class="col-sm-3 starPercentage">
                                         <span th:text="${percentage}"></span>
@@ -84,27 +84,27 @@
                         <span class="ratingButtonText" id="ratingIntroText"></span>
                     </div>
                 </div>
-                <div class="row introduction" th:if="${bookPage.contentIntro}">
+                <div class="row introduction" th:if="${bookPage.bookDetailBasicInfo.contentIntro}">
                     <div class="col-sm-12">
                         <h4>Content introduction· · · · · ·</h4>
                         <div>
-                            <p th:each="item : ${bookPage.contentIntro}" th:text="${item}"></p>
+                            <p th:each="item : ${bookPage.bookDetailBasicInfo.contentIntro}" th:text="${item}"></p>
                         </div>
                     </div>
                 </div>
                 <div class="row introduction">
-                    <div class="col-sm-12" th:if="${bookPage.authorIntro}">
+                    <div class="col-sm-12" th:if="${bookPage.bookDetailBasicInfo.authorIntro}">
                         <h4>Author introduction· · · · · ·</h4>
                         <div>
-                            <p th:each="item : ${bookPage.authorIntro}" th:text="${item}"></p>
+                            <p th:each="item : ${bookPage.bookDetailBasicInfo.authorIntro}" th:text="${item}"></p>
                         </div>
                     </div>
                 </div>
                 <div class="row introduction">
-                    <div class="col-sm-12" th:if="${bookPage.directory}">
+                    <div class="col-sm-12" th:if="${bookPage.bookDetailBasicInfo.directory}">
                         <h4>Contents· · · · · ·</h4>
                         <div>
-                            <p id="directory" th:each="item : ${bookPage.directory}" th:text="${item}"></p>
+                            <p id="directory" th:each="item : ${bookPage.bookDetailBasicInfo.directory}" th:text="${item}"></p>
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@
         </div>
     </div>
     <form id="addUserRatingForm" class="d-none" method="post" th:action="@{/addUserRating}">
-        <input type="hidden" name="bookId" th:value="${bookPage.id}">
+        <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
         <input type="hidden" name="type">
         <input type="hidden" name="score">
     </form>
