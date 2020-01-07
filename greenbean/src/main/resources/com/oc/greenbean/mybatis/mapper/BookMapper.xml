@@ -92,7 +92,7 @@
   </insert>
 
   <insert id="insertUserRating">
-    insert into t_book_user (book_id, user_id, type, score) values (#{bookId}, #{userId}, #{type}, #{score})
+    insert into t_book_user (book_id, user_id, type, score, time) values (#{bookId}, #{userId}, #{type}, #{score}, now())
   </insert>
 
   <select id="getUserRatingCount" resultType="java.lang.Integer">
