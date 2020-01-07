@@ -3,6 +3,7 @@ package com.oc.greenbean.mybatis.mapper;
 import com.oc.greenbean.domain.Author;
 import com.oc.greenbean.domain.Book;
 import com.oc.greenbean.domain.Translator;
+import com.oc.greenbean.dto.UserRatingDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface BookMapper {
     List<Integer> getTranslatorIdByName(@Param("translatorName") String translatorName);
     void insertAuthor(Author author);
     void insertTranslator(Translator translator);
+    void insertUserRating(UserRatingDto dto);
+    int getUserRatingCount(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 }

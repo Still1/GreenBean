@@ -6,6 +6,8 @@ import com.oc.greenbean.domain.Translator;
 import com.oc.greenbean.dto.BookDto;
 import com.oc.greenbean.dto.BookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
+import com.oc.greenbean.dto.UserRatingDto;
+import com.oc.greenbean.exception.UserRatingDuplicatedException;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
 import com.oc.greenbean.vo.Pagination;
 import org.apache.commons.lang3.StringUtils;
@@ -306,5 +308,24 @@ public class BookService {
             ratingPercentageList.set(4 - (score / 2 - 1), ratingPercentageGroupByScore);
         }
         return ratingPercentageList;
+    }
+
+    public void addUserRating(UserRatingDto dto) {
+        Integer bookId = dto.getBookId();
+        Integer userId = dto.getUserId();
+        if(this.isUserRatingExist(bookId, userId)) {
+            throw new UserRatingDuplicatedException("User[id:" + userId + "]'s rating about book[id:" + bookId + "] has existed.");
+        } else {
+            this.bookMapper.insertUserRating(dto);
+        }
+    }
+
+    private boolean isUserRatingExist(Integer bookId, Integer userId) {
+        int count = this.bookMapper.getUserRatingCount(bookId, userId);
+        boolean result = false;
+        if(count > 0) {
+            result = true;
+        }
+        return result;
     }
 }

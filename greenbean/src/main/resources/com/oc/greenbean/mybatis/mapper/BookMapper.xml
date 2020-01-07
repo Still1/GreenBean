@@ -90,4 +90,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="int">select last_insert_id()</selectKey>
     insert into t_translator (name) values (#{name})
   </insert>
+
+  <insert id="insertUserRating">
+    insert into t_book_user (book_id, user_id, type, score) values (#{bookId}, #{userId}, #{type}, #{score})
+  </insert>
+
+  <select id="getUserRatingCount" resultType="java.lang.Integer">
+    select count(*) from t_book_user where book_id = #{bookId} and user_id = #{userId}
+  </select>
 </mapper>

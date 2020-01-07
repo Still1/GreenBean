@@ -76,5 +76,9 @@
                 typeInput.val(2);
             }
         });
+
+        $('#saveButton').on('click', function() {
+            $('#addUserRatingForm').trigger('submit');
+        });
     });
 })();

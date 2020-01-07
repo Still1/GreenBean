@@ -3,6 +3,7 @@ package com.oc.greenbean.spring.controller;
 import com.oc.greenbean.dto.BookDto;
 import com.oc.greenbean.dto.BookItemDto;
 import com.oc.greenbean.dto.SearchPageDto;
+import com.oc.greenbean.dto.UserRatingDto;
 import com.oc.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -88,5 +90,12 @@ public class BookController {
         return "book";
     }
 
+    @PostMapping("/addUserRating")
+    public void addUserRating(UserRatingDto dto, HttpSession session, HttpServletResponse response) throws IOException {
+        //TODO 验证表单信息 验证userId非空
+        dto.setUserId((Integer)session.getAttribute("userId"));
+        this.bookService.addUserRating(dto);
+        response.sendRedirect("book/" + dto.getBookId());
+    }
     //TODO 出错视图
 }
