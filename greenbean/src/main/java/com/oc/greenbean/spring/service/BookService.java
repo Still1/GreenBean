@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -156,6 +159,9 @@ public class BookService {
         long totalRatingCount = (long)ratingInfo.get("ratingCount");
         this.setRatingPercentageList(dto.getBookDetailRatingInfo(), ratingCountGroupByScore, totalRatingCount);
         this.setRatingPowerWidthPercentageList(dto.getBookDetailRatingInfo(), ratingCountGroupByScore);
+
+        Map<String, Object> userRating = this.getBookUserRatingInfo(bookId, userId);
+        this.setBookUserRatingInfo(dto.getBookUserRatingInfo(), userRating);
         return dto;
     }
 
@@ -173,6 +179,21 @@ public class BookService {
 
     private List<Map<String, Object>> getBookRatingCountGroupByScore(Integer id) {
         return this.bookMapper.getBookRatingCountGroupByScore(id);
+    }
+
+    private Map<String, Object> getBookUserRatingInfo(Integer bookId, Integer userId) {
+        return this.bookMapper.getBookUserRatingInfo(bookId, userId);
+    }
+
+    private void setBookUserRatingInfo(BookUserRatingInfo bookUserRatingInfo, Map<String, Object> userRating) {
+        bookUserRatingInfo.setType((Integer)userRating.get("type"));
+        Integer score = (Integer)userRating.get("score");
+        if(score != null) {
+            bookUserRatingInfo.setStar(score / 2);
+        }
+        Timestamp time = (Timestamp)userRating.get("time");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        bookUserRatingInfo.setTime(dateFormat.format(time));
     }
 
     private void setBookBriefBasicInfo(BookBriefBasicInfo bookBriefBasicInfo, Book book) {

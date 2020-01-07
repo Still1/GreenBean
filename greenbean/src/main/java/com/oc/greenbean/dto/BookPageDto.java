@@ -1,15 +1,21 @@
 package com.oc.greenbean.dto;
 
-import com.oc.greenbean.vo.BookBriefBasicInfo;
-import com.oc.greenbean.vo.BookBriefRatingInfo;
-import com.oc.greenbean.vo.BookDetailBasicInfo;
-import com.oc.greenbean.vo.BookDetailRatingInfo;
+import com.oc.greenbean.vo.*;
 
 public class BookPageDto {
     private BookBriefBasicInfo bookBriefBasicInfo = new BookBriefBasicInfo();
     private BookBriefRatingInfo bookBriefRatingInfo = new BookBriefRatingInfo();
     private BookDetailBasicInfo bookDetailBasicInfo = new BookDetailBasicInfo();
     private BookDetailRatingInfo bookDetailRatingInfo = new BookDetailRatingInfo();
+    private BookUserRatingInfo bookUserRatingInfo = new BookUserRatingInfo();
+
+    public BookUserRatingInfo getBookUserRatingInfo() {
+        return bookUserRatingInfo;
+    }
+
+    public void setBookUserRatingInfo(BookUserRatingInfo bookUserRatingInfo) {
+        this.bookUserRatingInfo = bookUserRatingInfo;
+    }
 
     public BookBriefBasicInfo getBookBriefBasicInfo() {
         return bookBriefBasicInfo;
