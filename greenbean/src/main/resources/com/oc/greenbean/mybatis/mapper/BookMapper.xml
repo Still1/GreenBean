@@ -14,16 +14,36 @@
     select distinct book_id as id from v_book_author where book_name like #{keywordLike} or author_name like #{keywordLike} or book_isbn = #{keyword}
   </select>
 
-  <select id="getBookBasicInfo" resultType="com.oc.greenbean.domain.Book">
-    select id, name, isbn, picture, publisher, publication_year as publicationYear, price, publication_month as publicationMonth, publication_day as publicationDay, subtitle, original_name as originalName, binding, page, content_intro as contentIntro, author_intro as AuthorIntro, directory from t_book where id = #{id}
-  </select>
+  <resultMap type="com.oc.greenbean.domain.Book" id="bookResultMap">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="isbn" column="isbn"/>
+    <result property="picture" column="picture"/>
+    <result property="publisher" column="publisher"/>
+    <result property="publicationYear" column="publication_year"/>
+    <result property="publicationMonth" column="publication_month"/>
+    <result property="publicationDay" column="publication_day"/>
+    <result property="price" column="price"/>
+    <result property="subtitle" column="subtitle"/>
+    <result property="originalName" column="original_name"/>
+    <result property="binding" column="binding"/>
+    <result property="page" column="page"/>
+    <result property="contentIntro" column="content_intro"/>
+    <result property="authorIntro" column="author_intro"/>
+    <result property="directory" column="directory"/>
 
-  <select id="getBookAuthors" resultType="com.oc.greenbean.domain.Author">
-    select author_name as name from v_book_author where book_id = #{id}
-  </select>
+    <collection property="authors" javaType="java.util.List" ofType="com.oc.greenbean.domain.Author">
+      <id property="id" column="author_id"/>
+      <result property="name" column="author_name"/>
+    </collection>
+    <collection property="translators" javaType="java.util.List" ofType="com.oc.greenbean.domain.Translator">
+      <id property="id" column="translator_id"/>
+      <result property="name" column="translator_name"/>
+    </collection>
+  </resultMap>
 
-  <select id="getBookTranslators" resultType="com.oc.greenbean.domain.Translator">
-    select translator_name as name from v_book_translator where book_id = #{id}
+  <select id="getBookBasicInfo" resultMap="bookResultMap">
+    select * from v_book_author_translator where id = #{id}
   </select>
 
   <select id="getBookRatingInfo" resultType="java.util.Map">

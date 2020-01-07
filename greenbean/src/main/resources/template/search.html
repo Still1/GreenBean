@@ -23,34 +23,34 @@
                     <div class="col-sm-12">
                         <div class="row bookRow" th:each="bookItem : ${bookItems}">
                             <div class="col-sm-2">
-                                <a th:href="@{/book/{id}(id=${bookItem.id})}">
+                                <a th:href="@{/book/{id}(id=${bookItem.bookBriefBasicInfo.id})}">
                                     <!-- XXX IDEA语法错误的错误提示 -->
-                                    <img th:if="${bookItem.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookItem.picture})}" class="bookPicture">
-                                    <img th:if="${bookItem.picture == null}" th:src="@{/static/pic/bookDefault.gif}" class="bookPicture">
+                                    <img th:if="${bookItem.bookBriefBasicInfo.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookItem.bookBriefBasicInfo.picture})}" class="bookPicture">
+                                    <img th:if="${bookItem.bookBriefBasicInfo.picture == null}" th:src="@{/static/pic/bookDefault.gif}" class="bookPicture">
                                 </a>
                             </div>
                             <div class="col-sm-10">
                                 <div class="row nameRow">
-                                    <a th:href="@{/book/{id}(id=${bookItem.id})}"><span th:text="${bookItem.bookName}"></span></a>
+                                    <a th:href="@{/book/{id}(id=${bookItem.bookBriefBasicInfo.id})}"><span th:text="${bookItem.bookBriefBasicInfo.bookName}"></span></a>
                                 </div>
                                 <div class="row ratingRow">
-                                    <span class="star" th:classappend="'star' + ${bookItem.starClassName}"></span>
-                                    <span class="rating" th:if="${bookItem.rating != null}" th:text="${bookItem.rating}"></span>
-                                    <span th:if="${#conversions.convert(bookItem.ratingCount, 'java.lang.Integer') > 0}">
-                                        (<span th:text="${bookItem.ratingCount}"></span>&nbsp ratings)
+                                    <span class="star" th:classappend="'star' + ${bookItem.bookBriefRatingInfo.starClassName}"></span>
+                                    <span class="rating" th:if="${bookItem.bookBriefRatingInfo.rating != null}" th:text="${bookItem.bookBriefRatingInfo.rating}"></span>
+                                    <span th:if="${#conversions.convert(bookItem.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') > 0}">
+                                        (<span th:text="${bookItem.bookBriefRatingInfo.ratingCount}"></span>&nbsp ratings)
                                     </span>
-                                    <span th:if="${#conversions.convert(bookItem.ratingCount, 'java.lang.Integer') == 0}">
+                                    <span th:if="${#conversions.convert(bookItem.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') == 0}">
                                         (No ratings temporarily)
                                     </span>
                                 </div>
                                 <div class="row infoRow">
                                     <!-- TODO 信息过长使用省略号，不换行 -->
-                                    <span id="firstInfo" th:text="${bookItem.authorName}"></span> /
-                                    <span th:if="${bookItem.translatorName}" th:text="${bookItem.translatorName}"></span>
-                                    <span th:if="${bookItem.translatorName}">/</span>
-                                    <span th:text="${bookItem.publisher}"></span> /
-                                    <span th:text="${bookItem.publicationDate}"></span> /
-                                    <span th:text="${bookItem.price}"></span>
+                                    <span id="firstInfo" th:text="${bookItem.bookBriefBasicInfo.authorName}"></span> /
+                                    <span th:if="${bookItem.bookBriefBasicInfo.translatorName}" th:text="${bookItem.bookBriefBasicInfo.translatorName}"></span>
+                                    <span th:if="${bookItem.bookBriefBasicInfo.translatorName}">/</span>
+                                    <span th:text="${bookItem.bookBriefBasicInfo.publisher}"></span> /
+                                    <span th:text="${bookItem.bookBriefBasicInfo.publicationDate}"></span> /
+                                    <span th:text="${bookItem.bookBriefBasicInfo.price}"></span>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,7 @@
 package com.oc.greenbean.domain;
 
+import java.util.List;
+
 public class Book {
     private Integer id;
     private String name;
@@ -17,6 +19,24 @@ public class Book {
     private String contentIntro;
     private String authorIntro;
     private String directory;
+    private List<Author> authors;
+    private List<Translator> translators;
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
+    public List<Translator> getTranslators() {
+        return translators;
+    }
+
+    public void setTranslators(List<Translator> translators) {
+        this.translators = translators;
+    }
 
     public String getSubtitle() {
         return subtitle;
