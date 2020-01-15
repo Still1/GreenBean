@@ -1,6 +1,6 @@
 (function() {
     $(function() {
-        function initRatingStar(ratingClickStar, ratingIntroText) {
+        function initRatingStar(ratingClickStar, ratingIntroText, initDialogRatingClickStar) {
             ratingClickStar.on('mouseover', function (event) {
                 const targetIndex = $(event.target).data('index');
                 makeStarsSolid(ratingClickStar, ratingIntroText, targetIndex);
@@ -11,20 +11,16 @@
                 makeStarsSolid(ratingClickStar, ratingIntroText, targetIndex);
             });
 
-            ratingClickStar.on('click', function (event) {
-                const targetIndex = $(event.target).data('index');
-                const dialogRatingClickStar = $('#dialogRatingClickStar');
-                dialogRatingClickStar.attr('data-rating', targetIndex);
-                dialogRatingClickStar.triggerHandler('mouseleave');
-                const ratingClickStarId = ratingClickStar.attr('id');
-                if(ratingClickStarId == 'ratingClickStar') {
-                    const typeInput = $('#addUserRatingForm>input[name=type]');
-                    typeInput.val(2);
-                }
-                const score = targetIndex * 2;
-                $('#addUserRatingForm>input[name=score]').val(score);
-            });
+            if(initDialogRatingClickStar) {
+                ratingClickStar.on('click', function (event) {
+                    const targetIndex = $(event.target).data('index');
+                    const dialogRatingClickStar = $('#dialogRatingClickStar');
+                    dialogRatingClickStar.attr('data-rating', targetIndex);
+                    dialogRatingClickStar.triggerHandler('mouseleave');
 
+                    setFormScore(targetIndex);
+                });
+            }
             ratingClickStar.triggerHandler('mouseleave');
         }
 
@@ -42,13 +38,31 @@
             ratingIntroText.text(ratingIntroTextArray[targetIndex]);
         }
 
+        function setFormScore(star) {
+            const score = star * 2;
+            $('#addUserRatingForm>input[name=score]').val(score);
+        }
+
         const ratingClickStar = $('#ratingClickStar');
         const ratingIntroText = $('#ratingIntroText');
-        initRatingStar(ratingClickStar, ratingIntroText);
+        initRatingStar(ratingClickStar, ratingIntroText, true);
+        ratingClickStar.on('click', function () {
+            const typeInput = $('#addUserRatingForm>input[name=type]');
+            typeInput.val(2);
+        });
 
         const dialogRatingClickStar = $('#dialogRatingClickStar');
         const dialogRatingIntroText = $('#dialogRatingIntroText');
-        initRatingStar(dialogRatingClickStar, dialogRatingIntroText);
+        initRatingStar(dialogRatingClickStar, dialogRatingIntroText, true);
+
+        const userRatingClickStar = $('#userRatingClickStar');
+        const userRatingIntroText = $('#userRatingIntroText');
+        initRatingStar(userRatingClickStar, userRatingIntroText, false);
+        userRatingClickStar.on('click', function (event) {
+            const targetIndex = $(event.target).data('index');
+            setFormScore(targetIndex);
+            $('#addUserRatingForm').trigger('submit');
+        });
 
         const ratingDialog = $('#ratingDialog');
 
@@ -60,13 +74,26 @@
         });
 
         ratingDialog.on('hidden.bs.modal', function() {
-            makeStarsSolid(dialogRatingClickStar, dialogRatingIntroText, 0);
-            dialogRatingClickStar.attr('data-rating', 0);
-            $('#addUserRatingForm>input[name=type]').val('');
-            $('#addUserRatingForm>input[name=score]').val('');
+            const ratingOperation = $('#ratingOperation');
+            const originalRating = ratingOperation.data('rating');
+            const originalType = ratingOperation.data('type');
+            let starCount = 0;
+            let score = '';
+            if(originalRating !== undefined) {
+                starCount = originalRating;
+                score = originalRating * 2;
+            }
+            if(originalType !== undefined) {
+                $('#addUserRatingForm input[name=type][value=' + originalType + ']').prop('checked', 'true');
+            } else {
+                $('#addUserRatingForm>input[name=type][type=hidden]').val('');
+            }
+            makeStarsSolid(dialogRatingClickStar, dialogRatingIntroText, starCount);
+            dialogRatingClickStar.attr('data-rating', starCount);
+            $('#addUserRatingForm>input[name=score]').val(score);
         });
 
-        $('#ratingButton>button').on('click', function() {
+        $('.ratingButton>button').on('click', function() {
             const buttonId = $(this).attr('id');
             const typeInput = $('#addUserRatingForm>input[name=type]');
             //XXX 硬编码

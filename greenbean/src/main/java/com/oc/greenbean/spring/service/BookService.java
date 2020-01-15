@@ -4,7 +4,6 @@ import com.oc.greenbean.domain.Author;
 import com.oc.greenbean.domain.Book;
 import com.oc.greenbean.domain.Translator;
 import com.oc.greenbean.dto.*;
-import com.oc.greenbean.exception.UserRatingDuplicatedException;
 import com.oc.greenbean.mybatis.mapper.BookMapper;
 import com.oc.greenbean.vo.*;
 import org.apache.commons.lang3.StringUtils;
@@ -186,14 +185,16 @@ public class BookService {
     }
 
     private void setBookUserRatingInfo(BookUserRatingInfo bookUserRatingInfo, Map<String, Object> userRating) {
-        bookUserRatingInfo.setType((Integer)userRating.get("type"));
-        Integer score = (Integer)userRating.get("score");
-        if(score != null) {
-            bookUserRatingInfo.setStar(score / 2);
+        if(userRating != null && !userRating.isEmpty()) {
+            bookUserRatingInfo.setType((Integer)userRating.get("type"));
+            Integer score = (Integer)userRating.get("score");
+            if(score != null) {
+                bookUserRatingInfo.setStar(score / 2);
+            }
+            Timestamp time = (Timestamp)userRating.get("time");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            bookUserRatingInfo.setTime(dateFormat.format(time));
         }
-        Timestamp time = (Timestamp)userRating.get("time");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        bookUserRatingInfo.setTime(dateFormat.format(time));
     }
 
     private void setBookBriefBasicInfo(BookBriefBasicInfo bookBriefBasicInfo, Book book) {
@@ -328,11 +329,11 @@ public class BookService {
         return ratingPercentageList;
     }
 
-    public void addUserRating(UserRatingDto dto) {
+    public void addOrUpdateUserRating(UserRatingDto dto) {
         Integer bookId = dto.getBookId();
         Integer userId = dto.getUserId();
         if(this.isUserRatingExist(bookId, userId)) {
-            throw new UserRatingDuplicatedException("User[id:" + userId + "]'s rating about book[id:" + bookId + "] has existed.");
+            this.bookMapper.updateUserRating(dto);
         } else {
             this.bookMapper.insertUserRating(dto);
         }

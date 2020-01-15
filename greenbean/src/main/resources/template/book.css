@@ -78,13 +78,13 @@
     width: 71px;
 }
 
-#ratingClickStar,#dialogRatingClickStar {
+.ratingClickStar {
     font-size: 0;
     position: relative;
     top: -5px;
 }
 
-#ratingButton>button:last-of-type {
+.ratingButton>button:last-of-type {
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -113,7 +113,15 @@
     line-height: 1.62;
 }
 
-#ratingIntroText,#dialogRatingIntroText {
+.ratingIntroText {
     margin-left: 5px;
     color: #666666;
+}
+
+.readingStatusText {
+    margin-right: 10px;
+}
+
+#addUserRatingForm {
+    display: inline-block;
 }

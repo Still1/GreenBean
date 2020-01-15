@@ -118,4 +118,8 @@
   <select id="getBookUserRatingInfo" resultType="java.util.Map">
     select type, score, time from t_book_user where book_id = #{bookId} and user_id = #{userId}
   </select>
+
+  <update id="updateUserRating">
+    update t_book_user set type = #{type}, score = #{score} where book_id = #{bookId} and user_id = #{userId}
+  </update>
 </mapper>

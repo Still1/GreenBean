@@ -71,17 +71,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="row my-sm-5" id="ratingOperation">
-                    <div class="col-sm-12" id="ratingButton">
-                        <button id="readingButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="am reading">Reading</button>
-                        <button id="readButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="have read">Read</button>
+                <div class="row my-sm-5" id="ratingOperation" th:attr="data-rating=${bookPage.bookUserRatingInfo.star} ? ${bookPage.bookUserRatingInfo.star} : '', data-type=${bookPage.bookUserRatingInfo.type} ? ${bookPage.bookUserRatingInfo.type} : ''">
+                    <div class="col-sm-12 ratingButton" th:unless="${bookPage.bookUserRatingInfo.type}">
+                        <button id="readingButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="I am reading this book. Add a rating.">Reading</button>
+                        <button id="readButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="I have read this book. Add a rating.">Read</button>
                         <span class="ratingButtonText">Rating:</span>
-                        <span id="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="0">
-                            <a th:each="i : ${#numbers.sequence(1, 5)}" data-toggle="modal" data-target="#ratingDialog" data-status="have read">
+                        <span id="ratingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="0">
+                            <a th:each="i : ${#numbers.sequence(1, 5)}" data-toggle="modal" data-target="#ratingDialog" data-status="I have read this book. Add a rating.">
                                 <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
                             </a>
                         </span>
-                        <span class="ratingButtonText" id="ratingIntroText"></span>
+                        <span class="ratingButtonText ratingIntroText" id="ratingIntroText"></span>
+                    </div>
+                    <div class="col-sm-12 ratingButton ratingButtonText" th:if="${bookPage.bookUserRatingInfo.type}">
+                        <div>
+                            <span class="readingStatusText">I <span th:text="${bookPage.bookUserRatingInfo.type == 1} ? 'am reading' : 'have read'"></span> this book.</span>
+                            <span class="readingStatusText" th:text="${bookPage.bookUserRatingInfo.time}"></span>
+                            <a class="readingStatusText" href="#" data-toggle="modal" data-target="#ratingDialog" data-status="Update your rating.">Update</a>
+                            <a href="#">Remove</a>
+                        </div>
+                        <div>
+                            My rating:
+                            <span id="userRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
+                                <a th:each="i : ${#numbers.sequence(1, 5)}">
+                                    <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
+                                </a>
+                            </span>
+                            <span class="ratingButtonText ratingIntroText" id="userRatingIntroText"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="row introduction" th:if="${bookPage.bookDetailBasicInfo.contentIntro}">
@@ -120,20 +137,36 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">I <span></span> this book. Add a rating.</h5>
+                    <h5 class="modal-title"><span></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div>
+                        <form id="addUserRatingForm" class="ratingButtonText" method="post" th:action="@{/addOrUpdateUserRating}">
+                            <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
+                            <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star} ? ${bookPage.bookUserRatingInfo.star * 2} : ''">
+                            <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
+                            <!-- XXX 优化样式 高度保持一致 -->
+                            <div th:if="${bookPage.bookUserRatingInfo.type}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type" value="1" th:checked="${bookPage.bookUserRatingInfo.type == 1}? 'true' : 'false'">
+                                    <label class="form-check-label">reading</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="type" value="2" th:checked="${bookPage.bookUserRatingInfo.type == 2}? 'true' : 'false'">
+                                    <label class="form-check-label">read</label>
+                                </div>
+                            </div>
+                        </form>
                         <span class="ratingButtonText">Rating(Optional):</span>
-                        <span id="dialogRatingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="0">
-                            <a th:each="i : ${#numbers.sequence(1, 5)}" data-status="have read">
+                        <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
+                            <a th:each="i : ${#numbers.sequence(1, 5)}">
                                 <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
                             </a>
                         </span>
-                        <span class="ratingButtonText" id="dialogRatingIntroText"></span>
+                        <span class="ratingButtonText ratingIntroText" id="dialogRatingIntroText"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -143,11 +176,6 @@
             </div>
         </div>
     </div>
-    <form id="addUserRatingForm" class="d-none" method="post" th:action="@{/addUserRating}">
-        <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
-        <input type="hidden" name="type">
-        <input type="hidden" name="score">
-    </form>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
     <script th:replace="fragments :: bootstrapJS"></script>

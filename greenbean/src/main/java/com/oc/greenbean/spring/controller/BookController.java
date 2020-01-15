@@ -91,11 +91,11 @@ public class BookController {
         return "book";
     }
 
-    @PostMapping("/addUserRating")
-    public void addUserRating(UserRatingDto dto, HttpSession session, HttpServletResponse response) throws IOException {
+    @PostMapping("/addOrUpdateUserRating")
+    public void addOrUpdateUserRating(UserRatingDto dto, HttpSession session, HttpServletResponse response) throws IOException {
         //TODO 验证表单信息 验证userId非空
         dto.setUserId((Integer)session.getAttribute("userId"));
-        this.bookService.addUserRating(dto);
+        this.bookService.addOrUpdateUserRating(dto);
         response.sendRedirect("book/" + dto.getBookId());
     }
     //TODO 出错视图
