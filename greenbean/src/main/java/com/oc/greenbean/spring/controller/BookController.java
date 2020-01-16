@@ -98,5 +98,14 @@ public class BookController {
         this.bookService.addOrUpdateUserRating(dto);
         response.sendRedirect("book/" + dto.getBookId());
     }
+
+    @PostMapping("/removeUserRating")
+    public void removeUserRating(Integer bookId, HttpSession session, HttpServletResponse response) throws IOException {
+        //TODO 验证表单信息
+        Integer userId = (Integer)session.getAttribute("userId");
+        this.bookService.removeUserRating(bookId, userId);
+        response.sendRedirect("book/" + bookId);
+    }
+
     //TODO 出错视图
 }

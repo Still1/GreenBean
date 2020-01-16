@@ -107,5 +107,9 @@
         $('#saveButton').on('click', function() {
             $('#addUserRatingForm').trigger('submit');
         });
+
+        $('#removeButton').on('click', function() {
+            $('#removeUserRatingForm').trigger('submit');
+        });
     });
 })();

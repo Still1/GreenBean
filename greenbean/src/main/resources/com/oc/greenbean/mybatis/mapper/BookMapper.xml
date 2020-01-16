@@ -122,4 +122,8 @@
   <update id="updateUserRating">
     update t_book_user set type = #{type}, score = #{score} where book_id = #{bookId} and user_id = #{userId}
   </update>
+
+  <delete id="removeUserRating">
+    delete from t_book_user where book_id = #{bookId} and user_id = #{userId}
+  </delete>
 </mapper>

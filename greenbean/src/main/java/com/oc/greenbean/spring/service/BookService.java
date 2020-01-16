@@ -347,4 +347,9 @@ public class BookService {
         }
         return result;
     }
+
+    public void removeUserRating(Integer bookId, Integer userId) {
+        // TODO 验证确实有这条评价数据 再删除
+        this.bookMapper.removeUserRating(bookId, userId);
+    }
 }

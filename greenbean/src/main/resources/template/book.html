@@ -71,6 +71,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- TODO 防止重复提交请求 请求发送中的反馈 -->
                 <div class="row my-sm-5" id="ratingOperation" th:attr="data-rating=${bookPage.bookUserRatingInfo.star} ? ${bookPage.bookUserRatingInfo.star} : '', data-type=${bookPage.bookUserRatingInfo.type} ? ${bookPage.bookUserRatingInfo.type} : ''">
                     <div class="col-sm-12 ratingButton" th:unless="${bookPage.bookUserRatingInfo.type}">
                         <button id="readingButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ratingDialog" data-status="I am reading this book. Add a rating.">Reading</button>
@@ -191,10 +192,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="saveButton" type="button" class="btn btn-primary">Remove</button>
+                    <button id="removeButton" type="button" class="btn btn-danger">Remove</button>
                 </div>
             </div>
         </div>
+        <form method="post" th:action="@{/removeUserRating}" id="removeUserRatingForm">
+            <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
+        </form>
     </div>
     <script th:replace="fragments :: jQueryJS"></script>
     <script th:replace="fragments :: popperJS"></script>
