@@ -49,7 +49,7 @@
                                 <span id="ratingScore" th:text="${bookPage.bookBriefRatingInfo.rating}"></span>
                             </div>
                             <div class="col-sm-8" id="ratingRight">
-                                <div id="ratingStar" th:classappend="'bigStar' + ${bookPage.bookBriefRatingInfo.starClassName}"></div>
+                                <div id="ratingStar" class="bigStar" th:classappend="'bigStar' + ${bookPage.bookBriefRatingInfo.starClassName}"></div>
                                 <div th:if="${#conversions.convert(bookPage.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') > 0}" class="ratingCount"><span th:text="${bookPage.bookBriefRatingInfo.ratingCount}"></span> Ratings</div>
                                 <div th:if="${#conversions.convert(bookPage.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') == 0}" class="ratingCount">No ratings</div>
                             </div>
@@ -100,13 +100,15 @@
                             </span>
                             <span class="ratingButtonText ratingIntroText" id="userRatingIntroText"></span>
                         </div>
+                        <div th:if="${bookPage.bookUserRatingInfo.comment} != null and ${bookPage.bookUserRatingInfo.comment} != ''" th:text="${bookPage.bookUserRatingInfo.comment}"></div>
                     </div>
                 </div>
+                <!-- TODO 较长的介绍以及目录可以缩起来和展开 -->
                 <div class="row introduction" th:if="${bookPage.bookDetailBasicInfo.contentIntro}">
                     <div class="col-sm-12">
                         <h4>Content introduction· · · · · ·</h4>
                         <div>
-                            <p th:each="item : ${bookPage.bookDetailBasicInfo.contentIntro}" th:text="${item}"></p>
+                            <p class="indent" th:each="item : ${bookPage.bookDetailBasicInfo.contentIntro}" th:text="${item}"></p>
                         </div>
                     </div>
                 </div>
@@ -114,7 +116,7 @@
                     <div class="col-sm-12" th:if="${bookPage.bookDetailBasicInfo.authorIntro}">
                         <h4>Author introduction· · · · · ·</h4>
                         <div>
-                            <p th:each="item : ${bookPage.bookDetailBasicInfo.authorIntro}" th:text="${item}"></p>
+                            <p class="indent" th:each="item : ${bookPage.bookDetailBasicInfo.authorIntro}" th:text="${item}"></p>
                         </div>
                     </div>
                 </div>
@@ -123,6 +125,61 @@
                         <h4>Contents· · · · · ·</h4>
                         <div>
                             <p id="directory" th:each="item : ${bookPage.bookDetailBasicInfo.directory}" th:text="${item}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row introduction">
+                    <div class="col-sm-12">
+                        <h4>Comments· · · · · ·(<a href="#">show all <span>45</span> comments</a>)</h4>
+                        <div class="row commentRow">
+                            <div class="col-sm-12">
+                                <a href="#">xxx</a>
+                                <span class="star d-inline-block" th:classappend="'star'"></span>
+                                <span>2019-01-01</span>
+                                <p>
+                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row commentRow">
+                            <div class="col-sm-12">
+                                <a href="#">xxx</a>
+                                <span class="star d-inline-block" th:classappend="'star'"></span>
+                                <span>2019-01-01</span>
+                                <p>
+                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row commentRow">
+                            <div class="col-sm-12">
+                                <a href="#">xxx</a>
+                                <span class="star d-inline-block" th:classappend="'star'"></span>
+                                <span>2019-01-01</span>
+                                <p>
+                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row commentRow">
+                            <div class="col-sm-12">
+                                <a href="#">xxx</a>
+                                <span class="star d-inline-block" th:classappend="'star'"></span>
+                                <span>2019-01-01</span>
+                                <p>
+                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row commentRow">
+                            <div class="col-sm-12">
+                                <a href="#">xxx</a>
+                                <span class="star d-inline-block" th:classappend="'star'"></span>
+                                <span>2019-01-01</span>
+                                <p>
+                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -144,13 +201,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <form id="addUserRatingForm" class="ratingButtonText" method="post" th:action="@{/addOrUpdateUserRating}">
-                            <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
-                            <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star} ? ${bookPage.bookUserRatingInfo.star * 2} : ''">
-                            <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
-                            <!-- XXX 优化样式 高度保持一致 -->
-                            <div th:if="${bookPage.bookUserRatingInfo.type}">
+                    <form id="addUserRatingForm" class="ratingButtonText" method="post" th:action="@{/addOrUpdateUserRating}">
+                        <input type="hidden" name="bookId" th:value="${bookPage.bookBriefBasicInfo.id}">
+                        <input type="hidden" name="score" th:value="${bookPage.bookUserRatingInfo.star} ? ${bookPage.bookUserRatingInfo.star * 2} : ''">
+                        <input th:unless="${bookPage.bookUserRatingInfo.type}" type="hidden" name="type">
+                        <!-- XXX 优化样式 高度保持一致 -->
+                        <div class="form-group">
+                            <div th:if="${bookPage.bookUserRatingInfo.type}" class="d-inline-block">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="type" value="1" th:checked="${bookPage.bookUserRatingInfo.type == 1}? 'true' : 'false'">
                                     <label class="form-check-label">reading</label>
@@ -160,15 +217,19 @@
                                     <label class="form-check-label">read</label>
                                 </div>
                             </div>
-                        </form>
-                        <span class="ratingButtonText">Rating(Optional):</span>
-                        <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
-                            <a th:each="i : ${#numbers.sequence(1, 5)}">
-                                <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
-                            </a>
-                        </span>
-                        <span class="ratingButtonText ratingIntroText" id="dialogRatingIntroText"></span>
-                    </div>
+                            <span class="ratingButtonText">Rating(Optional):</span>
+                            <span id="dialogRatingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}, data-rating=${bookPage.bookUserRatingInfo.star}">
+                                <a th:each="i : ${#numbers.sequence(1, 5)}">
+                                    <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
+                                </a>
+                            </span>
+                            <span class="ratingButtonText ratingIntroText" id="dialogRatingIntroText"></span>
+                        </div>
+                        <div>
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" id="comment" rows="2" name="comment" th:text="${bookPage.bookUserRatingInfo.comment}"></textarea>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

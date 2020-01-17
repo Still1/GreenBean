@@ -43,10 +43,8 @@
     font-size: 14px;
 }
 
-.star {
-    width: 55px;
-    height: 11px;
-    background-image: url("../pic/star.png");
+/* XXX 垂直居中处理 */
+#star {
     margin-top: 7px;
 }
 

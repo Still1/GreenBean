@@ -19,12 +19,6 @@
     font-weight: bold;
 }
 
-#ratingStar {
-    background-image: url("../pic/bigStar.png");
-    height: 15px;
-    width: 75px ;
-}
-
 .ratingPower {
     background-color: #ffd596;
     height: 10px;
@@ -95,13 +89,8 @@
 
 .introduction p {
     font-size: 13px;
-    text-indent: 2em;
     line-height: 1.62;
     margin-bottom: 0;
-}
-
-#directory {
-    text-indent: 0;
 }
 
 .introduction {
@@ -122,6 +111,19 @@
     margin-right: 10px;
 }
 
-#addUserRatingForm {
-    display: inline-block;
+#comment {
+    resize: none;
+    font-size: 13px;
+}
+
+.commentRow {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 13px;
+    line-height: 1.7em;
+}
+
+.indent {
+    text-indent: 2em;
 }

@@ -34,7 +34,7 @@
                                     <a th:href="@{/book/{id}(id=${bookItem.bookBriefBasicInfo.id})}"><span th:text="${bookItem.bookBriefBasicInfo.bookName}"></span></a>
                                 </div>
                                 <div class="row ratingRow">
-                                    <span class="star" th:classappend="'star' + ${bookItem.bookBriefRatingInfo.starClassName}"></span>
+                                    <span id="star" class="star" th:classappend="'star' + ${bookItem.bookBriefRatingInfo.starClassName}"></span>
                                     <span class="rating" th:if="${bookItem.bookBriefRatingInfo.rating != null}" th:text="${bookItem.bookBriefRatingInfo.rating}"></span>
                                     <span th:if="${#conversions.convert(bookItem.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') > 0}">
                                         (<span th:text="${bookItem.bookBriefRatingInfo.ratingCount}"></span> <span th:text="${#conversions.convert(bookItem.bookBriefRatingInfo.ratingCount, 'java.lang.Integer') > 1} ? 'ratings' : 'rating'"></span>)

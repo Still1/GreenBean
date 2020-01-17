@@ -4,6 +4,7 @@ public class BookUserRatingInfo {
     private Integer type;
     private Integer star;
     private String time;
+    private String comment;
 
     public Integer getType() {
         return type;
@@ -27,5 +28,13 @@ public class BookUserRatingInfo {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

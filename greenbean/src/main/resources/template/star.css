@@ -1,3 +1,15 @@
+.star {
+    width: 55px;
+    height: 11px;
+    background-image: url("../pic/star.png");
+}
+
+.bigStar {
+    background-image: url("../pic/bigStar.png");
+    height: 15px;
+    width: 75px ;
+}
+
 .star50 {
     background-position: 0 0px;
 }
