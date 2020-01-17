@@ -161,7 +161,53 @@ public class BookService {
 
         Map<String, Object> userRating = this.getBookUserRatingInfo(bookId, userId);
         this.setBookUserRatingInfo(dto.getBookUserRatingInfo(), userRating);
+
+        Integer bookCommentCount = this.getBookUserCommentCount(bookId);
+        // XXX size配置化
+        if(bookCommentCount > 0) {
+            List<Map<String, Object>> userComment = this.getUserComment(bookId, 0, 5);
+            this.setBookUserCommentInfo(dto, bookCommentCount, userComment);
+        } else {
+            this.setBookUserCommentInfo(dto, bookCommentCount);
+        }
+
         return dto;
+    }
+
+    private void setBookUserCommentInfo(BookPageDto bookPageDto, Integer commentCount, List<Map<String, Object>> rawUserComment) {
+        BookUserCommentInfo bookUserCommentInfo = bookPageDto.getBookUserCommentInfo();
+        bookUserCommentInfo.setCommentCount(commentCount);
+        if(rawUserComment != null) {
+            List<UserComment> userCommentList = new ArrayList<>();
+            for(Map<String, Object> singleRawUserComment : rawUserComment) {
+                UserComment userComment = new UserComment();
+                userComment.setNickname((String)singleRawUserComment.get("nickname"));
+                Object scoreObject = singleRawUserComment.get("score");
+                if(scoreObject != null) {
+                    Integer score = (Integer)scoreObject;
+                    String starClassNameSuffix = this.convertScoreToStarClassNameSuffix(new BigDecimal(score));
+                    userComment.setStarClassNameSuffix(starClassNameSuffix);
+                }
+                Timestamp time = (Timestamp)singleRawUserComment.get("time");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                userComment.setCommentDate(dateFormat.format(time));
+                userComment.setComment((String)singleRawUserComment.get("comment"));
+                userCommentList.add(userComment);
+            }
+            bookUserCommentInfo.setUserCommentList(userCommentList);
+        }
+    }
+
+    private void setBookUserCommentInfo(BookPageDto bookPageDto, Integer commentCount) {
+        this.setBookUserCommentInfo(bookPageDto, commentCount, null);
+    }
+
+    private Integer getBookUserCommentCount(Integer bookId) {
+        return this.bookMapper.getBookCommentCount(bookId);
+    }
+
+    private List<Map<String, Object>> getUserComment(Integer bookId, Integer start, Integer size) {
+        return this.bookMapper.getUserComment(bookId, start, size);
     }
 
     private List<Map<String, Integer>> getSearchBooksIdInOnePage(String keyword, Integer start) {
@@ -280,15 +326,19 @@ public class BookService {
             DecimalFormat decimalFormat = new DecimalFormat("#.0");
             bookBriefRatingInfo.setRating(decimalFormat.format(ratingWithOneDecimal.floatValue()));
 
-            BigDecimal ratingWithNoDecimal = rating.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2), RoundingMode.HALF_UP).multiply(new BigDecimal(10));
-            decimalFormat = new DecimalFormat("00");
-            String starClassName = decimalFormat.format(starSuffixNumber.longValue());
+            String starClassName = this.convertScoreToStarClassNameSuffix(rating);
             bookBriefRatingInfo.setStarClassName(starClassName);
         } else {
             //XXX 修改硬编码
             bookBriefRatingInfo.setStarClassName("00");
         }
+    }
+
+    private String convertScoreToStarClassNameSuffix(BigDecimal score) {
+        BigDecimal ratingWithNoDecimal = score.setScale(0, RoundingMode.HALF_UP);
+        BigDecimal starSuffixNumber = ratingWithNoDecimal.divide(new BigDecimal(2), RoundingMode.HALF_UP).multiply(new BigDecimal(10));
+        DecimalFormat decimalFormat = new DecimalFormat("00");
+        return decimalFormat.format(starSuffixNumber.longValue());
     }
 
     private void setRatingPercentageList(BookDetailRatingInfo bookDetailRatingInfo, List<Map<String, Object>> ratingCountGroupByScore, long totalRatingCount) {

@@ -2,12 +2,24 @@ package com.oc.greenbean.dto;
 
 import com.oc.greenbean.vo.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookPageDto {
     private BookBriefBasicInfo bookBriefBasicInfo = new BookBriefBasicInfo();
     private BookBriefRatingInfo bookBriefRatingInfo = new BookBriefRatingInfo();
     private BookDetailBasicInfo bookDetailBasicInfo = new BookDetailBasicInfo();
     private BookDetailRatingInfo bookDetailRatingInfo = new BookDetailRatingInfo();
     private BookUserRatingInfo bookUserRatingInfo = new BookUserRatingInfo();
+    private BookUserCommentInfo bookUserCommentInfo = new BookUserCommentInfo();
+
+    public BookUserCommentInfo getBookUserCommentInfo() {
+        return bookUserCommentInfo;
+    }
+
+    public void setBookUserCommentInfo(BookUserCommentInfo bookUserCommentInfo) {
+        this.bookUserCommentInfo = bookUserCommentInfo;
+    }
 
     public BookUserRatingInfo getBookUserRatingInfo() {
         return bookUserRatingInfo;

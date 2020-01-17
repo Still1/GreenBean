@@ -126,4 +126,12 @@
   <delete id="removeUserRating">
     delete from t_book_user where book_id = #{bookId} and user_id = #{userId}
   </delete>
+
+  <select id="getBookCommentCount" resultType="java.lang.Integer">
+    select count(*) as commentCount from t_book_user where book_id = #{bookId} and comment is not null and comment &lt;&gt; &apos;&apos;
+  </select>
+
+  <select id="getUserComment" resultType="java.util.Map">
+    select * from v_book_comment where book_id = #{bookId} limit #{start}, #{size}
+  </select>
 </mapper>
