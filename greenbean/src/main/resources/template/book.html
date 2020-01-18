@@ -130,57 +130,21 @@
                 </div>
                 <div class="row introduction">
                     <div class="col-sm-12">
-                        <h4>Comments· · · · · ·(<a href="#">show all <span>45</span> comments</a>)</h4>
-                        <div class="row commentRow">
+                        <h4>
+                            Comments· · · · · ·
+                            <span th:if="${bookPage.bookUserCommentInfo.commentCount > 0}">(<a href="#">show all <span th:text="${bookPage.bookUserCommentInfo.commentCount}"></span> <span th:text="${bookPage.bookUserCommentInfo.commentCount > 1} ? 'comments' : 'comment'"></span></a>)</span>
+                        </h4>
+                        <div th:if="${bookPage.bookUserCommentInfo.commentCount > 0}" th:each="userComment : ${bookPage.bookUserCommentInfo.userCommentList}" class="row commentRow">
                             <div class="col-sm-12">
-                                <a href="#">xxx</a>
-                                <span class="star d-inline-block" th:classappend="'star'"></span>
-                                <span>2019-01-01</span>
-                                <p>
-                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
-                                </p>
+                                <a href="#" th:text="${userComment.nickname}"></a>
+                                <span th:if="${userComment.starClassNameSuffix}" class="star d-inline-block" th:classappend="'star' + ${userComment.starClassNameSuffix}"></span>
+                                <span th:text="${userComment.commentDate}"></span>
+                                <p th:text="${userComment.comment}"></p>
                             </div>
                         </div>
-                        <div class="row commentRow">
-                            <div class="col-sm-12">
-                                <a href="#">xxx</a>
-                                <span class="star d-inline-block" th:classappend="'star'"></span>
-                                <span>2019-01-01</span>
-                                <p>
-                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row commentRow">
-                            <div class="col-sm-12">
-                                <a href="#">xxx</a>
-                                <span class="star d-inline-block" th:classappend="'star'"></span>
-                                <span>2019-01-01</span>
-                                <p>
-                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row commentRow">
-                            <div class="col-sm-12">
-                                <a href="#">xxx</a>
-                                <span class="star d-inline-block" th:classappend="'star'"></span>
-                                <span>2019-01-01</span>
-                                <p>
-                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row commentRow">
-                            <div class="col-sm-12">
-                                <a href="#">xxx</a>
-                                <span class="star d-inline-block" th:classappend="'star'"></span>
-                                <span>2019-01-01</span>
-                                <p>
-                                    碎片化写作的混合文本。制作人体标本的几个故事，颇有神秘气息。思辨性其实稍弱，一些零星的观察杂感，远不如片段体、格言体写作的大师们。托尔卡丘克在书中为自己以讲故事为写作形式，进行了含蓄的辩护。这可以视为某种自卫。自从得了诺奖之后，对她小说的期待和判断标准，无形之中水涨船高了。
-                                </p>
-                            </div>
-                        </div>
+                        <p th:if="${bookPage.bookUserCommentInfo.commentCount == 0}">
+                            No comment.
+                        </p>
                     </div>
                 </div>
             </div>

@@ -132,6 +132,6 @@
   </select>
 
   <select id="getUserComment" resultType="java.util.Map">
-    select * from v_book_comment where book_id = #{bookId} limit #{start}, #{size}
+    select * from v_book_comment where book_id = #{bookId} order by time desc limit #{start}, #{size}
   </select>
 </mapper>
