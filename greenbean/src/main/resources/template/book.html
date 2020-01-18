@@ -11,7 +11,7 @@
 </head>
 <body>
     <header th:include="fragments :: header"></header>
-
+    <!-- XXX 相应需要变灰色的字体变灰 -->
     <div class="container" id="wrapper">
         <div class="row">
             <div class="col-sm-8">
@@ -148,8 +148,34 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-
+            <div class="col-sm-4 rightSideBar">
+                <div class="rightSideBarWrapper">
+                    <div class="row">
+                        <div class="col-sm-12 readDiv">
+                            <h6>Who have read this book?</h6>
+                        </div>
+                    </div>
+                    <div class="row readUserRow py-sm-3">
+                        <div class="col-sm-2 avatarDiv">
+                            <img class="avatarImg" th:src="@{/static/pic/bookDefault.gif}">
+                        </div>
+                        <div class="col-sm-10 px-sm-0">
+                            <div>
+                                <a href="#">clio</a>
+                            </div>
+                            <div>
+                                <span>2019-09-09</span>
+                                <span>reading</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row readUserCountRow">
+                        <div class="col-sm-12 readCountDiv">
+                            <p>&gt;2000 readers is reading</p>
+                            <p>&gt;3000 readers have read</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
