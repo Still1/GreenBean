@@ -155,24 +155,25 @@
                             <h6>Who have read this book?</h6>
                         </div>
                     </div>
-                    <div class="row readUserRow py-sm-3">
+                    <div class="row readUserRow py-sm-3" th:each="userRead : ${bookPage.bookReadInfo.userRead}">
                         <div class="col-sm-2 avatarDiv">
-                            <img class="avatarImg" th:src="@{/static/pic/bookDefault.gif}">
+                            <img class="avatarImg" th:if="${userRead.avatar}" th:src="@{/static/picture/avatars/{avatarPicture}(avatarPicture=${userRead.avatar})}">
+                            <img class="avatarImg" th:unless="${userRead.avatar}" th:src="@{/static/pic/userDefault.png}">
                         </div>
                         <div class="col-sm-10 px-sm-0">
                             <div>
-                                <a href="#">clio</a>
+                                <a href="#" th:text="${userRead.nickname}"></a>
                             </div>
                             <div>
-                                <span>2019-09-09</span>
-                                <span>reading</span>
+                                <span th:text="${userRead.readDate}"></span>
+                                <span th:text="${userRead.type == 1} ? 'reading' : (${userRead.type == 2} ? 'read')"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row readUserCountRow">
                         <div class="col-sm-12 readCountDiv">
-                            <p>&gt;2000 readers is reading</p>
-                            <p>&gt;3000 readers have read</p>
+                            <p>&gt;<span th:text="${bookPage.bookReadInfo.readingCount}"></span> <span th:text="${bookPage.bookReadInfo.readingCount > 1} ? 'readers' : reader"></span> is reading</p>
+                            <p>&gt;<span th:text="${bookPage.bookReadInfo.readCount}"></span> <span th:text="${bookPage.bookReadInfo.readCount > 1} ? 'readers' : reader"></span> have read</p>
                         </div>
                     </div>
                 </div>

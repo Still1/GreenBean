@@ -31,4 +31,6 @@ public interface BookMapper {
     void removeUserRating(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
     Integer getBookCommentCount(Integer bookId);
     List<Map<String, Object>> getUserComment(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
+    Integer getBookReadCount(@Param("bookId") Integer bookId, @Param("type") Integer type);
+    List<Map<String, Object>> getUserRead(@Param("bookId") Integer bookId, @Param("start") Integer start, @Param("size") Integer size);
 }

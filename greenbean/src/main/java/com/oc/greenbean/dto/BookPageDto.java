@@ -12,6 +12,15 @@ public class BookPageDto {
     private BookDetailRatingInfo bookDetailRatingInfo = new BookDetailRatingInfo();
     private BookUserRatingInfo bookUserRatingInfo = new BookUserRatingInfo();
     private BookUserCommentInfo bookUserCommentInfo = new BookUserCommentInfo();
+    private BookReadInfo bookReadInfo = new BookReadInfo();
+
+    public BookReadInfo getBookReadInfo() {
+        return bookReadInfo;
+    }
+
+    public void setBookReadInfo(BookReadInfo bookReadInfo) {
+        this.bookReadInfo = bookReadInfo;
+    }
 
     public BookUserCommentInfo getBookUserCommentInfo() {
         return bookUserCommentInfo;

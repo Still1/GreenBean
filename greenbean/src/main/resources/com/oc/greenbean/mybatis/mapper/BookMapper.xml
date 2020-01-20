@@ -132,6 +132,14 @@
   </select>
 
   <select id="getUserComment" resultType="java.util.Map">
-    select * from v_book_comment where book_id = #{bookId} order by time desc limit #{start}, #{size}
+    select * from v_book_comment where book_id = #{bookId} limit #{start}, #{size}
+  </select>
+
+  <select id="getBookReadCount" resultType="java.lang.Integer">
+    select count(*) as readCount from t_book_user where book_id = #{bookId} and type = #{type}
+  </select>
+
+  <select id="getUserRead" resultType="java.util.Map">
+    select * from v_book_read where book_id = #{bookId} limit #{start}, #{size};
   </select>
 </mapper>

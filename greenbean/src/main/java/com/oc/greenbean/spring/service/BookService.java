@@ -163,12 +163,23 @@ public class BookService {
         this.setBookUserRatingInfo(dto.getBookUserRatingInfo(), userRating);
 
         Integer bookCommentCount = this.getBookUserCommentCount(bookId);
-        // XXX size配置化
         if(bookCommentCount > 0) {
+            // XXX size配置化
             List<Map<String, Object>> userComment = this.getUserComment(bookId, 0, 5);
             this.setBookUserCommentInfo(dto, bookCommentCount, userComment);
         } else {
             this.setBookUserCommentInfo(dto, bookCommentCount);
+        }
+
+        // XXX 硬编码
+        Integer userReadingCount = this.getBookReadCount(bookId, 1);
+        Integer userReadCount = this.getBookReadCount(bookId, 2);
+        if(userReadingCount + userReadCount > 0) {
+            // XXX size配置化
+            List<Map<String, Object>> userRead = this.getUserRead(bookId, 0, 5);
+            this.setBookReadInfo(dto, userReadingCount, userReadCount, userRead);
+        } else {
+            this.setBookReadInfo(dto, userReadingCount, userReadCount);
         }
 
         return dto;
@@ -198,6 +209,30 @@ public class BookService {
         }
     }
 
+    private void setBookReadInfo(BookPageDto bookPageDto, Integer userReadingCount, Integer userReadCount) {
+        this.setBookReadInfo(bookPageDto, userReadingCount, userReadCount, null);
+    }
+
+    private void setBookReadInfo(BookPageDto bookPageDto, Integer userReadingCount, Integer userReadCount, List<Map<String, Object>> rawUserRead) {
+        BookReadInfo bookReadInfo  = bookPageDto.getBookReadInfo();
+        bookReadInfo.setReadingCount(userReadingCount);
+        bookReadInfo.setReadCount(userReadCount);
+        if(rawUserRead != null) {
+            List<UserRead> userReadList = new ArrayList<>();
+            for(Map<String, Object> singleRawUserRead : rawUserRead) {
+                UserRead userRead = new UserRead();
+                userRead.setAvatar((String)singleRawUserRead.get("avatar"));
+                userRead.setNickname((String) singleRawUserRead.get("nickname"));
+                userRead.setType((Integer)singleRawUserRead.get("type"));
+                Timestamp time = (Timestamp)singleRawUserRead.get("time");
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                userRead.setReadDate(dateFormat.format(time));
+                userReadList.add(userRead);
+            }
+            bookReadInfo.setUserRead(userReadList);
+        }
+    }
+
     private void setBookUserCommentInfo(BookPageDto bookPageDto, Integer commentCount) {
         this.setBookUserCommentInfo(bookPageDto, commentCount, null);
     }
@@ -206,8 +241,16 @@ public class BookService {
         return this.bookMapper.getBookCommentCount(bookId);
     }
 
+    private Integer getBookReadCount(Integer bookId, Integer type) {
+        return this.bookMapper.getBookReadCount(bookId, type);
+    }
+
     private List<Map<String, Object>> getUserComment(Integer bookId, Integer start, Integer size) {
         return this.bookMapper.getUserComment(bookId, start, size);
+    }
+
+    private List<Map<String, Object>> getUserRead(Integer bookId, Integer start, Integer size) {
+        return this.bookMapper.getUserRead(bookId, start, size);
     }
 
     private List<Map<String, Integer>> getSearchBooksIdInOnePage(String keyword, Integer start) {
