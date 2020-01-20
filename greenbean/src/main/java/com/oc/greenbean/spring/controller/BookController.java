@@ -46,6 +46,13 @@ public class BookController {
         return "addBook";
     }
 
+    @GetMapping("/book/{id}/edit")
+    public String editBookPage(@PathVariable Integer id, Model model) {
+        BookDto bookDto = this.bookService.getBookDto(id);
+        model.addAttribute("bookDto", bookDto);
+        return "editBook";
+    }
+
     @PostMapping("/book")
     //TODO 表单数据验证 字符串前后空格去掉
     public void addBook(BookDto bookDto, HttpServletResponse response) throws IOException {

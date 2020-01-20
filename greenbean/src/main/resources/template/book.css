@@ -61,11 +61,14 @@
     padding-left: 5px;
 }
 
-.bookImg+p{
+.bookImg+p {
     text-align: center;
-    color: #BBBBBB;
     font-size: 12px;
     margin-bottom: 0;
+}
+
+.bookImg+p>a {
+    color: #BBBBBB;
 }
 
 #ratingOperation button {

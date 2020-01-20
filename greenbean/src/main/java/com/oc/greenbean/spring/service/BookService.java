@@ -185,6 +185,15 @@ public class BookService {
         return dto;
     }
 
+    public BookDto getBookDto(Integer bookId) {
+        Book book = this.getBookBasicInfo(bookId);
+        return this.convertBookToBookDto(book);
+    }
+
+    private BookDto convertBookToBookDto(Book book) {
+        return new BookDto(book);
+    }
+
     private void setBookUserCommentInfo(BookPageDto bookPageDto, Integer commentCount, List<Map<String, Object>> rawUserComment) {
         BookUserCommentInfo bookUserCommentInfo = bookPageDto.getBookUserCommentInfo();
         bookUserCommentInfo.setCommentCount(commentCount);

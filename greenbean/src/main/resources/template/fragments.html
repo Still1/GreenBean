@@ -7,6 +7,8 @@
     <link th:fragment="fontAwesomeCSS" rel="stylesheet" href="../common/fontawesome-free-5.11.2-web/css/all.css" th:href="@{/static/common/fontawesome-free-5.11.2-web/css/all.css}">
     <link th:fragment="headerCSS" rel="stylesheet" href="header.css" th:href="@{/static/template/header.css}">
     <link th:fragment="starCSS" rel="stylesheet" href="star.css" th:href="@{/static/template/star.css}">
+    <link th:fragment="jQueryUICSS" rel="stylesheet" th:href="@{/static/common/jquery-ui-1.12.1/css/jquery-ui.min.css}">
+    <link th:fragment="bookFormCSS" rel="stylesheet" th:href="@{/static/template/bookForm.css}">
 </head>
 <body>
     <header th:fragment="header">
@@ -43,10 +45,11 @@
 
     <!-- XXX 把页面布局做成fragment -->
 
-
-    <script th:fragment="jQueryJS" src="../common/jQuery-3.4.1/jquery-3.4.1.min.js" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
-    <script th:fragment="popperJS" src="../common/popper-1.15.0/popper.min.js" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
-    <script th:fragment="bootstrapJS" src="../common/bootstrap-4.3.1/js/bootstrap.min.js" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
-    <script th:fragment="headerJS" src="header.js" th:src="@{/static/template/header.js}"></script>
+    <script th:fragment="jQueryJS" th:src="@{/static/common/jQuery-3.4.1/jquery-3.4.1.min.js}"></script>
+    <script th:fragment="popperJS" th:src="@{/static/common/popper-1.15.0/popper.min.js}"></script>
+    <script th:fragment="bootstrapJS" th:src="@{/static/common/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+    <script th:fragment="headerJS" th:src="@{/static/template/header.js}"></script>
+    <script th:fragment="jQueryUIJS" th:src="@{/static/common/jquery-ui-1.12.1/js/jquery-ui.min.js}"></script>
+    <script th:fragment="bookFormJS" th:src="@{/static/template/bookForm.js}"></script>
 </body>
 </html>

@@ -25,7 +25,7 @@
                         <!-- XXX IDEA语法错误的错误提示 -->
                         <img class="bookImg" th:if="${bookPage.bookBriefBasicInfo.picture == null}" th:src="@{/static/pic/bookDefault.gif}">
                         <img class="bookImg" th:if="${bookPage.bookBriefBasicInfo.picture != null}" th:src="@{/static/picture/books/{bookItemPicture}(bookItemPicture=${bookPage.bookBriefBasicInfo.picture})}">
-                        <p>Update information</p>
+                        <p><a th:href="@{/book/{id}/edit(id=${bookPage.bookBriefBasicInfo.id})}">Update information</a></p>
                     </div>
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
                         <p th:if="${bookPage.bookBriefBasicInfo.authorName}">Author: <span th:text="${bookPage.bookBriefBasicInfo.authorName}"></span></p>
@@ -79,7 +79,7 @@
                         <span class="ratingButtonText">Rating:</span>
                         <span id="ratingClickStar" class="ratingClickStar" th:attr="data-hollow=@{/static/pic/singleHollowStar.png}, data-solid=@{/static/pic/singleSolidStar.png}" data-rating="0">
                             <a th:each="i : ${#numbers.sequence(1, 5)}" data-toggle="modal" data-target="#ratingDialog" data-status="I have read this book. Add a rating.">
-                                <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}" >
+                                <img th:src="@{/static/pic/singleHollowStar.png}" th:attr="data-index=${i}">
                             </a>
                         </span>
                         <span class="ratingButtonText ratingIntroText" id="ratingIntroText"></span>

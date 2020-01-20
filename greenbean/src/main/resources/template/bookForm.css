@@ -28,14 +28,6 @@
     position: relative;
 }
 
-#addAuthorButton {
-    top: 76px;
-}
-
-#addTranslatorButton {
-    top: 38px;
-}
-
 input::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
@@ -47,4 +39,9 @@ input::-webkit-calendar-picker-indicator {
 
 textarea {
     resize: none;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: bold;
 }

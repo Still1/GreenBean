@@ -1,5 +1,10 @@
 package com.oc.greenbean.dto;
 
+import com.oc.greenbean.domain.Author;
+import com.oc.greenbean.domain.Book;
+import com.oc.greenbean.domain.Translator;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDto {
@@ -20,6 +25,36 @@ public class BookDto {
     private String authorIntro;
     private String directory;
     private String picture;
+
+    public BookDto() {
+    }
+
+    public BookDto(Book book) {
+        // XXX 反射 apache commons
+        this.name = book.getName();
+        this.isbn = book.getIsbn();
+        this.price = book.getPrice();
+        this.publisher = book.getPublisher();
+        this.publicationYear = book.getPublicationYear();
+        this.publicationMonth = book.getPublicationMonth();
+        this.publicationDay = book.getPublicationDay();
+        this.subtitle = book.getSubtitle();
+        this.originalName = book.getOriginalName();
+        this.binding = book.getBinding();
+        this.page = book.getPage();
+        this.contentIntro = book.getContentIntro();
+        this.authorIntro = book.getAuthorIntro();
+        this.directory = book.getDirectory();
+        this.picture = book.getPicture();
+        this.author = new ArrayList<>();
+        this.translator = new ArrayList<>();
+        for(Author author : book.getAuthors()) {
+            this.author.add(author.getName());
+        }
+        for(Translator translator : book.getTranslators()) {
+            this.translator.add(translator.getName());
+        }
+    }
 
     public String getPicture() {
         return picture;
