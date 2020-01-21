@@ -53,10 +53,16 @@ public class BookService {
     public void saveBook(BookDto bookDto) {
         Book book = this.generateBook(bookDto);
         this.bookMapper.insertBookBasicInfo(book);
-        //XXX 考虑重名作者与译者
-        //XXX 处理作者与处理译者的代码重复
+
+        this.insertBookAuthor(bookDto.getAuthor(), bookDto.getId());
+        this.insertBookTranslator(bookDto.getTranslator(), bookDto.getId());
+    }
+
+    //XXX 考虑重名作者与译者
+    //XXX 处理作者与处理译者的代码重复
+    private void insertBookAuthor(List<String> authors, Integer bookId) {
         List<Integer> authorIds = new ArrayList<>();
-        for(String authorName : bookDto.getAuthor()) {
+        for(String authorName : authors) {
             List<Integer> resultList = this.bookMapper.getAuthorIdByName(authorName);
             if(resultList.size() >= 1) {
                 authorIds.add(resultList.get(0));
@@ -68,11 +74,13 @@ public class BookService {
             }
         }
         if(authorIds.size() > 0) {
-            this.bookMapper.insertBookAuthor(book.getId(), authorIds);
+            this.bookMapper.insertBookAuthor(bookId, authorIds);
         }
+    }
 
+    private void insertBookTranslator(List<String> translators, Integer bookId) {
         List<Integer> translatorIds = new ArrayList<>();
-        for(String translatorName : bookDto.getTranslator()) {
+        for(String translatorName : translators) {
             List<Integer> resultList = this.bookMapper.getTranslatorIdByName(translatorName);
             if(resultList.size() >= 1) {
                 translatorIds.add(resultList.get(0));
@@ -84,9 +92,20 @@ public class BookService {
             }
         }
         if(translatorIds.size() > 0) {
-            this.bookMapper.insertBookTranslator(book.getId(), translatorIds);
-
+            this.bookMapper.insertBookTranslator(bookId, translatorIds);
         }
+    }
+
+    @Transactional
+    public void updateBook(BookDto bookDto) {
+        Book book = this.generateBook(bookDto);
+        Integer bookId = bookDto.getId();
+        // XXX 没有修改过的字段不需要更新
+        this.bookMapper.updateBookBasicInfo(book);
+        this.bookMapper.removeBookAuthor(bookId);
+        this.insertBookAuthor(bookDto.getAuthor(), bookId);
+        this.bookMapper.removeBookTranslator(bookId);
+        this.insertBookTranslator(bookDto.getTranslator(), bookId);
     }
 
     public List<String> getAuthorSuggestion(String keyword) {
@@ -100,6 +119,7 @@ public class BookService {
     private Book generateBook(BookDto bookDto) {
         Book book = new Book();
         //XXX 反射处理
+        book.setId(bookDto.getId());
         book.setName(bookDto.getName());
         book.setIsbn(bookDto.getIsbn());
         book.setPrice(bookDto.getPrice());
@@ -343,6 +363,7 @@ public class BookService {
     }
 
     private void setBookDetailBasicInfo(BookDetailBasicInfo bookDetailBasicInfo, Book book) {
+        bookDetailBasicInfo.setSubtitle(book.getSubtitle());
         bookDetailBasicInfo.setOriginalName(book.getOriginalName());
         bookDetailBasicInfo.setPage(String.valueOf(book.getPage()));
         //XXX 硬编码

@@ -3,6 +3,7 @@ package com.oc.greenbean.vo;
 import java.util.List;
 
 public class BookDetailBasicInfo {
+    private String subtitle;
     private String originalName;
     private String page;
     private String binding;
@@ -10,6 +11,14 @@ public class BookDetailBasicInfo {
     private List<String> contentIntro;
     private List<String> authorIntro;
     private List<String> directory;
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
 
     public String getOriginalName() {
         return originalName;

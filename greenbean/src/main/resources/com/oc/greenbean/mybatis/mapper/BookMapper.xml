@@ -142,4 +142,16 @@
   <select id="getUserRead" resultType="java.util.Map">
     select * from v_book_read where book_id = #{bookId} limit #{start}, #{size};
   </select>
+
+  <update id="updateBookBasicInfo">
+    update t_book set name = #{name}, isbn = #{isbn}, publisher = #{publisher}, publication_year = #{publicationYear}, price = #{price}, publication_month = #{publicationMonth}, publication_day = #{publicationDay}, subtitle = #{subtitle}, original_name = #{originalName}, binding = #{binding}, page = #{page}, content_intro = #{contentIntro}, author_intro = #{authorIntro}, directory = #{directory} where id = #{id}
+  </update>
+
+  <delete id="removeBookAuthor">
+    delete from t_book_author where book_id = #{bookId}
+  </delete>
+
+  <delete id="removeBookTranslator">
+    delete from t_book_translator where book_id = #{bookId}
+  </delete>
 </mapper>

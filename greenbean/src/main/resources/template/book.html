@@ -30,6 +30,7 @@
                     <div class="col-sm-6 px-sm-0" id="bookInfo">
                         <p th:if="${bookPage.bookBriefBasicInfo.authorName}">Author: <span th:text="${bookPage.bookBriefBasicInfo.authorName}"></span></p>
                         <p th:if="${bookPage.bookBriefBasicInfo.publisher}">Publisher: <span th:text="${bookPage.bookBriefBasicInfo.publisher}"></span></p>
+                        <p th:if="${bookPage.bookDetailBasicInfo.subtitle}">Subtitle: <span th:text="${bookPage.bookDetailBasicInfo.subtitle}"></span></p>
                         <p th:if="${bookPage.bookDetailBasicInfo.originalName}">Original: <span th:text="${bookPage.bookDetailBasicInfo.originalName}"></span></p>
                         <p th:if="${bookPage.bookBriefBasicInfo.translatorName}">Translator: <span th:text="${bookPage.bookBriefBasicInfo.translatorName}"></span></p>
                         <p th:if="${bookPage.bookBriefBasicInfo.publicationDate}">Publication: <span th:text="${bookPage.bookBriefBasicInfo.publicationDate}"></span></p>

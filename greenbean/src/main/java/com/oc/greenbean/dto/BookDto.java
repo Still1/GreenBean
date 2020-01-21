@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDto {
+    private Integer id;
     private String name;
     private String isbn;
     private List<String> author;
@@ -31,6 +32,7 @@ public class BookDto {
 
     public BookDto(Book book) {
         // XXX 反射 apache commons
+        this.id = book.getId();
         this.name = book.getName();
         this.isbn = book.getIsbn();
         this.price = book.getPrice();
@@ -54,6 +56,14 @@ public class BookDto {
         for(Translator translator : book.getTranslators()) {
             this.translator.add(translator.getName());
         }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPicture() {

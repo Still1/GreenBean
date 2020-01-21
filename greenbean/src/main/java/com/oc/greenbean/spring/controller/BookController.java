@@ -8,15 +8,14 @@ import com.oc.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +61,15 @@ public class BookController {
         response.sendRedirect("addBookSuccess");
     }
 
+    @PutMapping("/book")
+    public void updateBook(BookDto bookDto, HttpServletResponse response) throws IOException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        removeBlankName(bookDto.getAuthor());
+        removeBlankName(bookDto.getTranslator());
+        this.setNullForBlankString(bookDto);
+        this.bookService.updateBook(bookDto);
+        response.sendRedirect("book/" + bookDto.getId());
+    }
+
     @GetMapping("/addBookSuccess")
     public String addBookSuccess() {
         return "addBookSuccess";
@@ -73,6 +81,23 @@ public class BookController {
         while(iterator.hasNext()) {
             if(StringUtils.isEmptyOrWhitespace(iterator.next())) {
                 iterator.remove();
+            }
+        }
+    }
+
+    private void setNullForBlankString(Object object) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        Class<?> objectClass = object.getClass();
+        Method[] methods = objectClass.getDeclaredMethods();
+        for(Method method : methods) {
+            String methodName = method.getName();
+            Class<?> returnType = method.getReturnType();
+            if(methodName.startsWith("get") && returnType.equals(String.class)) {
+                String returnValue = (String)method.invoke(object);
+                if(returnValue != null && StringUtils.isEmptyOrWhitespace(returnValue)) {
+                    String setter = "set" + methodName.substring(3);
+                    Method setterMethod = objectClass.getMethod(setter, String.class);
+                    setterMethod.invoke(object, new Object[] {null});
+                }
             }
         }
     }
