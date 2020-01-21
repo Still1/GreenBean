@@ -6,18 +6,22 @@ import com.oc.greenbean.dto.SearchPageDto;
 import com.oc.greenbean.dto.UserRatingDto;
 import com.oc.greenbean.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class BookController {
@@ -50,6 +54,13 @@ public class BookController {
         BookDto bookDto = this.bookService.getBookDto(id);
         model.addAttribute("bookDto", bookDto);
         return "editBook";
+    }
+
+    @GetMapping("/book/{id}/updatePicture")
+    public String editBookPicturePage(@PathVariable Integer id, Model model) {
+        BookDto bookDto = this.bookService.getBookDto(id);
+        model.addAttribute("bookDto", bookDto);
+        return "editBookPicture";
     }
 
     @PostMapping("/book")
@@ -136,6 +147,12 @@ public class BookController {
         //TODO 验证表单信息
         Integer userId = (Integer)session.getAttribute("userId");
         this.bookService.removeUserRating(bookId, userId);
+        response.sendRedirect("book/" + bookId);
+    }
+
+    @PostMapping("/updateBookPicture")
+    public void updateBookPicture(@RequestParam(value = "id", required = true) Integer bookId, @RequestParam(value = "picture", required = true) MultipartFile picture, HttpServletResponse response) throws IOException {
+        bookService.updatePicture(bookId, picture);
         response.sendRedirect("book/" + bookId);
     }
 

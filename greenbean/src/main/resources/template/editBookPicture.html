@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Picture</title>
+    <link th:replace="fragments :: bootstrapCSS">
+    <link th:replace="fragments :: fontAwesomeCSS">
+    <link th:replace="fragments :: headerCSS">
+    <link rel="stylesheet" th:href="@{/static/template/editBookPicture.css}">
+</head>
+<body>
+    <header th:include="fragments :: header"></header>
+
+    <div class="container" id="wrapper">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 id="title">Update picture about <span th:text="${bookDto.name}"></span></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="settingFormDiv">
+                        <!-- TODO 验证表单信息 -->
+                        <form enctype="multipart/form-data" method="post" th:action="@{/updateBookPicture}">
+                            <div class="form-group">
+                                <label for="pictureInput">Picture</label>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <img class="picture" th:if="${bookDto.picture}" th:src="@{/static/picture/books/{picture}(picture=${bookDto.picture})}">
+                                            <img class="picture" th:unless="${bookDto.picture}" th:src="@{/static/pic/bookDefault.gif}">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <img class="picture" th:if="${bookDto.picture}" th:src="@{/static/picture/books/{picture}(picture=${bookDto.picture})}">
+                                            <img class="picture" th:unless="${bookDto.picture}" th:src="@{/static/pic/bookDefault.gif}">
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <input type="file" class="form-control-file" id="pictureInput" aria-describedby="picture" name="picture">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="id" th:value="${bookDto.id}">
+                            <!-- XXX 优化按钮的位置 -->
+                            <button type="submit" class="btn btn-primary" id="updatePictureButton">Update picture</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div id="information">
+                    <div>Thank you for helping Greenbean project.</div>
+                    <br>
+                    <div><a th:href="@{/book/{id}(id=${bookDto.id})}">&gt;Go to the detail page of <span th:text="${bookDto.name}"></span></a></div>
+                    <div><a th:href="@{/book/{id}/edit(id=${bookDto.id})}">&gt;Update basic information</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:replace="fragments :: jQueryJS"></script>
+    <script th:replace="fragments :: popperJS"></script>
+    <script th:replace="fragments :: bootstrapJS"></script>
+    <script th:replace="fragments :: headerJS"></script>
+</body>
+</html>

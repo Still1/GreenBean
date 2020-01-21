@@ -4,6 +4,8 @@
 
 #title {
     margin: 40px 0;
+    font-size: 26px;
+    font-weight: bold;
 }
 
 #information {
@@ -39,9 +41,4 @@ input::-webkit-calendar-picker-indicator {
 
 textarea {
     resize: none;
-}
-
-h1 {
-    font-size: 26px;
-    font-weight: bold;
 }

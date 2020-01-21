@@ -27,10 +27,6 @@ public class HomeController {
     private MyBookService myBookService;
     private UserService userService;
 
-    //XXX 解决与DispatcherServletConfig重复
-    @Value("${picturesPath}")
-    private String picturesPath;
-
     @Autowired
     public HomeController(MyBookService myBookService, UserService userService) {
         this.myBookService = myBookService;
@@ -39,6 +35,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home")
     public String home(Model model, Principal principal) {
+        //XXX 直接从session拿username即可 检查所有controller获取username或者userId的方法
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         Integer userId = user.getId();
@@ -66,23 +63,9 @@ public class HomeController {
         String username = principal.getName();
         userService.updateNickname(username, nickname);
         session.setAttribute("userNickname", nickname);
-        String avatarFileName = null;
-        if(avatar != null) {
-            String avatarFileOriginalFileName = avatar.getOriginalFilename();
-            String avatarFileExtension = avatarFileOriginalFileName.substring(avatarFileOriginalFileName.lastIndexOf('.'));
-            avatarFileName = UUID.randomUUID().toString() + avatarFileExtension;
-            String userHomePath = System.getProperty("user.home").replaceAll("\\\\", "/");
-            String picturesPath = userHomePath + this.picturesPath;
-            File avatarFolder = new File(picturesPath + "/avatars/");
-            if(!avatarFolder.exists()) {
-                avatarFolder.mkdir();
-            }
-            File avatarFile = new File(avatarFolder, avatarFileName);
-            //TODO 删除旧头像
-            avatar.transferTo(avatarFile.toPath());
-            userService.updateAvatar(username, avatarFileName);
-            session.setAttribute("userAvatar", avatarFileName);
-        }
+        //XXX 把上传图片抽取成公共方法
+        String avatarFileName = userService.updateAvatar(username, avatar);
+        session.setAttribute("userAvatar", avatarFileName);
         return avatarFileName;
     }
 }

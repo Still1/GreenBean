@@ -2,9 +2,6 @@ package com.oc.greenbean.dto;
 
 import com.oc.greenbean.vo.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BookPageDto {
     private BookBriefBasicInfo bookBriefBasicInfo = new BookBriefBasicInfo();
     private BookBriefRatingInfo bookBriefRatingInfo = new BookBriefRatingInfo();

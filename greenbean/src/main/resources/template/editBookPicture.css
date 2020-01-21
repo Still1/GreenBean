@@ -1,0 +1,19 @@
+/* XXX 抽取公用的样式  */
+#wrapper {
+    margin-top: 96px;
+}
+
+#title {
+    margin: 40px 0;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+#information {
+    position: absolute;
+    top: 130px;
+}
+
+.picture {
+    max-width: 100%;
+}

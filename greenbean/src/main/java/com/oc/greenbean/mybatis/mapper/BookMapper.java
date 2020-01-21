@@ -36,4 +36,5 @@ public interface BookMapper {
     void updateBookBasicInfo(Book book);
     void removeBookAuthor(Integer bookId);
     void removeBookTranslator(Integer bookId);
+    void updatePicture(@Param("bookId") Integer bookId, @Param("pictureFileName") String pictureFileName);
 }

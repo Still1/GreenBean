@@ -11,17 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class BookService {
@@ -29,6 +29,9 @@ public class BookService {
 
     @Value("${greenbean.pagination.size}")
     private Integer paginationSize;
+
+    @Value("${picturesPath}")
+    private String picturesPath;
 
     @Autowired
     public BookService(BookMapper bookMapper) {
@@ -377,6 +380,7 @@ public class BookService {
             }
         }
         bookDetailBasicInfo.setBinding(bindingString);
+        bookDetailBasicInfo.setIsbn(book.getIsbn());
         bookDetailBasicInfo.setContentIntro(this.separateParagraph(book.getContentIntro()));
         bookDetailBasicInfo.setAuthorIntro(this.separateParagraph(book.getAuthorIntro()));
         bookDetailBasicInfo.setDirectory(this.separateParagraph(book.getDirectory()));
@@ -475,5 +479,22 @@ public class BookService {
     public void removeUserRating(Integer bookId, Integer userId) {
         // TODO 验证确实有这条评价数据 再删除
         this.bookMapper.removeUserRating(bookId, userId);
+    }
+
+    public void updatePicture(Integer bookId, MultipartFile picture) throws IOException {
+        //TODO 验证表单信息
+        String pictureFileOriginalFileName = picture.getOriginalFilename();
+        String pictureFileExtension = pictureFileOriginalFileName.substring(pictureFileOriginalFileName.lastIndexOf('.'));
+        String pictureFileName = UUID.randomUUID().toString() + pictureFileExtension;
+        String userHomePath = System.getProperty("user.home").replaceAll("\\\\", "/");
+        String picturesPath = userHomePath + this.picturesPath;
+        File pictureFolder = new File(picturesPath + "/books/");
+        if(!pictureFolder.exists()) {
+            pictureFolder.mkdir();
+        }
+        File pictureFile = new File(pictureFolder, pictureFileName);
+        //TODO 删除旧头像
+        picture.transferTo(pictureFile.toPath());
+        this.bookMapper.updatePicture(bookId, pictureFileName);
     }
 }
