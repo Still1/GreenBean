@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .successHandler(authenticationSuccessHandler)
             .failureUrl("/signInError")
             .and().logout().logoutUrl("/signOut").logoutSuccessUrl("/signIn")
-            .and().rememberMe().key("greenbean").tokenValiditySeconds(120);
+            .and().rememberMe().key("greenbean").tokenValiditySeconds(120).authenticationSuccessHandler(authenticationSuccessHandler);
     }
 
     @Override
