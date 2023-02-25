@@ -71,19 +71,19 @@ public class RootConfig {
 
     //XXX Mapper独立一个类配置
     @Bean
-    public UserMapper userMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+    public UserMapper userMapper(SqlSessionFactory sqlSessionFactory) {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(UserMapper.class);
     }
 
     @Bean
-    public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+    public MyBookMapper myBookMapper(SqlSessionFactory sqlSessionFactory) {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(MyBookMapper.class);
     }
 
     @Bean
-    public BookMapper bookMapper(SqlSessionFactory sqlSessionFactory) throws Exception {
+    public BookMapper bookMapper(SqlSessionFactory sqlSessionFactory) {
         SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory);
         return sqlSessionTemplate.getMapper(BookMapper.class);
     }
