@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="greenbean" target="1.8" />
+      <module name="greenbean" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
